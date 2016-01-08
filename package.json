@@ -14,6 +14,7 @@
   "author": "ProjX DevOps",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.3",

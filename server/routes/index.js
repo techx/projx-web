@@ -1,8 +1,8 @@
-// PACKAGES //
+// IMPORTS //
 var router = require('express').Router();
 var path = require('path');
 
-// VIEW ENDPOINTS //
+// ROUTES //
 router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, '../../client/views/index.html'));
 });
