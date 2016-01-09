@@ -14,10 +14,12 @@ var middle = require('../middle');
  * @param req.body.phone {string} - phone number (optional)
  */
 router.post('/', function(req, res) {
+    if (!req.body.email) res.status(400).send('Email missing');
+    if (!req.body.password) res.status(400).send('Password missing');
+
     User.createUser(req.body.email, req.body.password, req.body.name, req.body.phone, function(err, result) {
-        if (err) {
-            res.status(403).send(err);
-        } else {
+        if (err) res.status(403).send(err);
+        else {
             req.session.email = result.email;
             res.status(200).send('User created');
         }
@@ -25,23 +27,35 @@ router.post('/', function(req, res) {
 });
 
 /**
- * GET / - Get user object
- * @param req.query.email
+ * GET / [user] - Get user object, return if current user matches or is admin
+ * @param req.query.email - user email (required)
  */
-router.get('/', middle.auth, function(req, res) {
-    res.send(req.query.email)
+router.get('/', middle.user, function(req, res) {
+    if (!req.query.email) res.status(400).send('Email missing');
+
+    User.getUser(req.query.email, function (err, user) {
+        if (err) res.status(403).send(err);
+        else if ((req.curAdmin) || (req.curEmail.toLowerCase() === user.email)) {
+            res.status(200).send(user);
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 /**
  * POST /login - Try to log in user
- * @param req.body.email
+ * @param req.body.email - user email (required)
+ * @param req.body.password - user password (required)
  */
 router.post('/login', function(req, res) {
     if (!req.curEmail) {
+        if (!req.body.email) res.status(400).send('Email missing');
+        if (!req.body.password) res.status(400).send('Password missing');
+
         User.verifyPassword(req.body.email, req.body.password, function(err, result) {
-            if (err) {
-                res.status(400).send(err);
-            } else if (result) {
+            if (err) res.status(403).send(err);
+            else if (result) {
                 // password verified
                 req.session.email = req.body.email;
                 res.status(200).send('Login successful');

@@ -16,7 +16,7 @@ var userSchema = mongoose.Schema({
 // METHODS //
 
 /**
- * Find a user if exists; return error otherwise
+ * Find a user if exists; callback error otherwise
  * @param email {string} - email of a potential user
  * @param callback {function} - function to be called with err and result
  */
@@ -36,8 +36,8 @@ userSchema.statics.getUser = function(email, callback) {
  * @param password {string} - password to check
  * @param callback {function} - function to be called with err and result
  */
-userSchema.statics.verifyPassword = function(email, password, callback) {
-    userSchema.statics.getUser(email, function(err, result) {
+userSchema.statics.verifyPassword = function (email, password, callback) {
+    User.getUser(email, function (err, result) {
         if (err) callback(err);
         else if (bcrypt.compareSync(password, result.password)) {
             callback(null, true);
@@ -47,37 +47,35 @@ userSchema.statics.verifyPassword = function(email, password, callback) {
 
 /**
  * Create a new user
- * @param email {string} - email, must
+ * @param email {string} - email, must be an MIT email
  * @param password {string} - password
  * @param name {string} - name
  * @param phone {string} - phone
  * @param callback {function} - function to be called with err and result
  */
-userSchema.statics.createUser = function(email, password, name, phone, callback) {
+userSchema.statics.createUser = function (email, password, name, phone, callback) {
     var lowerEmail = email.toLowerCase();
     if (lowerEmail.match('^[a-z0-9_-]+@mit.edu$')) {
-        if(typeof password === 'string') {
-            if (password.length >= 6) {
-                User.find({ email: lowerEmail }, function(err, results) {
-                    if (err) callback(err);
-                    else if (results.length === 0) {
-                        var salt = bcrypt.genSaltSync(10);
-                        var hash = bcrypt.hashSync(password, salt);
-                        var user = new User({
-                            email: lowerEmail,
-                            password: hash,
-                            name: name,
-                            phone: phone,
-                            isAdmin: false
-                        });
-                        user.save(function(err, result) {
-                            if (err) callback('Error saving user: ' + err);
-                            else callback(null, {email: lowerEmail});
-                        });
-                    } else callback('User already exists');
-                });
-            } else callback('Password must be at least 6 characters long');
-        } else callback('Password must be string');
+        if (password.length >= 6) {
+            User.find({ email: lowerEmail }, function (err, results) {
+                if (err) callback(err);
+                else if (results.length === 0) {
+                    var salt = bcrypt.genSaltSync(10);
+                    var hash = bcrypt.hashSync(password, salt);
+                    var user = new User({
+                        email: lowerEmail,
+                        password: hash,
+                        name: name || '',
+                        phone: phone || '',
+                        isAdmin: false
+                    });
+                    user.save(function (err) {
+                        if (err) callback('Error saving user: ' + err);
+                        else callback(null, user);
+                    });
+                } else callback('User already exists');
+            });
+        } else callback('Password must be at least 6 characters long');
     } else callback('Must be @mit.edu email address');
 }
 
