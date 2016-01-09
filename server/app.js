@@ -15,6 +15,7 @@ var middle = require('./middle');
 // ROUTE HANDLERS //
 var index = require('./routes/index');
 var user = require('./routes/user');
+var project = require('./routes/project');
 
 // APP //
 var app = express();
@@ -41,11 +42,12 @@ app.use(cookieSession({secret: config.cookieSecret}))
 app.use(bodyParser.json()); // parse json
 app.use(bodyParser.urlencoded({ extended: true })); // parse forms
 app.use(helmet()); // bunch of security stuff
-app.use(middle.mountEmail); // mount email to req object
+app.use(middle.mountUser); // mount user to req object
 
 // ROUTES //
 app.use('/', index); // index routes
-app.use('/api/user', user); // index routes
+app.use('/api/user', user); // user routes
+app.use('/api/project', project); // project routes
 
 // ERROR HANDLER //
 app.use(function(err, req, res, next) { res.status(err.status || 500); });
