@@ -28,11 +28,20 @@
 
         <!-- project list -->
         <h2>your projects</h2>
-        <div class="ui celled list">
-          <div class="item" ng-repeat="project in projects">
-            {{ project.name }}
-          </div>
+        <div class="ui cards">
+          <a class="ui card project" ng-repeat="project in projects" href="/project/{{ project._id }}">
+            <div class="content">
+              <div class="header">{{ project.name }}</div>
+              <div class="description">{{ project.description }}</div>
+            </div>
+          </a>
         </div>
+        <!-- <div class="ui segments">
+          <div class="ui segment project-segment" ng-repeat="project in projects" ng-click="clickProject(project._id)">
+            <h3><a href="/project/{{project._id}}" class="header">{{ project.name }}</a></h3>
+            <em>{{ project.description }}</em>
+          </div>
+        </div> -->
         <br>
 
       </div>
