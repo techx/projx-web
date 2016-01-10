@@ -1,6 +1,6 @@
 <div id="splash-container">
   <div id="form-container" class="ui middle aligned centered stackable grid">
-    <div class="eight wide column">
+    <div class="six wide column">
 
       <div class="ui segment">
         <div class="ui one column centered grid">
@@ -13,12 +13,12 @@
       <form class="ui large form">
         <div class="ui stacked segment">
           <div class="field">
-            <input type="text" name="email" placeholder="MIT email address">
+            <input type="text" name="email" placeholder="MIT email address" ng-model="email">
           </div>
           <div class="field">
-            <input type="password" name="password" placeholder="password">
+            <input type="password" name="password" placeholder="password" ng-model="password">
           </div>
-          <div class="ui fluid large submit button">login</div>
+          <button class="ui fluid large submit primary button" type="submit" ng-click="submitLogin()">login</button>
         </div>
       </form>
 
