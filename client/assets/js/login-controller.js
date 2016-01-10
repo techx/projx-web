@@ -1,4 +1,4 @@
-angular.module('portal').controller('splashController', function ($scope, $http, $location) {
+angular.module('portal').controller('loginController', function ($scope, $http, $location) {
 
     // redirect home if logged in
     $http.get('/api/user/current').then(function (response) {

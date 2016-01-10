@@ -3,8 +3,8 @@ angular.module('portal', ['ngRoute']).config(['$routeProvider', '$locationProvid
         // routing definitions
     $routeProvider
         .when('/', {
-            templateUrl: '/views/splash.html',
-            controller: 'splashController'
+            templateUrl: '/views/login.html',
+            controller: 'loginController'
         })
         .otherwise({
             redirectTo: '/'
