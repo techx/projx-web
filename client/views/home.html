@@ -28,6 +28,7 @@
 
         <!-- project list -->
         <h2>your projects</h2>
+        <div class="ui message" ng-show="projects.length === 0">no projects to show...</div>
         <div class="ui cards">
           <a class="ui card project" ng-repeat="project in projects" href="/project/{{ project._id }}">
             <div class="content">
@@ -36,12 +37,6 @@
             </div>
           </a>
         </div>
-        <!-- <div class="ui segments">
-          <div class="ui segment project-segment" ng-repeat="project in projects" ng-click="clickProject(project._id)">
-            <h3><a href="/project/{{project._id}}" class="header">{{ project.name }}</a></h3>
-            <em>{{ project.description }}</em>
-          </div>
-        </div> -->
         <br>
 
       </div>
