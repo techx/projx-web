@@ -28,4 +28,10 @@ angular.module('portal', ['ngRoute'])
         templateUrl: '/views/header.html',
         controller: 'headerController'
     };
+})
+.directive('loaderInclude', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/views/loader.html'
+    };
 });
