@@ -20,7 +20,7 @@ router.post('/', middle.auth, function(req, res) {
     Project.createProject(req.body.name, req.body.budget, req.body.description, function(err, project) {
         if (err) res.status(403).send(err);
         else {
-            Project.addTeamMember(project._id, req.curEmail, function (err, result) {
+            Project.addTeamMember(project._id, req.session.email, function (err, result) {
                 if (err) res.status(403).send(err);
                 else res.status(200).send('Project created');
             });
@@ -39,6 +39,19 @@ router.get('/', middle.team, function(req, res) {
             res.status(200).send(project);
         }
     });
+});
+
+/**
+ * GET / - Get list of current user's project objects
+ */
+router.get('/current', function(req, res) {
+    if (!req.session.email) res.status(404).send('No user logged in');
+    else {
+        Project.getProjectsByMember(req.session.email, function (err, projects) {
+            if (err) res.status(403).send(err);
+            else res.status(200).send(projects);
+        });
+    }
 });
 
 /**

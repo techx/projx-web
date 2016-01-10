@@ -94,6 +94,18 @@ projectSchema.statics.removeTeamMember = function (projectId, email, callback) {
     });
 }
 
+/**
+ * Find a list of projects with given email as team member
+ * @param email {string} - member's email
+ * @param callback {function} - function to be called with err and result
+ */
+projectSchema.statics.getProjectsByMember = function (email, callback) {
+    Project.find({ team: email.toLowerCase() }, function (err, results) {
+        if (err) callback(err);
+        else callback(null, results);
+    });
+}
+
 
 // EXPORTS //
 var Project = mongoose.model('Project', projectSchema);
