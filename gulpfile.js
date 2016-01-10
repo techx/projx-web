@@ -52,7 +52,20 @@ gulp.task('install', function () {
 
 // copy files from node_modules to lib folder
 gulp.task('copylib', function () {
-    // lib tbd
+    // angular
+    gulp.src('node_modules/angular/angular.min.js')
+        .pipe(gulp.dest('client/assets/lib'));
+    // angular-route
+    gulp.src('node_modules/angular-route/angular-route.min.js')
+        .pipe(gulp.dest('client/assets/lib'));
+    // jquery
+    gulp.src('node_modules/jquery/dist/jquery.min.js')
+        .pipe(gulp.dest('client/assets/lib'));
+    // semantic-ui
+    gulp.src('node_modules/semantic-ui-css/semantic.min.js')
+        .pipe(gulp.dest('client/assets/lib'));
+    gulp.src('node_modules/semantic-ui-css/semantic.min.css')
+        .pipe(gulp.dest('client/assets/lib'));
 });
 
 // run npm update and copy frontend files to lib folder

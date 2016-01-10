@@ -14,13 +14,17 @@
   "author": "ProjX DevOps",
   "license": "MIT",
   "dependencies": {
+    "angular": "^1.4.8",
+    "angular-route": "^1.4.8",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.3",
     "helmet": "^1.0.1",
+    "jquery": "^2.2.0",
     "mongoose": "^4.3.4",
     "morgan": "^1.6.1",
+    "semantic-ui-css": "^2.1.8",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
