@@ -66,6 +66,11 @@ gulp.task('copylib', function () {
         .pipe(gulp.dest('client/assets/lib'));
     gulp.src('node_modules/semantic-ui-css/semantic.min.css')
         .pipe(gulp.dest('client/assets/lib'));
+    // sweetlalert
+    gulp.src('node_modules/sweetalert/dist/sweetalert.min.js')
+        .pipe(gulp.dest('client/assets/lib'));
+    gulp.src('node_modules/sweetalert/dist/sweetalert.css')
+        .pipe(gulp.dest('client/assets/lib'));
 });
 
 // run npm update and copy frontend files to lib folder
