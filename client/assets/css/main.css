@@ -1,1 +1,1 @@
-@font-face{font-family:"Biko";src:url("../font/Biko_Regular.otf") format("opentype")}html,body{height:100vh;width:100vw;padding:0;margin:0;font-family:"Biko";background:#fff;color:#222}
+@font-face{font-family:"Biko";src:url("../font/Biko_Regular.otf") format("opentype")}*{font-family:"Biko" !important}body{height:100vh;width:100vw;padding:0;margin:0;background-color:#6ebe45 !important}#splash-container #form-container{height:100vh}#splash-container #form-container #projx-logo{max-height:20vh}
