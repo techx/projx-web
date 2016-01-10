@@ -7,31 +7,10 @@ var Project = require('./models/Project.js');
 var middle = {};
 
 /**
- * mount current user email on req.curEmail and admin status on req.curAdmin (if logged in)
- */
-middle.mountUser = function (req, res, next) {
-    if (req.session.email) {
-        req.curEmail = req.session.email;
-        User.getUser(req.session.email, function (err, user) {
-            if (err) next();
-            else if (user.isAdmin) {
-                req.curAdmin = true;
-                next();
-            } else {
-                req.curAdmin = false;
-                next();
-            }
-        });
-    } else {
-        next();
-    }
-}
-
-/**
  * proceed if user is logged in, redirect to home otherwise
  */
 middle.auth = function (req, res, next) {
-    if (req.curEmail) {
+    if (req.session.email) {
         next();
     } else {
         res.redirect('/');
@@ -43,13 +22,13 @@ middle.auth = function (req, res, next) {
  * @param req.body.projectId OR req.query.projectId {string} - id of project to be protected
  */
 middle.team = function (req, res, next) {
-    if (req.curAdmin) next();
+    if (req.session.isAdmin) next();
     else {
         var projectId = req.body.projectId || req.query.projectId;
-        if (projectId && req.curEmail) {
+        if (projectId && req.session.email) {
             Project.getProject(projectId, function (err, project) {
                 if (err) res.redirect('/');
-                else if (project.team.indexOf(req.curEmail) !== -1) {
+                else if (project.team.indexOf(req.session.email) !== -1) {
                     next();
                 } else {
                     res.redirect('/');
@@ -66,12 +45,12 @@ middle.team = function (req, res, next) {
  * @param req.body.email OR req.query.email {string} - email of user to be protected
  */
 middle.user = function (req, res, next) {
-    if (req.curAdmin) next();
+    if (req.session.isAdmin) next();
     else {
         var email = req.body.email || req.query.email;
 
-        if (email && req.curEmail) {
-            if (email.toLowerCase() === req.curEmail.toLowerCase()) {
+        if (email && req.session.email) {
+            if (email.toLowerCase() === req.session.email) {
                 next();
             } else {
                 res.redirect('/');
@@ -86,10 +65,10 @@ middle.user = function (req, res, next) {
  * proceed if user is logged in and is an admin, redirect to home otherwise
  */
 middle.admin = function (req, res, next) {
-    if (req.curEmail) {
-        User.getUser(req.curEmail, function (err, user) {
+    if (req.session.email) {
+        User.getUser(req.session.email, function (err, user) {
             if (err) res.redirect('/');
-            else if (user.isAdmin) {
+            else if (user.session.isAdmin) {
                 next();
             } else {
                 res.redirect('/');

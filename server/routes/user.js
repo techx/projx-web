@@ -21,6 +21,7 @@ router.post('/', function(req, res) {
         if (err) res.status(403).send(err);
         else {
             req.session.email = result.email;
+            req.session.isAdmin = result.email;
             res.status(200).send('User created');
         }
     });
@@ -35,11 +36,7 @@ router.get('/', middle.user, function(req, res) {
 
     User.getUser(req.query.email, function (err, user) {
         if (err) res.status(403).send(err);
-        else if ((req.curAdmin) || (req.curEmail.toLowerCase() === user.email)) {
-            res.status(200).send(user);
-        } else {
-            res.redirect('/');
-        }
+        else res.status(200).send(user);
     });
 });
 
@@ -49,7 +46,9 @@ router.get('/', middle.user, function(req, res) {
  * @param req.body.password - user password (required)
  */
 router.post('/login', function(req, res) {
-    if (!req.curEmail) {
+    if (req.session.email) {
+        res.status(403).send('There is a user already logged in')
+    } else {
         if (!req.body.email) res.status(400).send('Email missing');
         if (!req.body.password) res.status(400).send('Password missing');
 
@@ -57,15 +56,26 @@ router.post('/login', function(req, res) {
             if (err) res.status(403).send('Incorrect username/password');
             else if (result) {
                 // password verified
-                req.session.email = req.body.email;
-                res.status(200).send('Login successful');
+
+                // email on req
+                req.session.email = req.body.email.toLowerCase();
+
+                // admin status on req
+                User.getUser(req.session.email, function (err, user) {
+                    if (err) res.status(403).send('Incorrect username/password');
+                    else if (user.isAdmin) {
+                        req.session.isAdmin = true;
+                        res.status(200).send('Login successful');
+                    } else {
+                        req.session.isAdmin = false;
+                        res.status(200).send('Login successful');
+                    }
+                });
             } else {
                 // password failed
                 res.status(403).send('Incorrect username/password');
             }
         });
-    } else {
-        res.status(403).send('There is a user already logged in')
     }
 });
 
@@ -73,8 +83,7 @@ router.post('/login', function(req, res) {
  * POST /logout - Log out any current user
  */
 router.post('/logout', function(req, res) {
-    if (req.curEmail) {
-        var email = req.curEmail;
+    if (req.session.email) {
         req.session = null;
         res.status(200).send('Log out successful');
     } else {

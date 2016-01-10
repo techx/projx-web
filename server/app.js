@@ -10,7 +10,6 @@ var fs = require('fs');
 
 // SERVER FILES //
 var config = require('./config');
-var middle = require('./middle');
 
 // ROUTE HANDLERS //
 var index = require('./routes/index');
@@ -42,7 +41,6 @@ app.use(cookieSession({secret: config.cookieSecret}))
 app.use(bodyParser.json()); // parse json
 app.use(bodyParser.urlencoded({ extended: true })); // parse forms
 app.use(helmet()); // bunch of security stuff
-app.use(middle.mountUser); // mount user to req object
 
 // ROUTES //
 app.use('/api/user', user); // user routes
