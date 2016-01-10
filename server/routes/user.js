@@ -41,6 +41,16 @@ router.get('/', middle.user, function(req, res) {
 });
 
 /**
+ * GET /current [auth] - Get current user object
+ */
+router.get('/current', middle.auth, function(req, res) {
+    User.getUser(req.session.email, function (err, user) {
+        if (err) res.status(403).send(err);
+        else res.status(200).send(user);
+    });
+});
+
+/**
  * POST /login - Try to log in user
  * @param req.body.email - user email (required)
  * @param req.body.password - user password (required)
