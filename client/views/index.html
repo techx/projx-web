@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="portal">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
 
         <title>ProjX Portal</title>
 
+        <!-- favicon -->
         <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicon/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.png">
         <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.png">
@@ -34,7 +35,7 @@
     </head>
 
     <body>
-        ProjX Portal
+        <div ng-view></div>
     </body>
 
     <!-- lib js -->
@@ -42,5 +43,9 @@
     <script src="assets/lib/angular-route.min.js"></script>
     <script src="assets/lib/jquery.min.js"></script>
     <script src="assets/lib/semantic.min.js"></script>
+
+    <!-- angular app -->
+    <script src="assets/js/portal-app.js"></script>
+    <script src="assets/js/splash-controller.js"></script>
 
 </html>

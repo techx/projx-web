@@ -45,9 +45,9 @@ app.use(helmet()); // bunch of security stuff
 app.use(middle.mountUser); // mount user to req object
 
 // ROUTES //
-app.use('/', index); // index routes
 app.use('/api/user', user); // user routes
 app.use('/api/project', project); // project routes
+app.use('/', index); // index routes
 
 // ERROR HANDLER //
 app.use(function(err, req, res, next) { res.status(err.status || 500); });
