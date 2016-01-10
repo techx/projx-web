@@ -7,7 +7,34 @@
       <header-include></header-include>
 
       <div id="body" class="ui segment">
-        asdf
+
+        <!-- announcements -->
+        <h2>announcements</h2>
+        xFair is fast approaching! Check-in 3 soon.
+        <br>
+
+        <!-- profile -->
+        <br><h2 id="profile-title">your profile</h2>
+        <div class="ui large label button" ng-click="editProfile()">edit</div>
+        <table class="ui celled unstackable table">
+          <tr ng-repeat="field in profileFields">
+            <td class="field">{{ field }}</td>
+            <td ng-style="(user[field].length === 0) ? {'font-style':'italic'} : {}">
+              {{ user[field] || 'none given' }}
+            </td>
+          </tr>
+        </table>
+        <br>
+
+        <!-- project list -->
+        <h2>your projects</h2>
+        <div class="ui celled list">
+          <div class="item" ng-repeat="project in projects">
+            {{ project.name }}
+          </div>
+        </div>
+        <br>
+
       </div>
 
     </div>
