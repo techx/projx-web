@@ -1,33 +1,33 @@
-<div id="splash-container">
-  <div id="form-container" class="ui middle aligned centered stackable grid">
-    <div class="six wide column">
+<div id="login-container" class="ui middle aligned centered stackable grid">
+  <div class="six wide column">
 
-      <div class="ui segment">
-        <div class="ui one column centered grid">
-          <div class="column">
-            <img id="projx-logo" src="assets/img/projx-logo.svg" class="image">
-          </div>
+    <!-- logo -->
+    <div class="ui segment">
+      <div class="ui one column centered grid">
+        <div class="column">
+          <img id="logo" src="assets/img/projx-logo.svg">
         </div>
       </div>
-
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <input type="text" name="email" placeholder="MIT email address" ng-model="email">
-          </div>
-          <div class="field">
-            <input type="password" name="password" placeholder="password" ng-model="password">
-          </div>
-          <button class="ui fluid large submit primary button" type="submit" ng-click="submitLogin()">login</button>
-        </div>
-      </form>
-
-      <!-- todo
-      <div class="ui segment">
-        sign up link
-      </div>
-      -->
-
     </div>
+
+    <!-- form -->
+    <form class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <input type="text" name="email" placeholder="MIT email address" ng-model="email">
+        </div>
+        <div class="field">
+          <input type="password" name="password" placeholder="password" ng-model="password">
+        </div>
+        <button class="ui fluid large submit primary button" type="submit" ng-click="submitLogin()">login</button>
+      </div>
+    </form>
+
+    <!-- todo
+    <div class="ui segment">
+      sign up link
+    </div>
+    -->
+
   </div>
 </div>
