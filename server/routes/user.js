@@ -54,18 +54,18 @@ router.post('/login', function(req, res) {
         if (!req.body.password) res.status(400).send('Password missing');
 
         User.verifyPassword(req.body.email, req.body.password, function(err, result) {
-            if (err) res.status(403).send(err);
+            if (err) res.status(403).send('Incorrect username/password');
             else if (result) {
                 // password verified
                 req.session.email = req.body.email;
                 res.status(200).send('Login successful');
             } else {
                 // password failed
-                res.status(403).send('Incorrect password');
+                res.status(403).send('Incorrect username/password');
             }
         });
     } else {
-        res.send('There is a user already logged in')
+        res.status(403).send('There is a user already logged in')
     }
 });
 
