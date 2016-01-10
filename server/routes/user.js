@@ -41,13 +41,16 @@ router.get('/', middle.user, function(req, res) {
 });
 
 /**
- * GET /current [auth] - Get current user object
+ * GET /current - Get current user object
  */
-router.get('/current', middle.auth, function(req, res) {
-    User.getUser(req.session.email, function (err, user) {
-        if (err) res.status(403).send(err);
-        else res.status(200).send(user);
-    });
+router.get('/current', function(req, res) {
+    if (!req.session.email) res.status(404).send('No user logged in');
+    else {
+        User.getUser(req.session.email, function (err, user) {
+            if (err) res.status(403).send(err);
+            else res.status(200).send(user);
+        });
+    }
 });
 
 /**
