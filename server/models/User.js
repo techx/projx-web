@@ -21,6 +21,8 @@ var userSchema = mongoose.Schema({
  * @param callback {function} - function to be called with err and result
  */
 userSchema.statics.getUser = function(email, callback) {
+    if (!email) callback('Email missing');
+
     var lowerEmail = email.toLowerCase();
     User.find({ email: lowerEmail }, function(err, results) {
         if (err) callback('User not found');
