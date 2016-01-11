@@ -4,32 +4,16 @@
   <div class="six wide column">
 
     <!-- logo -->
-    <div class="ui segment">
-      <div class="ui one column centered grid">
-        <div class="column">
-          <img id="logo" src="assets/img/projx-logo.svg">
-        </div>
-      </div>
+    <div class="ui center aligned segment">
+      <img id="logo" src="assets/img/projx-logo.svg">
     </div>
 
-    <!-- form -->
-    <form class="ui large form">
-      <div class="ui stacked segment">
-        <div class="field">
-          <input type="text" name="email" placeholder="MIT email address" ng-model="email">
-        </div>
-        <div class="field">
-          <input type="password" name="password" placeholder="password" ng-model="password">
-        </div>
-        <button class="ui fluid large submit primary button" type="submit" ng-click="submitLogin()">login</button>
-      </div>
-    </form>
-
-    <!-- todo
-    <div class="ui segment">
-      sign up link
+    <!-- mit cert login -->
+    <div class="ui center aligned segment">
+      <button class="ui fluid large primary button" ng-click="certLogin()">
+        log in
+      </button>
     </div>
-    -->
 
   </div>
 </div>

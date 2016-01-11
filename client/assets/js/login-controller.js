@@ -9,15 +9,9 @@ angular.module('portal').controller('loginController', function ($scope, $http, 
         $scope.showPage = true;
     });
 
-    // submitting login form redirects home if successful or displays error message
-    $scope.submitLogin = function () {
-        $http.post('/api/user/login', {
-            'email': $scope.email,
-            'password': $scope.password
-        }).then(function (response) {
-            $location.path('/home');
-        }, function (response) {
-            swal('Oops...', response.data, 'error');
-        });
+    // log in with certificates by redirecting
+    $scope.certLogin = function () {
+        window.location = 'https://vfazel.scripts.mit.edu:444/projx-auth.php';
     }
+
 });

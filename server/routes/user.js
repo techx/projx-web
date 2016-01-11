@@ -51,42 +51,36 @@ router.get('/current', function(req, res) {
 });
 
 /**
- * POST /login - Try to log in user
- * @param req.body.email - user email (required)
- * @param req.body.password - user password (required)
+ * GET /login - Try to log in user
+ * @param req.query.email - user's email
+ * @param req.query.token - user's token from cert auth site
+ * @param req.query.name - user's name
  */
-router.post('/login', function(req, res) {
-    if (req.session.email) {
-        res.status(403).send('There is a user already logged in')
-    } else {
-        if (!req.body.email) res.status(400).send('Email missing');
-        if (!req.body.password) res.status(400).send('Password missing');
+router.get('/login', function(req, res) {
+    var email = req.query.email.toLowerCase();
+    var token = req.query.token;
+    var name = req.query.name;
 
-        User.verifyPassword(req.body.email, req.body.password, function(err, result) {
-            if (err) res.status(403).send('Incorrect username/password');
-            else if (result) {
-                // password verified
+    // lol
+    res.send(req.query);
 
-                // email on req
-                req.session.email = req.body.email.toLowerCase();
+    // what if user already logged in
+    // what if info is missing
+    // what if token is wrong
 
-                // admin status on req
-                User.getUser(req.session.email, function (err, user) {
-                    if (err) res.status(403).send('Incorrect username/password');
-                    else if (user.isAdmin) {
-                        req.session.isAdmin = true;
-                        res.status(200).send('Login successful');
-                    } else {
-                        req.session.isAdmin = false;
-                        res.status(200).send('Login successful');
-                    }
-                });
-            } else {
-                // password failed
-                res.status(403).send('Incorrect username/password');
-            }
-        });
-    }
+    // User.getUser(email, function (err, user) {
+    //     if (err) {
+    //         // user does not exist, create new
+    //     } else if (user.isAdmin) {
+    //         // email on req
+    //         req.session.email = req.body.email.toLowerCase();
+    //         req.session.isAdmin = true;
+    //         res.redirect('/');
+    //     } else {
+    //         req.session.isAdmin = false;
+    //         res.redirect('/');
+    //     }
+    // });
 });
 
 /**
