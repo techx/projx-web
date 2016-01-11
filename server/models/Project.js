@@ -30,25 +30,21 @@ projectSchema.statics.getProject = function (projectId, callback) {
 
 /**
  * Create a new project
- * @param name {string} - project name (required)
- * @param budget {number} - total project budget (required)
- * @param description {string} - description (optional)
+ * @param project {object} - new project object (name field required)
  * @param callback {function} - function to be called with err and result
  */
-projectSchema.statics.createProject = function (name, budget, description, callback) {
-    if (name.length > 0) {
-        if (budget) {
-            var project = new Project({
-                name: name,
-                budget: budget,
-                description: description || '',
-                team: []
-            });
-            project.save(function (err) {
-                if (err) callback('Error saving project: ' + err);
-                else callback(null, project);
-            });
-        } else callback('Project budget required');
+projectSchema.statics.createProject = function (project, callback) {
+    if (project.name) {
+        var newProject = new Project({
+            name: project.name,
+            budget: project.budget || 0,
+            description: project.description || '',
+            team: []
+        });
+        newProject.save(function (err) {
+            if (err) callback('Error saving project: ' + err);
+            else callback(null, newProject);
+        });
     } else callbac('Project name required')
 }
 

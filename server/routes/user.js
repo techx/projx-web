@@ -8,16 +8,13 @@ var middle = require('../middle');
 
 /**
  * POST / - Create new user
- * @param req.body.email {string} - email of a potential user (required, must be unique)
- * @param req.body.password {string} - password (required)
- * @param req.body.name {string} - name (optional)
- * @param req.body.phone {string} - phone number (optional)
+ * @param req.body.user {string} - user object (requires password and unique email)
  */
 router.post('/', function(req, res) {
-    if (!req.body.email) res.status(400).send('Email missing');
-    if (!req.body.password) res.status(400).send('Password missing');
+    if (!req.body.user.email) res.status(400).send('Email missing');
+    if (!req.body.user.password) res.status(400).send('Password missing');
 
-    User.createUser(req.body.email, req.body.password, req.body.name, req.body.phone, function(err, result) {
+    User.createUser(req.body.user, function(err, result) {
         if (err) res.status(403).send(err);
         else {
             req.session.email = result.email;

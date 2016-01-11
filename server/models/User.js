@@ -55,25 +55,25 @@ userSchema.statics.verifyPassword = function (email, password, callback) {
  * @param phone {string} - phone
  * @param callback {function} - function to be called with err and result
  */
-userSchema.statics.createUser = function (email, password, name, phone, callback) {
-    var lowerEmail = email.toLowerCase();
+userSchema.statics.createUser = function (user, callback) {
+    var lowerEmail = user.email.toLowerCase();
     if (lowerEmail.match('^[a-z0-9_-]+@mit.edu$')) {
-        if (password.length >= 6) {
+        if (user.password.length >= 6) {
             User.find({ email: lowerEmail }, function (err, results) {
                 if (err) callback(err);
                 else if (results.length === 0) {
                     var salt = bcrypt.genSaltSync(10);
-                    var hash = bcrypt.hashSync(password, salt);
-                    var user = new User({
+                    var hash = bcrypt.hashSync(user.password, salt);
+                    var newUser = new User({
                         email: lowerEmail,
                         password: hash,
-                        name: name || '',
-                        phone: phone || '',
+                        name: user.name || '',
+                        phone: user.phone || '',
                         isAdmin: false
                     });
-                    user.save(function (err) {
+                    newUser.save(function (err) {
                         if (err) callback('Error saving user: ' + err);
-                        else callback(null, user);
+                        else callback(null, newUser);
                     });
                 } else callback('User already exists');
             });

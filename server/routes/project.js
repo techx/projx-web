@@ -9,15 +9,12 @@ var middle = require('../middle');
 
 /**
  * POST / - [auth] Create new project and add current user to team
- * @param req.body.name {string} - name of a new project (required)
- * @param req.body.budget {number} - budget (required)
- * @param req.body.description {string} - description (optional)
+ * @param req.body.project {object} - new project object (name field required)
  */
 router.post('/', middle.auth, function(req, res) {
-    if (!req.body.name) res.status(400).send('Name missing');
-    if (!req.body.budget) res.status(400).send('Budget missing');
-
-    Project.createProject(req.body.name, req.body.budget, req.body.description, function(err, project) {
+    if (!req.body.project.name) res.status(400).send('Name missing');
+    
+    Project.createProject(req.body.project, function(err, project) {
         if (err) res.status(403).send(err);
         else {
             Project.addTeamMember(project._id, req.session.email, function (err, result) {
