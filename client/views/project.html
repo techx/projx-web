@@ -1,0 +1,28 @@
+<loader-include></loader-include>
+
+<div id="project-container" ng-show="showPage">
+  <div class="ui centered stackable grid">
+    <div class="twelve wide column">
+
+      <header-include></header-include>
+
+      <div id="body" class="ui segment">
+
+        <!-- profile -->
+        <h2 id="project-title">info</h2>
+        <div class="ui large label button" ng-click="editProject()">edit</div>
+        <table class="ui celled unstackable table">
+          <tr ng-repeat="(field, key) in projectFields">
+            <td class="field">{{ field }}</td>
+            <td ng-style="(project[key]) ? {} : {'font-style':'italic'}">
+              {{ project[key] || 'none given' }}
+            </td>
+          </tr>
+        </table>
+        <br>
+
+      </div>
+
+    </div>
+  </div>
+</div>
