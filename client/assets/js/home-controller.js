@@ -7,7 +7,9 @@ angular.module('portal').controller('homeController', function ($scope, $http, $
     $scope.profileFields = {
         'email': 'email',
         'name': 'name',
-        'phone': 'phone'
+        'phone': 'phone',
+        'course': 'course',
+        'year': 'year'
     };
 
     // edit profile

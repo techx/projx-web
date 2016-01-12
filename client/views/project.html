@@ -15,7 +15,7 @@
           <tr ng-repeat="(field, key) in projectFields">
             <td class="field">{{ field }}</td>
             <td ng-style="(project[key]) ? {} : {'font-style':'italic'}">
-              {{ project[key] || 'none given' }}
+              {{ project[key] || 'not given' }}
             </td>
           </tr>
         </table>

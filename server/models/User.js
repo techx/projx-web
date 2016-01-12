@@ -7,7 +7,9 @@ var userSchema = mongoose.Schema({
     email: { type: String, required: true, lowercase: true, index: { unique: true } }, // unique identifier
     isAdmin: { type: Boolean, required: true },
     name: { type: String },
-    phone: { type: String }
+    phone: { type: String },
+    year: { type: String },
+    year: { type: String }
 });
 
 
