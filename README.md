@@ -1,16 +1,26 @@
 # ProjX Portal
 
-Desired functionalities:
-- announcements/important dates
-- project homepage
-    - name
-    - team members
-    - ProjX contact
-    - description
-    - check-in attendance status
-    - funding amount granted/used
-    - project updates (pictures, check-in summaries, etc)
-    - RFP tracking
-- generate custom email lists (missed a check-in, missing RFPs, etc)
+To build (assuming you have `gulp`):
+```
+gulp update
+```
 
-Note: authentication requires an endpoint deployed on an MIT scripts website.
+To deploy certificate authentication server:
+```
+chmod +x bin/deploy-auth
+./bin/deploy-auth [username]
+```
+Then type `username`'s password on MIT athena server.
+
+For dev:
+```
+gulp
+```
+
+To start:
+```
+mongod
+node bin/www
+```
+
+Must include `server/config.js` and `auth-server/config.php` (not included in repo) to work.
