@@ -14,9 +14,10 @@ angular.module('portal').controller('profileController', function ($scope, $http
 
     // get profile user
     $http.get('/api/user?email=' + $routeParams.email).then(function (response) {
+        console.log(response.data);
         $scope.profileUser = response.data;
     }, function (response) {
-        res.redirect('/'); // not authorized or user doesn't exist
+        $location.path('/'); // not authorized or user doesn't exist
     });
 
     // edit profile
