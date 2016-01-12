@@ -9,7 +9,32 @@
       <div id="content" class="ui segment">
 
         <h2>all projects</h2>
-        {{ projects }}
+        <table class="ui celled striped unstackable selectable sortable very compact small definition table">
+          <thead>
+            <tr>
+              <!-- name column -->
+              <th></th>
+
+              <!-- other columns -->
+              <th ng-repeat="(field, key) in projectFields" ng-if="key!=='name'" ng-click="sortBy(key)">
+                {{ field }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="project in projects">
+              <!-- name column -->
+              <td>
+                <a href="/project/{{ project._id }}">{{ project.name }}</a>
+              </td>
+
+              <!-- other columns -->
+              <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-if="key!=='name'">
+                {{ project[key] }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
 
