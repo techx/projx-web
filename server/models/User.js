@@ -8,7 +8,7 @@ var userSchema = mongoose.Schema({
     isAdmin: { type: Boolean, required: true },
     name: { type: String },
     phone: { type: String },
-    year: { type: String },
+    course: { type: String },
     year: { type: String }
 });
 
