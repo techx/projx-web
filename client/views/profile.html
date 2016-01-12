@@ -11,7 +11,7 @@
         <!-- profile -->
         <h2>
           info
-          <div class="ui button" ng-click="editProfile()" ng-if="user.email === profileUser.email" >edit</div>
+          <div class="ui button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)" >edit</div>
         </h2>
         <table class="ui celled unstackable table">
           <tr ng-repeat="(field, key) in profileFields">

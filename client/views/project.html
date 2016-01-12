@@ -9,8 +9,10 @@
       <div id="content" class="ui segment">
 
         <!-- profile -->
-        <h2 class="linked-title">info</h2>
-        <div class="ui large label button" ng-click="editProject()">edit</div>
+        <h2>
+          info
+          <div class="ui button" ng-click="editProject()" ng-if="(project.team.indexOf(user.email) !== -1) || (user.isAdmin)">edit</div>
+        </h2>
         <table class="ui celled unstackable table">
           <tr ng-repeat="(field, key) in projectFields">
             <td class="field">{{ field }}</td>
