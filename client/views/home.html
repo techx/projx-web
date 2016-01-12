@@ -6,7 +6,7 @@
 
       <header-include></header-include>
 
-      <div id="body" class="ui segment">
+      <div id="content" class="ui segment">
 
         <!-- announcements -->
         <h2>announcements</h2>
@@ -14,7 +14,7 @@
         <br>
 
         <!-- profile -->
-        <br><h2 id="profile-title">your profile</h2>
+        <br><h2 class="linked-title">your profile</h2>
         <div class="ui large label button" ng-click="editProfile()">edit</div>
         <table class="ui celled unstackable table">
           <tr ng-repeat="(field, key) in profileFields">
@@ -30,7 +30,7 @@
         <h2>your projects</h2>
         <div class="ui message" ng-show="projects.length === 0">no projects to show...</div>
         <div class="ui cards">
-          <a class="ui card project" ng-repeat="project in projects" href="/project/{{ project._id }}">
+          <a class="ui card project-card" ng-repeat="project in projects" href="/project/{{ project._id }}">
             <div class="content">
               <div class="header">{{ project.name }}</div>
               <div class="description">{{ project.pitch }}</div>

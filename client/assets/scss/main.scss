@@ -22,9 +22,31 @@ body {
   background-color: $projx-green !important;
 }
 
+#content {
+  padding: 19px;
+  font-size: 1.25em;
+}
+
+table {
+  margin: 0;
+
+  .field {
+    width: 1px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+}
+
+.labeled-title {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.project-card {
+  width: 100%;
+  margin-bottom: 0;
+}
 
 // IMPORTS //
 @import 'login';
 @import 'header';
-@import 'home';
-@import 'project';
