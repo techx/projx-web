@@ -1,0 +1,8 @@
+if [ $# -eq 0 ]; then
+    echo "please give username as argument";
+else
+    ABSOLUTE_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/
+
+    echo 'log in to '$1'...';
+    scp $ABSOLUTE_PATH../auth-server/* $1@athena.dialup.mit.edu:~/web_scripts/;
+fi
