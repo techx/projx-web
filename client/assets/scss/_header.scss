@@ -24,15 +24,10 @@
   }
 
   #username {
-    margin-right: 5px;
-    
-    @media screen and (max-width: 490px) {
-      display: none;
-    }
+    white-space: nowrap;
   }
 
   #logout {
-    margin-right: 5px;
     white-space: nowrap;
   }
 }

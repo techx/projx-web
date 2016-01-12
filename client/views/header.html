@@ -6,13 +6,11 @@
     <div id="title" class="item">{{ title }}</div>
 
     <!-- right -->
-    <div class="right menu">
-      <div class="ui middle aligned divided grid">
-        <div class="row">
-          <div id="username" class="item">logged in as {{ username }}</div>
-          <div class="column">
-            <div id="logout" class="ui large label button" ng-click="logout()">log out</div>
-          </div>
+    <div class="ui right stackable text menu">
+      <a id="username" href="/profile/{{ user.email }}" class="item link">{{ user.name }}</a>
+      <div class="item">
+        <div> <!-- extra div so label is not direct child of item -->
+          <div id="logout" class="ui large label button" ng-click="logout()">log out</div>
         </div>
       </div>
     </div>
