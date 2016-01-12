@@ -12,25 +12,23 @@
         <table class="ui celled striped unstackable selectable sortable very compact small definition table">
           <thead>
             <tr>
-              <!-- name column -->
+              <!-- empty header for name column -->
               <th></th>
 
               <!-- other columns -->
-              <th ng-repeat="(field, key) in projectFields" ng-if="key!=='name'" ng-click="sortBy(key)">
+              <th ng-repeat="(field, key) in projectFields" ng-click="sortBy(key)" ng-if="key !== 'name'">
                 {{ field }}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="project in projects">
-              <!-- name column -->
-              <td>
-                <a href="/project/{{ project._id }}">{{ project.name }}</a>
-              </td>
-
-              <!-- other columns -->
-              <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-if="key!=='name'">
-                {{ project[key] }}
+              <!-- ng-switch for linking columns -->
+              <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-switch on="field">
+                <a ng-switch-when="name" href="/project/{{ project._id }}">{{ project[key] }}</a>
+                <a ng-switch-when="point" href="/profile/{{ project.point }}">{{ project[key] }}</a>
+                <a ng-switch-when="primary" href="/profile/{{ project.primary }}">{{ project[key] }}</a>
+                <div ng-switch-default>{{ project[key] }}</div>
               </td>
             </tr>
           </tbody>
