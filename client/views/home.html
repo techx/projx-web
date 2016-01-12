@@ -13,19 +13,6 @@
         xFair is fast approaching! Check-in 3 soon.
         <br>
 
-        <!-- profile -->
-        <br><h2 class="linked-title">your profile</h2>
-        <div class="ui large label button" ng-click="editProfile()">edit</div>
-        <table class="ui celled unstackable table">
-          <tr ng-repeat="(field, key) in profileFields">
-            <td class="field">{{ field }}</td>
-            <td ng-style="(user[key]) ? {} : {'font-style':'italic'}">
-              {{ user[key] || 'not given' }}
-            </td>
-          </tr>
-        </table>
-        <br>
-
         <!-- project list -->
         <h2>your projects</h2>
         <div class="ui message" ng-show="projects.length === 0">no projects to show...</div>
