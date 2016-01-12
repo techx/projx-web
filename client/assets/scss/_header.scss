@@ -20,11 +20,23 @@
     font-size: 2em;
   }
 
-  #username {
+  .right.menu {
+    margin-right: 4px;
+
+    div.item.link {
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: right;
+    }
+  }
+
+  .link {
     white-space: nowrap;
   }
 
-  #logout {
-    white-space: nowrap;
+  .divider {
+    @media screen and (max-width: 768px) {
+      display: none
+    }
   }
 }

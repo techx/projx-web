@@ -7,12 +7,13 @@
 
     <!-- right -->
     <div class="ui right stackable text menu">
-      <a id="username" href="/profile/{{ user.email }}" class="item link">{{ user.name }}</a>
-      <div class="item">
-        <div> <!-- extra div so label is not direct child of item -->
-          <div id="logout" class="ui large label button" ng-click="logout()">log out</div>
-        </div>
-      </div>
+      <a href="/home" class="item link">home</a>
+      <div class="item divider">|</div>
+      <a href="/profile/{{ user.email }}" class="item link">profile</a>
+      <div class="item divider">|</div>
+      <a href="/admin" class="ui right aligned item link" ng-show="user.isAdmin">admin</a>
+      <div class="item divider" ng-show="user.isAdmin">|</div>
+      <a ng-click="logout()" class="item link">log out</a>
     </div>
 
   </div>
