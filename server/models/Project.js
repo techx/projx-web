@@ -6,9 +6,16 @@ var User = require('./User');
 // SCHEMA //
 var projectSchema = mongoose.Schema({
     name: { type: String, required: true },
-    budget: { type: Number, required: true },
-    description: { type: String },
-    team: [{ type: String }]
+    team: [{ type: String }], // list of valid emails
+    primary: { type: String }, // valid email; primary contact, should be on team
+    point: { type: String }, // valid emai; point person on committee, should be admin
+    funding: { type: Number },
+    pitch: { type: String },
+    details: { type: String },
+    budget: { type: String },
+    timeline: { type: String },
+    legalese: { type: String },
+    other: { typer: String }
 });
 
 
@@ -35,17 +42,12 @@ projectSchema.statics.getProject = function (projectId, callback) {
  */
 projectSchema.statics.createProject = function (project, callback) {
     if (project.name) {
-        var newProject = new Project({
-            name: project.name,
-            budget: project.budget || 0,
-            description: project.description || '',
-            team: []
-        });
+        var newProject = new Project(project);
         newProject.save(function (err) {
             if (err) callback('Error saving project: ' + err);
             else callback(null, newProject);
         });
-    } else callbac('Project name required')
+    } else callback('Project name required')
 }
 
 /**

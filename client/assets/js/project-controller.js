@@ -6,9 +6,16 @@ angular.module('portal').controller('projectController', function ($scope, $http
     // specify which fields to display (maps field name to key in project object)
     $scope.projectFields = {
         'name': 'name',
-        'budget': 'budgetDisplay',
-        'description': 'description',
-        'team': 'teamDisplay'
+        'team': 'teamDisplay',
+        'primary': 'primary',
+        'point': 'point',
+        'funding': 'fundingDisplay',
+        'pitch': 'pitch',
+        'details': 'details',
+        'budget': 'budget',
+        'timeline': 'timeline',
+        'legalese': 'legalese',
+        'other': 'other'
     };
 
     // get project info
@@ -25,17 +32,20 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
     // adds pretty display fields to project object
     var addDisplayFields = function (project) {
+
+        // team
         var teamDisplay = '';
         project.team.forEach(function (email) {
             teamDisplay += email + ', ';
         })
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
 
-        var budgetDisplay = '$' + project.budget.toFixed(2);
+        // funding
+        var fundingDisplay = '$' + project.funding.toFixed(2);
 
+        // add fields to project object
         project.teamDisplay = teamDisplay;
-        project.budgetDisplay = budgetDisplay;
-
+        project.fundingDisplay = fundingDisplay;
         return project;
     }
 

@@ -12,17 +12,13 @@ var middle = require('../middle');
  * @param req.body.project {object} - new project object (name field required)
  */
 router.post('/', middle.auth, function(req, res) {
-    if (!req.body.project.name) res.status(400).send('Name missing');
-    
-    Project.createProject(req.body.project, function(err, project) {
-        if (err) res.status(403).send(err);
-        else {
-            Project.addTeamMember(project._id, req.session.email, function (err, result) {
-                if (err) res.status(403).send(err);
-                else res.status(200).send('Project created');
-            });
-        }
-    });
+    if (!req.body.project.name) res.status(400).send('Name missing')
+    else {
+        Project.createProject(req.body.project, function(err, project) {
+            if (err) res.status(403).send(err);
+            else res.status(200).send('Project created');
+        });
+    }
 });
 
 /**
@@ -32,9 +28,7 @@ router.post('/', middle.auth, function(req, res) {
 router.get('/', middle.team, function(req, res) {
     Project.getProject(req.query.projectId, function (err, project) {
         if (err) res.status(403).send(err);
-        else {
-            res.status(200).send(project);
-        }
+        else res.status(200).send(project);
     });
 });
 
@@ -59,9 +53,7 @@ router.get('/current', function(req, res) {
 router.post('/team/add', middle.team, function(req, res) {
     Project.addTeamMember(req.body.projectId, req.body.email, function (err, result) {
         if (err) res.status(403).send(err);
-        else {
-            res.status(200).send('Team member added');
-        }
+        else res.status(200).send('Team member added');
     });
 });
 
@@ -73,9 +65,7 @@ router.post('/team/add', middle.team, function(req, res) {
 router.post('/team/remove', middle.team, function(req, res) {
     Project.removeTeamMember(req.body.projectId, req.body.email, function (err, result) {
         if (err) res.status(403).send(err);
-        else {
-            res.status(200).send('Team member removed');
-        }
+        else res.status(200).send('Team member removed');
     });
 });
 
