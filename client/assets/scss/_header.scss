@@ -6,16 +6,13 @@
   }
 
   #letter {
-    height: 3em;
+    width: 3em;
     padding: 0;
-    padding-left: 4px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: pointer;
+    margin-left: 4px;
+
+    img {
+      width: 100%;
+    }
   }
 
   #title {

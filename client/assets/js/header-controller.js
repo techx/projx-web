@@ -5,7 +5,6 @@ angular.module('portal').controller('headerController', function ($scope, $http,
     // load user object, redirect to login if not logged in
     $http.get('/api/user/current').then(function (response) {
         $scope.user = response.data;
-        $scope.username = $scope.user.name || $scope.user.email;
         $scope.showPage = true;
     }, function (response) {
         $location.path('/');
@@ -18,11 +17,6 @@ angular.module('portal').controller('headerController', function ($scope, $http,
         }).then(function (response) {
             $location.path('/');
         });
-    }
-
-    //
-    $scope.goHome = function () {
-        $location.path('/home');
     }
 
 });
