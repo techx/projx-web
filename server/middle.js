@@ -65,15 +65,8 @@ middle.user = function (req, res, next) {
  * proceed if user is logged in and is an admin, redirect to home otherwise
  */
 middle.admin = function (req, res, next) {
-    if (req.session.email) {
-        User.getUser(req.session.email, function (err, user) {
-            if (err) res.redirect('/');
-            else if (user.session.isAdmin) {
-                next();
-            } else {
-                res.redirect('/');
-            }
-        });
+    if (req.session.isAdmin) {
+        next();
     } else {
         res.redirect('/');
     }
