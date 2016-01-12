@@ -15,6 +15,10 @@ angular.module('portal', ['ngRoute'])
             templateUrl: '/views/project.html',
             controller: 'projectController'
         })
+        .when('/admin', {
+            templateUrl: '/views/admin.html',
+            controller: 'adminController'
+        })
         .otherwise({
             redirectTo: '/'
         });
