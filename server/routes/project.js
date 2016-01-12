@@ -33,9 +33,9 @@ router.get('/', middle.team, function(req, res) {
 });
 
 /**
- * GET / - Get list of current user's project objects
+ * GET /current - Get list of current user's project objects
  */
-router.get('/current', function(req, res) {
+router.get('/current', middle.auth, function(req, res) {
     if (!req.session.email) res.status(404).send('No user logged in');
     else {
         Project.getProjectsByMember(req.session.email, function (err, projects) {
@@ -43,6 +43,16 @@ router.get('/current', function(req, res) {
             else res.status(200).send(projects);
         });
     }
+});
+
+/**
+ * GET /all - Get list of all project objects
+ */
+router.get('/all', middle.admin, function(req, res) {
+    Project.getAllProjects(function (err, projects) {
+        if (err) res.status(403).send(err);
+        else res.status(200).send(projects);
+    });
 });
 
 /**

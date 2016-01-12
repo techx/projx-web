@@ -36,6 +36,29 @@ projectSchema.statics.getProject = function (projectId, callback) {
 }
 
 /**
+ * Find a list of projects with given email as team member
+ * @param email {string} - member's email
+ * @param callback {function} - function to be called with err and result
+ */
+projectSchema.statics.getProjectsByMember = function (email, callback) {
+    Project.find({ team: email.toLowerCase() }, function (err, results) {
+        if (err) callback(err);
+        else callback(null, results);
+    });
+}
+
+/**
+ * Get all project objects
+ * @param callback {function} - function to be called with err and result
+ */
+projectSchema.statics.getAllProjects = function (callback) {
+    Project.find({}, function (err, results) {
+        if (err) callback(err);
+        else callback(null, results);
+    });
+}
+
+/**
  * Create a new project
  * @param project {object} - new project object (name field required)
  * @param callback {function} - function to be called with err and result
@@ -89,18 +112,6 @@ projectSchema.statics.removeTeamMember = function (projectId, email, callback) {
                 });
             }
         }
-    });
-}
-
-/**
- * Find a list of projects with given email as team member
- * @param email {string} - member's email
- * @param callback {function} - function to be called with err and result
- */
-projectSchema.statics.getProjectsByMember = function (email, callback) {
-    Project.find({ team: email.toLowerCase() }, function (err, results) {
-        if (err) callback(err);
-        else callback(null, results);
     });
 }
 
