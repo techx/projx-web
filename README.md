@@ -12,3 +12,5 @@ Desired functionalities:
     - project updates (pictures, check-in summaries, etc)
     - RFP tracking
 - generate custom email lists (missed a check-in, missing RFPs, etc)
+
+Note: authentication requires an endpoint deployed on an MIT scripts website.
