@@ -22,7 +22,6 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
             addDisplayFields(project);
         });
         $scope.sortBy('pointDisplay');
-        $scope.showPage = true;
     }, function (response) {
         $location.path('/'); // not admin, redirect back to root
     });

@@ -1,0 +1,29 @@
+<loader-include></loader-include>
+
+<div id="profile-container" ng-show="showPage">
+  <div class="ui centered stackable grid">
+    <div class="twelve wide column">
+
+      <header-include></header-include>
+
+      <div id="content" class="ui segment">
+
+        <!-- profile -->
+        <h2>
+          info
+          <div class="ui button" ng-click="editProfile()" ng-if="user.email === profileUser.email" >edit</div>
+        </h2>
+        <table class="ui celled unstackable table">
+          <tr ng-repeat="(field, key) in profileFields">
+            <td class="field">{{ field }}</td>
+            <td ng-style="(user[key]) ? {} : {'font-style':'italic'}">
+              {{ profileUser[key] || 'not given' }}
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</div>

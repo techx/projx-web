@@ -11,6 +11,10 @@ angular.module('portal', ['ngRoute'])
             templateUrl: '/views/home.html',
             controller: 'homeController'
         })
+        .when('/profile/:email', {
+            templateUrl: '/views/profile.html',
+            controller: 'profileController'
+        })
         .when('/project/:projectId', {
             templateUrl: '/views/project.html',
             controller: 'projectController'
