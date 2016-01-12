@@ -29,8 +29,8 @@
         <!-- project list -->
         <h2>your projects</h2>
         <div class="ui message" ng-show="projects.length === 0">no projects to show...</div>
-        <div class="ui cards">
-          <a class="ui card project-card" ng-repeat="project in projects" href="/project/{{ project._id }}">
+        <div id="project-cards" class="ui cards">
+          <a class="ui card" ng-repeat="project in projects" href="/project/{{ project._id }}">
             <div class="content">
               <div class="header">{{ project.name }}</div>
               <div class="description">{{ project.pitch }}</div>
