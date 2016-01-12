@@ -10,8 +10,12 @@ angular.module('portal').controller('loginController', function ($scope, $http, 
     });
 
     // log in with certificates by redirecting
-    $scope.certLogin = function () {
-        window.location = 'https://vfazel.scripts.mit.edu:444/projx-auth.php';
+    $scope.login = function () {
+        $http.post('/api/user/assignkey').then(function (response) {
+            window.location = response.data;
+        }, function (response) {
+            swal('Oops...', 'An error occurred...', 'error');
+        });
     }
 
 });

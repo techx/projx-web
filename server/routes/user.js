@@ -2,27 +2,12 @@
 var router = require('express').Router();
 var User = require('../models/User');
 var middle = require('../middle');
+var config = require('../config');
+var randomstring = require('randomstring');
+var sha256 = require('sha256');
 
 
 // ROUTES //
-
-/**
- * POST / - Create new user
- * @param req.body.user {string} - user object (requires password and unique email)
- */
-router.post('/', function(req, res) {
-    if (!req.body.user.email) res.status(400).send('Email missing');
-    if (!req.body.user.password) res.status(400).send('Password missing');
-
-    User.createUser(req.body.user, function(err, result) {
-        if (err) res.status(403).send(err);
-        else {
-            req.session.email = result.email;
-            req.session.isAdmin = result.email;
-            res.status(200).send('User created');
-        }
-    });
-});
 
 /**
  * GET / [user] - Get user object, return if current user matches or is admin
@@ -30,11 +15,12 @@ router.post('/', function(req, res) {
  */
 router.get('/', middle.user, function(req, res) {
     if (!req.query.email) res.status(400).send('Email missing');
-
-    User.getUser(req.query.email, function (err, user) {
-        if (err) res.status(403).send(err);
-        else res.status(200).send(user);
-    });
+    else {
+        User.getUser(req.query.email, function (err, user) {
+            if (err) res.status(403).send(err);
+            else res.status(200).send(user);
+        });
+    }
 });
 
 /**
@@ -51,36 +37,74 @@ router.get('/current', function(req, res) {
 });
 
 /**
+ * POST /assignkey - Assign a random key to current session and return it
+ */
+router.post('/assignkey', function(req, res) {
+    var key = randomstring.generate(10);
+    var url = config.authUrl;
+    req.session.key = key;
+    res.status(200).send(url + '?key=' + key);
+});
+
+/**
  * GET /login - Try to log in user
  * @param req.query.email - user's email
  * @param req.query.token - user's token from cert auth site
  * @param req.query.name - user's name
  */
 router.get('/login', function(req, res) {
-    var email = req.query.email.toLowerCase();
-    var token = req.query.token;
-    var name = req.query.name;
+    console.log(req.session);
 
-    // lol
-    res.send(req.query);
+    if (req.session.email) {
+        // user already logged in
+        res.redirect('/');
+    } else {
+        // get query params
+        var email = req.query.email.toLowerCase();
+        var token = req.query.token;
+        var name = req.query.name;
 
-    // what if user already logged in
-    // what if info is missing
-    // what if token is wrong
+        // compute token
+        var key = req.session.key;
+        var secret = config.authSecret;
+        var correctToken = sha256(email + key + secret);
 
-    // User.getUser(email, function (err, user) {
-    //     if (err) {
-    //         // user does not exist, create new
-    //     } else if (user.isAdmin) {
-    //         // email on req
-    //         req.session.email = req.body.email.toLowerCase();
-    //         req.session.isAdmin = true;
-    //         res.redirect('/');
-    //     } else {
-    //         req.session.isAdmin = false;
-    //         res.redirect('/');
-    //     }
-    // });
+        if (email && token && (token === correctToken)) {
+
+            // log in successful
+            User.getUser(email, function (err, user) {
+                if (err) {
+
+                    // user not found
+                    User.createUser({
+                        'email': email,
+                        'name': name
+                    }, function (err, newUser) {
+                        if (err) {
+                            res.send('Log in failed (requires valid MIT certificate)');
+                        } else {
+
+                            // user created, mount info to session and redirect to root
+                            req.session.key = null;
+                            req.session.email = newUser.email;
+                            req.session.isAdmin = newUser.isAdmin;
+                            res.redirect('/');
+                        }
+                    });
+                } else {
+
+                    // user found, mount info to session and redirect to root
+                    req.session.key = null;
+                    req.session.email = user.email;
+                    req.session.isAdmin = user.isAdmin;
+                    res.redirect('/');
+                }
+            });
+        } else {
+            // error message
+            res.send('Log in failed (requires valid MIT certificate)');
+        }
+    }
 });
 
 /**
