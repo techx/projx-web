@@ -13,7 +13,7 @@ middle.auth = function (req, res, next) {
     if (req.session.email) {
         next();
     } else {
-        res.redirect('/');
+        res.status(401).send('Must be logged in to access');
     }
 }
 
@@ -31,11 +31,11 @@ middle.team = function (req, res, next) {
                 else if (project.team.indexOf(req.session.email) !== -1) {
                     next();
                 } else {
-                    res.redirect('/');
+                    res.status(401).send('Must be on requested team to access');
                 }
             })
         } else {
-            res.redirect('/');
+            res.status(401).send('Must be on requested team to access');
         }
     }
 }
@@ -53,10 +53,10 @@ middle.user = function (req, res, next) {
             if (email.toLowerCase() === req.session.email) {
                 next();
             } else {
-                res.redirect('/');
+                res.status(401).send('Must be requested user to access');
             }
         } else {
-            res.redirect('/');
+            res.status(401).send('Must be requested user to access');
         }
     }
 }
@@ -68,7 +68,7 @@ middle.admin = function (req, res, next) {
     if (req.session.isAdmin) {
         next();
     } else {
-        res.redirect('/');
+        res.status(401).send('Must be admin to access');
     }
 }
 
