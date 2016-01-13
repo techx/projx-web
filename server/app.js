@@ -37,7 +37,7 @@ app.engine('html', function(path, options, callback) {
 app.use(morgan('dev')); // logger
 app.use(express.static(__dirname + '/../client')); // set static folder
 app.use(favicon(__dirname + '/../client/assets/img/favicon/favicon.ico')); // favicon
-app.use(cookieSession({secret: config.cookieSecret}))
+app.use(cookieSession({secret: config.cookieSecret}));
 app.use(bodyParser.json()); // parse json
 app.use(bodyParser.urlencoded({ extended: true })); // parse forms
 app.use(helmet()); // bunch of security stuff
