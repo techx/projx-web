@@ -1,4 +1,3 @@
-server/config.js
-auth-server/config.php
+config.json
 node_modules
 npm-debug.log

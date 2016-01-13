@@ -1,8 +1,33 @@
-if [ $# -eq 0 ]; then
-    echo "please give username as argument";
-else
-    ABSOLUTE_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/
+// packages
+var scp = require('scp');
+var fs = require('fs');
+var path = require('path');
 
-    echo 'log in to '$1'...';
-    scp $ABSOLUTE_PATH../auth-server/* $1@athena.dialup.mit.edu:~/web_scripts/;
-fi
+// import config
+var config = require('../config');
+config.scriptsPath = config.scriptsPath.replace(/^\/|\/$/g, '').replace(/^[^\/]/g, '/$&'); // enforce "/p1/p2" slash format
+
+// contents of auth-secret.php
+var contents = '<?php $secret = \'' + config.authSecret + '\'; $login_url = \'' + config.loginUrl + '\'; ?>';
+
+// write auth-config.php locally to current folder
+fs.writeFile('auth-secret.php', contents, function () {
+
+    // copy auth.php to current folder
+    fs.createReadStream(path.join(__dirname, '../auth-server/auth.php')).pipe(fs.createWriteStream('auth.php'));
+
+    // deploy auth.php and auth-secret.php to scripts
+    console.log('Please log in to ' + config.scriptsUsername + ' on athena...')
+    scp.send({
+        file: '{./auth.php,./auth-secret.php}',
+        user: config.scriptsUsername,
+        host: 'athena.dialup.mit.edu',
+        path: '~/web_scripts' + config.scriptsPath + '/'
+    }, function (err) {
+        if (err) console.log(err);
+
+        // delete auth.php and auth-secret.php from current folder
+        fs.unlink('auth-secret.php');
+        fs.unlink('auth.php');
+    });
+});

@@ -32,6 +32,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-nodemon": "^2.0.6",
-    "gulp-sass": "^2.1.1"
+    "gulp-sass": "^2.1.1",
+    "scp": "0.0.3"
   }
 }
