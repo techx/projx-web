@@ -2,7 +2,7 @@
 var router = require('express').Router();
 var User = require('../models/User');
 var middle = require('../middle');
-var config = require('../config');
+var config = require('../../config');
 var randomstring = require('randomstring');
 var sha256 = require('sha256');
 
@@ -41,7 +41,7 @@ router.get('/current', function(req, res) {
  */
 router.post('/assignkey', function(req, res) {
     var key = randomstring.generate(10);
-    var url = config.authUrl;
+    var url = 'https://' + config.scriptsUsername + '.scripts.mit.edu:444' + config.scriptsPath + '/auth.php';;
     req.session.key = key;
     res.status(200).send(url + '?key=' + key);
 });

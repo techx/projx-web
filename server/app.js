@@ -9,7 +9,7 @@ var helmet = require('helmet');
 var fs = require('fs');
 
 // SERVER FILES //
-var config = require('./config');
+var config = require('../config');
 
 // ROUTE HANDLERS //
 var index = require('./routes/index');
