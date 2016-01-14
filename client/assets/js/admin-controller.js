@@ -38,13 +38,19 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         project.teamDisplay = teamDisplay;
 
         // funding
-        project.fundingDisplay = '$' + project.funding.toFixed(2);
+        if (project.funding) {
+            project.fundingDisplay = '$' + project.funding.toFixed(2);
+        }
 
         // point
-        project.pointDisplay = project.point.split('@')[0];
+        if (project.point) {
+            project.pointDisplay = project.point.split('@')[0];
+        }
 
         // primary
-        project.primaryDisplay = project.primary.split('@')[0];
+        if (project.primary) {
+            project.primaryDisplay = project.primary.split('@')[0];
+        }
 
         return project;
     }

@@ -16,9 +16,7 @@
         <table class="ui celled unstackable table">
           <tr ng-repeat="(field, key) in projectFields">
             <td class="field">{{ field }}</td>
-            <td ng-style="(project[key]) ? {} : {'font-style':'italic'}">
-              {{ project[key] || 'not given' }}
-            </td>
+            <td ng-style="(project[key]) ? {'white-space': 'pre-wrap'} : {'font-style':'italic'}">{{ project[key] || 'not given' }}</td>
           </tr>
         </table>
         <br>
