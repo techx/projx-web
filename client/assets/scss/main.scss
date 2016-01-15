@@ -1,5 +1,6 @@
 // COLORS //
 $projx-green: #6ebe45;
+$projx-green-bg: rgba(110, 190, 69, .8);
 
 
 // FONTS //
@@ -8,10 +9,15 @@ $projx-green: #6ebe45;
   src: url("../font/Biko_Regular.otf") format("opentype");
 }
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("../font/OpenSans-Regular.ttf") format("truetype");
+}
+
 
 // GLOBAL //
 * {
-  font-family: "Biko" !important;
+  font-family: "Open Sans" !important;
 }
 
 body {
@@ -19,12 +25,15 @@ body {
   width: 100vw;
   padding: 0;
   margin: 0;
-  background-color: $projx-green !important;
+  background-color: $projx-green-bg !important;
+}
+
+.biko {
+  font-family: "Biko" !important;
 }
 
 #content {
   padding: 19px;
-  font-size: 1.25em;
 }
 
 h2 {
