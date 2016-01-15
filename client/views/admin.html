@@ -9,14 +9,10 @@
       <div id="content" class="ui segment">
 
         <h2>all projects</h2>
-        <table class="ui celled striped unstackable selectable sortable very compact small definition table">
+        <table class="ui celled striped unstackable selectable sortable very compact small table">
           <thead>
             <tr>
-              <!-- empty header for name column -->
-              <th></th>
-
-              <!-- other columns -->
-              <th ng-repeat="(field, key) in projectFields" ng-click="sortBy(key)" ng-if="key !== 'name'">
+              <th class="ui center aligned" ng-repeat="(field, key) in projectFields" ng-click="sortBy(key)">
                 {{ field }}
               </th>
             </tr>
