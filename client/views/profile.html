@@ -11,9 +11,9 @@
         <!-- profile -->
         <h2>
           info
-          <div class="ui button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)" >edit</div>
+          <div class="ui tiny button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)">edit</div>
         </h2>
-        <table class="ui celled unstackable table">
+        <table class="ui celled striped unstackable table">
           <tr ng-repeat="(field, key) in profileFields">
             <td class="field">{{ field }}</td>
             <td ng-style="(user[key]) ? {} : {'font-style':'italic'}">
