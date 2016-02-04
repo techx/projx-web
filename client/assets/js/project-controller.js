@@ -75,7 +75,13 @@ angular.module('portal').controller('projectController', function ($scope, $http
         $http.post('/api/project/update', {
             'project': project
         }).then(function (result) {
-            swal("Saved!", "Project saved successfully.", "success")
+            swal({
+                title: "Woo!",
+                text: "Project saved successfully.",
+                type: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
             callback();
         }, function (result) {
             sweetAlert("Oops...", "Something went wrong with saving!", "error");

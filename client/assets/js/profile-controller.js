@@ -42,7 +42,13 @@ angular.module('portal').controller('profileController', function ($scope, $http
         $http.post('/api/user/update', {
             'user': user
         }).then(function (result) {
-            swal("Saved!", "Profile saved successfully.", "success")
+            swal({
+                title: "Woo!",
+                text: "Profile saved successfully.",
+                type: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
             callback();
         }, function (result) {
             sweetAlert("Oops...", "Something went wrong with saving!", "error");
