@@ -103,7 +103,7 @@ projectSchema.statics.addTeamMember = function (projectId, email, callback) {
  */
 projectSchema.statics.removeTeamMember = function (projectId, email, callback) {
     Project.getProject(projectId, function (err, project) {
-        if (err) callback(err)
+        if (err) callback(err);
         else {
             if (project.team.indexOf(email) !== -1) { // if in team
                 project.team.splice(project.team.indexOf(email), 1); // remove from team
@@ -115,6 +115,26 @@ projectSchema.statics.removeTeamMember = function (projectId, email, callback) {
         }
     });
 }
+
+/**
+ * Update given project
+ * @param project {object} - new project object (with _id as identifier)
+ * @param callback {function} - function to be called with err and result
+ */
+ projectSchema.statics.updateProject = function (project, callback) {
+    Project.getProject(project._id, function (err, oldProject) {
+        if (err) callback(err);
+        else {
+            for (field in Project.schema.paths) {
+                oldProject[field] = project[field];
+            };
+            oldProject.save(function (err) {
+                if (err) callback('Error saving project: ' + err);
+                else callback(null, oldProject);
+            });
+        }
+    })
+ }
 
 
 // EXPORTS //

@@ -2,6 +2,8 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
     // page title
     $scope.title = 'project';
+    $scope.editStatus = false;
+    $scope.editText = "edit";
 
     // specify which fields to display (maps field name to key in project object)
     $scope.projectFields = {
@@ -20,16 +22,18 @@ angular.module('portal').controller('projectController', function ($scope, $http
     };
 
     // get project info
-    $http.get('/api/project?projectId=' + $routeParams.projectId).then(function (response) {
-        if (!response.data._id) {
-            $location.path('/home'); // project not returned (e.g. not authorized)
-        }
+    var getProjectInfo = function () {
+        $http.get('/api/project?projectId=' + $routeParams.projectId).then(function (response) {
+            if (!response.data._id) {
+                $location.path('/home'); // project not returned (e.g. not authorized)
+            }
 
-        $scope.project = response.data;
-        addDisplayFields($scope.project);
-    }, function (response) {
-        $location.path('/home');
-    });
+            $scope.project = response.data;
+            addDisplayFields($scope.project);
+        }, function (response) {
+            $location.path('/home');
+        });
+    }
 
     // adds pretty display fields to project object
     var addDisplayFields = function (project) {
@@ -42,6 +46,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
 
         // funding
+        console.log(project.granted);
         var grantedDisplay = '$' + project.granted.toFixed(2);
         var usedDisplay = '$' + project.used.toFixed(2);
 
@@ -54,7 +59,31 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
     // edit project
     $scope.editProject = function () {
-        swal('Project editing coming soon...');
+        if ($scope.editStatus === true) {
+            saveProject($scope.project, function () {
+                getProjectInfo();
+                $scope.editStatus = false;
+                $scope.editText = "edit";
+            });
+        } else {
+            $scope.editStatus = true;
+            $scope.editText = "save";
+        }
     }
+
+    var saveProject = function (project, callback) {
+        $http.post('/api/project/update', {
+            'project': project
+        }).then(function (result) {
+            swal("Saved!", "Project saved successfully.", "success")
+            callback();
+        }, function (result) {
+            sweetAlert("Oops...", "Something went wrong with saving!", "error");
+            callback();
+        });
+    }
+
+    // get info right away
+    getProjectInfo();
 
 });

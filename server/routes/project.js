@@ -79,6 +79,17 @@ router.post('/team/remove', middle.team, function(req, res) {
     });
 });
 
+/**
+ * POST /update - [admin] Update a project
+ * @param req.body.project - project object
+ */
+router.post('/update', middle.admin, function(req, res) {
+    Project.updateProject(req.body.project, function (err, result) {
+        if (err) res.status(403).send(err);
+        else res.status(200).send('Team member removed');
+    });
+});
+
 
 // EXPORTS //
 module.exports = router;
