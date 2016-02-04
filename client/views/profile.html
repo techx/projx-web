@@ -17,7 +17,7 @@
           <tr ng-repeat="(field, key) in profileFields">
             <td class="field">{{ field }}</td>
             <td ng-style="(user[key]) ? {} : {'font-style':'italic'}">
-              {{ profileUser[key] || 'not given' }}
+              {{ profileUser[key] || 'none' }}
             </td>
           </tr>
         </table>

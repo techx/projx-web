@@ -9,7 +9,8 @@ var projectSchema = mongoose.Schema({
     team: [{ type: String }], // list of valid emails
     primary: { type: String }, // valid email; primary contact, should be on team
     point: { type: String }, // valid emai; point person on committee, should be admin
-    funding: { type: Number },
+    granted: { type: Number },
+    used: { type: Number },
     pitch: { type: String },
     details: { type: String },
     budget: { type: String },

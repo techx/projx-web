@@ -9,7 +9,8 @@ angular.module('portal').controller('projectController', function ($scope, $http
         'team': 'teamDisplay',
         'primary': 'primary',
         'point': 'point',
-        'funding': 'fundingDisplay',
+        'granted': 'grantedDisplay',
+        'used': 'usedDisplay',
         'pitch': 'pitch',
         'details': 'details',
         'budget': 'budget',
@@ -41,11 +42,13 @@ angular.module('portal').controller('projectController', function ($scope, $http
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
 
         // funding
-        var fundingDisplay = '$' + project.funding.toFixed(2);
+        var grantedDisplay = '$' + project.granted.toFixed(2);
+        var usedDisplay = '$' + project.used.toFixed(2);
 
         // add fields to project object
         project.teamDisplay = teamDisplay;
-        project.fundingDisplay = fundingDisplay;
+        project.grantedDisplay = grantedDisplay;
+        project.usedDisplay = usedDisplay;
         return project;
     }
 

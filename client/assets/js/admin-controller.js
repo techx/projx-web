@@ -8,7 +8,8 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         'name': 'name',
         'point': 'pointDisplay',
         'primary': 'primaryDisplay',
-        'funding': 'fundingDisplay'
+        'granted': 'grantedDisplay',
+        'used': 'usedDisplay'
     };
 
     // sorting state
@@ -38,9 +39,8 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         project.teamDisplay = teamDisplay;
 
         // funding
-        if (project.funding) {
-            project.fundingDisplay = '$' + project.funding.toFixed(2);
-        }
+        project.grantedDisplay = '$' + project.granted.toFixed(2);
+        project.usedDisplay = '$' + project.used.toFixed(2);
 
         // point
         if (project.point) {
