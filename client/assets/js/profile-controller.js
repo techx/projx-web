@@ -20,7 +20,7 @@ angular.module('portal').controller('profileController', function ($scope, $http
             console.log(response.data);
             $scope.profileUser = response.data;
         }, function (response) {
-            $location.path('/'); // not authorized or user doesn't exist
+            sweetAlert("Oops...", "User not found!", "error");
         });
     }
 
