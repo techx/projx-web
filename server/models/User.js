@@ -49,6 +49,26 @@ userSchema.statics.createUser = function (user, callback) {
     });
 }
 
+/**
+ * Update given user
+ * @param user {object} - new user object (with email as identifier)
+ * @param callback {function} - function to be called with err and result
+ */
+userSchema.statics.updateUser = function (user, callback) {
+    User.getUser(user.email, function (err, oldUser) {
+        if (err) callback(err);
+        else {
+            for (field in User.schema.paths) {
+                oldUser[field] = user[field];
+            };
+            oldUser.save(function (err) {
+                if (err) callback('Error saving project: ' + err);
+                else callback(null, oldUser);
+            });
+        }
+    })
+}
+
 
 // EXPORTS //
 var User = mongoose.model('User', userSchema);

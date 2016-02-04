@@ -86,7 +86,7 @@ router.post('/team/remove', middle.team, function(req, res) {
 router.post('/update', middle.admin, function(req, res) {
     Project.updateProject(req.body.project, function (err, result) {
         if (err) res.status(403).send(err);
-        else res.status(200).send('Team member removed');
+        else res.status(200).send('Project updated');
     });
 });
 

@@ -42,12 +42,12 @@ middle.team = function (req, res, next) {
 
 /**
  * proceed if user is logged in and has given email or an admin, redirect to home otherwise
- * @param req.body.email OR req.query.email {string} - email of user to be protected
+ * @param req.body.email OR req.query.email OR req.body.user.email {string} - email of user to be protected
  */
 middle.user = function (req, res, next) {
     if (req.session.isAdmin) next();
     else {
-        var email = req.body.email || req.query.email;
+        var email = req.body.email || req.query.email || req.body.user.email;
 
         if (email && req.session.email) {
             if (email.toLowerCase() === req.session.email) {

@@ -119,6 +119,16 @@ router.post('/logout', function(req, res) {
     }
 });
 
+/**
+ * POST /update - [user] Update a user
+ * @param req.body.user - User object
+ */
+router.post('/update', middle.user, function(req, res) {
+    User.updateUser(req.body.user, function (err, result) {
+        if (err) res.status(403).send(err);
+        else res.status(200).send('User updated');
+    });
+});
 
 // EXPORTS //
 module.exports = router;

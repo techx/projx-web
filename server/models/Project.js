@@ -121,7 +121,7 @@ projectSchema.statics.removeTeamMember = function (projectId, email, callback) {
  * @param project {object} - new project object (with _id as identifier)
  * @param callback {function} - function to be called with err and result
  */
- projectSchema.statics.updateProject = function (project, callback) {
+projectSchema.statics.updateProject = function (project, callback) {
     Project.getProject(project._id, function (err, oldProject) {
         if (err) callback(err);
         else {
@@ -134,7 +134,7 @@ projectSchema.statics.removeTeamMember = function (projectId, email, callback) {
             });
         }
     })
- }
+}
 
 
 // EXPORTS //

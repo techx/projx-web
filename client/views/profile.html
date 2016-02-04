@@ -11,13 +11,16 @@
         <!-- profile -->
         <h2>
           info
-          <div class="ui tiny button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)">edit</div>
+          <div class="ui tiny button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)">{{ editText }}</div>
         </h2>
         <table class="ui celled striped unstackable table">
           <tr ng-repeat="(field, key) in profileFields">
             <td class="field">{{ field }}</td>
-            <td ng-style="(user[key]) ? {} : {'font-style':'italic'}">
+            <td ng-hide="editStatus" ng-style="(profileUser[key]) ? {} : {'font-style':'italic'}">
               {{ profileUser[key] || 'none' }}
+            </td>
+            <td ng-show="editStatus">
+              <div class="ui input"><input type="text" ng-model="profileUser[field]"></div>
             </td>
           </tr>
         </table>

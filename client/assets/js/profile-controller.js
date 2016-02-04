@@ -2,6 +2,8 @@ angular.module('portal').controller('profileController', function ($scope, $http
 
     // page title
     $scope.title = 'profile';
+    $scope.editStatus = false;
+    $scope.editText = "edit";
 
     // specify which fields to display (maps field name to key in project object)
     $scope.profileFields = {
@@ -13,16 +15,43 @@ angular.module('portal').controller('profileController', function ($scope, $http
     };
 
     // get profile user
-    $http.get('/api/user?email=' + $routeParams.email).then(function (response) {
-        console.log(response.data);
-        $scope.profileUser = response.data;
-    }, function (response) {
-        $location.path('/'); // not authorized or user doesn't exist
-    });
+    var getProfileInfo = function () {
+        $http.get('/api/user?email=' + $routeParams.email).then(function (response) {
+            console.log(response.data);
+            $scope.profileUser = response.data;
+        }, function (response) {
+            $location.path('/'); // not authorized or user doesn't exist
+        });
+    }
 
     // edit profile
     $scope.editProfile = function () {
-        swal('Profile editing coming soon...');
+        if ($scope.editStatus === true) {
+            saveProfile($scope.profileUser, function () {
+                getProfileInfo();
+                $scope.editStatus = false;
+                $scope.editText = "edit";
+            });
+        } else {
+            $scope.editStatus = true;
+            $scope.editText = "save";
+        }
     }
+
+    var saveProfile = function (user, callback) {
+        $http.post('/api/user/update', {
+            'user': user
+        }).then(function (result) {
+            swal("Saved!", "Profile saved successfully.", "success")
+            callback();
+        }, function (result) {
+            sweetAlert("Oops...", "Something went wrong with saving!", "error");
+            callback();
+        });
+    }
+
+    // get info right away
+    getProfileInfo();
+
 
 });
