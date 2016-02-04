@@ -14,7 +14,7 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
 
     // sorting state
     $scope.sortKey = 'pointDisplay';
-    $scope.sortReverse = -1; // 1 or -1
+    $scope.sortReverse = true;
 
     // get all projects
     $http.get('/api/project/all').then(function (response) {
@@ -58,19 +58,11 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
     // sort by given key; reverse if already sorted by given key
     $scope.sortBy = function (key) {
         if (key === $scope.sortKey) {
-            $scope.sortReverse *= -1;
+            $scope.sortReverse = !$scope.sortReverse;
         } else {
             $scope.sortKey = key;
-            $scope.sortReverse = 1;
+            $scope.sortReverse = false;
         }
-
-        $scope.projects.sort(function (p1, p2) {
-            if ($scope.sortReverse > 0) {
-                return  (p1[key] > p2[key]);
-            } else {
-                return  (p1[key] < p2[key]);
-            }
-        });
     }
 
 });

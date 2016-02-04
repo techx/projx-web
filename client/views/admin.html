@@ -14,11 +14,13 @@
             <tr>
               <th class="ui center aligned" ng-repeat="(field, key) in projectFields" ng-click="sortBy(key)">
                 {{ field }}
+                <i class="ui sort ascending icon" ng-show="(sortKey == key) && (sortReverse == true)"></i>
+                <i class="ui sort descending icon" ng-show="(sortKey == key) && (sortReverse == false)"></i>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="project in projects">
+            <tr ng-repeat="project in projects | orderBy : sortKey : sortReverse">
               <!-- ng-switch for linking columns -->
               <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-switch on="field">
                 <a ng-switch-when="name" href="/project/{{ project._id }}">{{ project[key] }}</a>
