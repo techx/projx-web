@@ -6,12 +6,17 @@ $projx-green-bg: rgba(110, 190, 69, .8);
 // FONTS //
 @font-face {
   font-family: "Biko";
-  src: url("../font/Biko_Regular.otf") format("opentype");
+  src: url("../font/Biko-Regular.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Open Sans";
   src: url("../font/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url("../font/Icons.ttf") format('truetype');
 }
 
 
@@ -26,6 +31,10 @@ body {
   padding: 0;
   margin: 0;
   background-color: $projx-green-bg !important;
+}
+
+i.icon {
+  font-family: 'Icons' !important;
 }
 
 .biko {
