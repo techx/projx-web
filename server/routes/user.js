@@ -57,7 +57,7 @@ router.get('/login', function(req, res) {
 
     if (req.session.email) {
         // user already logged in
-        res.redirect('/');
+        res.redirect('/portal');
     } else {
         // get query params
         var email = req.query.email.toLowerCase();
@@ -88,7 +88,7 @@ router.get('/login', function(req, res) {
                             req.session.key = null;
                             req.session.email = newUser.email;
                             req.session.isAdmin = newUser.isAdmin;
-                            res.redirect('/');
+                            res.redirect('/portal');
                         }
                     });
                 } else {
@@ -97,7 +97,7 @@ router.get('/login', function(req, res) {
                     req.session.key = null;
                     req.session.email = user.email;
                     req.session.isAdmin = user.isAdmin;
-                    res.redirect('/');
+                    res.redirect('/portal');
                 }
             });
         } else {

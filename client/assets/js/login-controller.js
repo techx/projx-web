@@ -7,7 +7,7 @@ angular.module('portal').controller('loginController', function ($scope, $http, 
         $location.path('/home');
     }, function (response) {
         $scope.showPage = true;
-        $scope.login(); // attempt to redirect automatically
+        // $scope.login(); // attempt to redirect automatically
     });
 
     // log in with certificates by redirecting

@@ -7,15 +7,15 @@ angular.module('portal').controller('headerController', function ($scope, $http,
         $scope.user = response.data;
         $scope.showPage = true;
     }, function (response) {
-        $location.path('/');
+        $location.path('/portal');
     });
 
     // send POST request to logout
     $scope.logout = function () {
         $http.post('/api/user/logout').then(function (response) {
-            $location.path('/');
+            $location.path('/portal');
         }).then(function (response) {
-            $location.path('/');
+            $location.path('/portal');
         });
     }
 

@@ -3,7 +3,7 @@ angular.module('portal', ['ngRoute'])
 
         // routing definitions
     $routeProvider
-        .when('/', {
+        .when('/portal', {
             templateUrl: '/views/login.html',
             controller: 'loginController'
         })
@@ -24,7 +24,7 @@ angular.module('portal', ['ngRoute'])
             controller: 'adminController'
         })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/portal'
         });
 
         // remove # from URL

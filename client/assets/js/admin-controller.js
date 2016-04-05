@@ -24,7 +24,7 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         });
         $scope.sortBy('pointDisplay');
     }, function (response) {
-        $location.path('/'); // not admin, redirect back to root
+        $location.path('/portal'); // not admin, redirect back to root
     });
 
     // adds pretty display fields to project object
