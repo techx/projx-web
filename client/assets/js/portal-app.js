@@ -4,12 +4,19 @@ angular.module('portal', ['ngRoute'])
         // routing definitions
     $routeProvider
         .when('/portal', {
+            redirectTo: '/login'
+        })
+        .when('/login', {
             templateUrl: '/views/login.html',
             controller: 'loginController'
         })
         .when('/home', {
             templateUrl: '/views/home.html',
             controller: 'homeController'
+        })
+        .when('/apply', {
+            templateUrl: '/views/apply.html',
+            controller: 'applyController'
         })
         .when('/profile/:email', {
             templateUrl: '/views/profile.html',
