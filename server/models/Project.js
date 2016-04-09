@@ -7,16 +7,24 @@ var User = require('./User');
 var projectSchema = mongoose.Schema({
     name: { type: String, required: true },
     team: [{ type: String }], // list of valid emails
-    primary: { type: String }, // valid email; primary contact, should be on team
-    point: { type: String }, // valid emai; point person on committee, should be admin
-    granted: { type: Number },
-    used: { type: Number },
-    pitch: { type: String },
-    details: { type: String },
-    budget: { type: String },
-    timeline: { type: String },
-    legalese: { type: String },
-    other: { typer: String }
+    infoPublic: {
+        pitch: { type: String },
+        projectDescription: { type: String },
+        teamDescription: { type: String }
+    },
+    infoTeam: {
+        program: { type: String },
+        status: { type: String },
+        budgetAmount: { type: Number },
+        budgetUsed: { type: Number },
+        budgetBreakdown: { type: String },
+        otherFunding: { type: String },
+        timeline: { type: String },
+        point: { type: String } // valid email, should be admin
+    },
+    infoAdmin: {
+        comments: { type: String }
+    }
 });
 
 
