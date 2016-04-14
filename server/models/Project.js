@@ -14,14 +14,14 @@ var projectSchema = mongoose.Schema({
     },
     infoTeam: {
         primary: { type: String }, // valid email, should be on team
-        program: { type: String },
-        status: { type: String },
         budgetAmount: { type: Number },
         budgetUsed: { type: Number },
         budgetBreakdown: { type: String },
         otherFunding: { type: String },
         timeline: { type: String },
-        point: { type: String } // valid email, should be admin
+        point: { type: String }, // valid email, should be admin
+        batch: { type: String },
+        status: { type: String }
     },
     infoAdmin: {
         comments: { type: String }

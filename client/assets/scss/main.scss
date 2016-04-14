@@ -91,6 +91,11 @@ label {
   color: white !important;
 }
 
+.ui.tag.projx.label {
+  background-color: $projx-green;
+  color: white;
+}
+
 // IMPORTS //
 @import 'login';
 @import 'header';

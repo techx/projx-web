@@ -17,7 +17,9 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'budget requested': $scope.project.display.budgetAmount,
             'budget breakdown': $scope.project.infoTeam.budgetBreakdown,
             'other funding': $scope.project.infoTeam.otherFunding,
-            'timeline': $scope.project.infoTeam.timeline
+            'timeline': $scope.project.infoTeam.timeline,
+            'batch': $scope.project.infoTeam.batch,
+            'status': $scope.project.infoTeam.status
         };
     }
 
@@ -29,11 +31,29 @@ angular.module('portal').controller('projectController', function ($scope, $http
             }
 
             $scope.project = response.data;
+            addEmptyFields($scope.project);
             addDisplayFields($scope.project);
             populateDisplay();
         }, function (response) {
             $location.path('/home');
         });
+    }
+
+    // adds pretty display fields to project object
+    var addEmptyFields = function (project) {
+
+        // create empty categories
+        if (!project.infoPublic) {
+            project.infoPublic = {};
+        }
+        if (!project.infoTeam) {
+            project.infoTeam = {};
+        }
+        if (!project.infoAdmin) {
+            project.infoAdmin = {};
+        }
+        
+        return project;
     }
 
     // adds pretty display fields to project object
@@ -48,7 +68,12 @@ angular.module('portal').controller('projectController', function ($scope, $http
         })
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
 
-        var budgetAmountDisplay = '$' + project.infoTeam.budgetAmount.toFixed(2);
+        var budgetAmountDisplay = '';
+        if (project.infoTeam.budgetAmount) {
+            budgetAmountDisplay = '$' + project.infoTeam.budgetAmount.toFixed(2);
+        } else {
+            budgetAmountDisplay = '';
+        }
 
         // add fields to project object
         project.display.team = teamDisplay;

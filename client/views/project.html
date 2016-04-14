@@ -7,9 +7,12 @@
       <header-include></header-include>
 
       <div id="content" class="ui segment">
+        <div class="ui tag projx label" ng-show="projectDisplay.batch==='ProjX Summer 16'">ProjX Summer '16</div>
+        <div class="ui tag yellow label" ng-show="projectDisplay.status==='pending'">Application pending</div>
 
         <h2>
-          info
+          <span ng-hide="editStatus">summary</span>
+          <span ng-show="editStatus">info</span>
           <div class="ui tiny button" ng-click="editProject()" ng-if="(user.isAdmin)">
             <div ng-hide="editStatus"><i class="ui write icon"></i>edit</div>
             <div ng-show="editStatus"><i class="ui checkmark icon"></i>save</div>

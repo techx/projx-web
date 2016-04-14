@@ -14,7 +14,24 @@ var perm = require('../perm');
 router.post('/', perm.auth, function(req, res) {
     if (!req.body.project.name) res.status(400).send('Name missing')
     else {
-        Project.createProject(req.body.project, function(err, project) {
+        var project = req.body.project;
+
+        // create empty categories
+        if (!project.infoPublic) {
+            project.infoPublic = {};
+        }
+        if (!project.infoTeam) {
+            project.infoTeam = {};
+        }
+        if (!project.infoAdmin) {
+            project.infoAdmin = {};
+        }
+
+        // hard code current batch
+        project.infoTeam.batch = 'ProjX Summer 16';
+        project.infoTeam.status = 'pending';
+
+        Project.createProject(project, function(err, newProject) {
             if (err) res.status(403).send(err);
             else res.status(200).send('Project created');
         });
