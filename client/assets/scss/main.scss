@@ -1,7 +1,7 @@
 // COLORS //
 $projx-green: #6ebe45;
 $projx-green-bg: rgba(110, 190, 69, .8);
-$projx-green-light: rgba(110, 190, 69, .35);
+$projx-green-light: rgba(110, 190, 69, .3);
 
 
 // FONTS //
@@ -76,6 +76,19 @@ table {
   .new {
     background-color: $projx-green-light;
   }
+}
+
+label {
+  font-size: 1em !important;
+}
+
+.ui.segment.form {
+  background-color: $projx-green-light;
+}
+
+.green-button {
+  background-color: $projx-green !important;
+  color: white !important;
 }
 
 // IMPORTS //

@@ -1,6 +1,6 @@
 <loader-include></loader-include>
 
-<div id="project-container" ng-show="showPage">
+<div id="apply-container" ng-show="showPage">
   <div class="ui centered stackable grid">
     <div class="twelve wide column">
 
@@ -10,11 +10,88 @@
 
         <!-- profile -->
         <h2>
-          apply
+          instructions
         </h2>
+        Please first read our terms and requirements! Then fill out the fields below.
 
+        <br>
+        <br>
+        After you submit, you will still be able to edit your application until the deadline, so feel free to submit a partially complete application and finish it later!
+        <br>
+        <br>
+        Email any questions to <a href="mailto:projx@mit.edu">projx@mit.edu</a>.
+
+        <h2>
+          information
+        </h2>
+        <div class="ui segment form">
+          <div class="ui field">
+            <label>project name</label>
+            <input type="text" ng-model="project.name">
+          </div>
+          <div class="ui field">
+            <label>team</label>
+            <i>add members and select primary lead</i>
+            <div class="ui grouped fields">
+              <div class="field" ng-repeat="member in project.team">
+                <div class="ui radio checkbox">
+                  <input type="radio" checked="" tabindex="0">
+                  <label>{{ member }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="three fields">
+              <div class="field">
+                <div class="ui icon input">
+                  <input type="text" placeholder="enter an @mit.edu email address" ng-model="newMember">
+                  <i class="inverted circular plus link icon" ng-click="addMember()"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui field">
+            <label>team description</label>
+            <textarea rows="3" ng-model="project.infoPublic.teamDescription" placeholder="backgrounds and any relevant experiences of team members (although experience is not necessary)"></textarea>
+          </div>
+          <div class="ui field">
+            <label>pitch</label>
+            <textarea rows="3" ng-model="project.infoPublic.pitch" placeholder="single-line summary of your project"></textarea>
+          </div>
+          <div class="ui field">
+            <label>project description</label>
+            <textarea rows="6" ng-model="project.infoPublic.projectDescription" placeholder="detailed description of your project"></textarea>
+          </div>
+        </div>
+        <h2>budget and timeline</h2>
+        <div class="ui segment form">
+          <div class="ui field">
+            <label>budget amount</label>
+            <input type="text" ng-model="project.infoTeam.budgetAmount" placeholder="funding amount you are requesting, at most $250">
+          </div>
+          <div class="ui field">
+            <label>budget breakdown</label>
+            <textarea rows="6" ng-model="project.infoTeam.budgetBreakdown" placeholder="please provide an itemized breakdown of your requested budget, feel free to link to spreadshet (e.g. Google sheets)"></textarea>
+          </div>
+          <div class="ui field">
+            <label>other funding</label>
+            <textarea rows="3" ng-model="project.infoTeam.otherFunding" placeholder="are you getting funding from any other sources? if so, which sources?"></textarea>
+          </div>
+          <div class="ui field">
+            <label>timeline</label>
+            <textarea rows="6" ng-model="project.infoTeam.timeline" placeholder="please outline an expected timeline with specific milestones, feel free to link to spreadshet (e.g. Google sheets)"></textarea>
+          </div>
+        </div>
+
+        <h2>submit</h2>
+
+        <div class="ui checkbox">
+          <input type="checkbox" tabindex="0" ng-model="agreed">
+          <label>I agree to the terms and requirements</label>
+        </div>
+        <br>
+        <br>
+        <button class="ui large button green-button" type="submit" ng-disabled="!agreed" ng-click="submit()">Submit</button>
       </div>
-
     </div>
   </div>
 </div>
