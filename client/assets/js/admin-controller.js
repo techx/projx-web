@@ -6,10 +6,7 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
     // specify which fields to display (maps field name to key in project object)
     $scope.projectFields = {
         'name': 'name',
-        'point': 'pointDisplay',
-        'primary': 'primaryDisplay',
-        'granted': 'grantedDisplay',
-        'used': 'usedDisplay'
+        'team': 'teamDisplay'
     };
 
     // sorting state
@@ -22,7 +19,7 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         $scope.projects.forEach(function (project) {
             addDisplayFields(project);
         });
-        $scope.sortBy('pointDisplay');
+        $scope.sortBy('name');
     }, function (response) {
         $location.path('/portal'); // not admin, redirect back to root
     });
@@ -37,20 +34,6 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         })
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
         project.teamDisplay = teamDisplay;
-
-        // funding
-        project.grantedDisplay = '$' + project.granted.toFixed(2);
-        project.usedDisplay = '$' + project.used.toFixed(2);
-
-        // point
-        if (project.point) {
-            project.pointDisplay = project.point.split('@')[0];
-        }
-
-        // primary
-        if (project.primary) {
-            project.primaryDisplay = project.primary.split('@')[0];
-        }
 
         return project;
     }
