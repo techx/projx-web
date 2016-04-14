@@ -55,8 +55,12 @@ gulp.task('copylib', function () {
     // angular
     gulp.src('node_modules/angular/angular.min.js')
         .pipe(gulp.dest('client/assets/lib'));
+    gulp.src('node_modules/angular/angular.min.js.map')
+        .pipe(gulp.dest('client/assets/lib'));
     // angular-route
     gulp.src('node_modules/angular-route/angular-route.min.js')
+        .pipe(gulp.dest('client/assets/lib'));
+    gulp.src('node_modules/angular-route/angular-route.min.js.map')
         .pipe(gulp.dest('client/assets/lib'));
     // jquery
     gulp.src('node_modules/jquery/dist/jquery.min.js')
