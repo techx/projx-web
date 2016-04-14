@@ -1,6 +1,7 @@
 // COLORS //
 $projx-green: #6ebe45;
 $projx-green-bg: rgba(110, 190, 69, .8);
+$projx-green-light: rgba(110, 190, 69, .35);
 
 
 // FONTS //
@@ -70,6 +71,10 @@ table {
   .card {
     width: 100%;
     margin-bottom: 0;
+  }
+
+  .new {
+    background-color: $projx-green-light;
   }
 }
 
