@@ -11,7 +11,10 @@
         <!-- profile -->
         <h2>
           info
-          <div class="ui tiny button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)">{{ editText }}</div>
+          <div class="ui tiny button" ng-click="editProfile()" ng-if="(user.email === profileUser.email) || (user.isAdmin)">
+            <div ng-hide="editStatus"><i class="ui write icon"></i>edit</div>
+            <div ng-show="editStatus"><i class="ui checkmark icon"></i>save</div>
+          </div>
         </h2>
         <table class="ui celled striped unstackable table">
           <tr ng-repeat="(field, key) in profileFields">
@@ -23,6 +26,7 @@
               <div class="ui input"><input type="text" ng-model="profileUser[field]"></div>
             </td>
           </tr>
+          {{ profileUser }}
         </table>
 
       </div>

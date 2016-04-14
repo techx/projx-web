@@ -9,9 +9,9 @@ angular.module('portal').controller('profileController', function ($scope, $http
     $scope.profileFields = {
         'email': 'email',
         'name': 'name',
-        'phone': 'phone',
         'course': 'course',
-        'year': 'year'
+        'year': 'year',
+        'interests': 'interests'
     };
 
     // get profile user
