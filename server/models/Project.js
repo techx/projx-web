@@ -8,9 +8,9 @@ var projectSchema = mongoose.Schema({
     name: { type: String, required: true },
     team: [{ type: String }], // list of valid emails
     infoPublic: {
+        teamDescription: { type: String },
         pitch: { type: String },
-        projectDescription: { type: String },
-        teamDescription: { type: String }
+        projectDescription: { type: String }
     },
     infoTeam: {
         primary: { type: String }, // valid email, should be on team

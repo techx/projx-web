@@ -3,7 +3,6 @@ angular.module('portal').controller('profileController', function ($scope, $http
     // page title
     $scope.title = 'profile';
     $scope.editStatus = false;
-    $scope.editText = "edit";
 
     // specify which fields to display (maps field name to key in project object)
     $scope.profileFields = {
@@ -30,11 +29,9 @@ angular.module('portal').controller('profileController', function ($scope, $http
             saveProfile($scope.profileUser, function () {
                 getProfileInfo();
                 $scope.editStatus = false;
-                $scope.editText = "edit";
             });
         } else {
             $scope.editStatus = true;
-            $scope.editText = "save";
         }
     }
 

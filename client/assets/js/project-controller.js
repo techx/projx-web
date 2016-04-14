@@ -3,23 +3,23 @@ angular.module('portal').controller('projectController', function ($scope, $http
     // page title
     $scope.title = 'project';
     $scope.editStatus = false;
-    $scope.editText = "edit";
+    $scope.projectDisplay = {};
 
-    // specify which fields to display (maps field name to key in project object)
-    $scope.projectFields = {
-        'name': 'name',
-        'team': 'teamDisplay',
-        'primary': 'primary',
-        'point': 'point',
-        'granted': 'grantedDisplay',
-        'used': 'usedDisplay',
-        'pitch': 'pitch',
-        'details': 'details',
-        'budget': 'budget',
-        'timeline': 'timeline',
-        'legalese': 'legalese',
-        'other': 'other'
-    };
+    var populateDisplay = function () {
+        // specify which fields to display (maps field name to key in project object)
+        $scope.projectDisplay = {
+            'name': $scope.project.name,
+            'team': $scope.project.display.team,
+            'primary lead': $scope.project.infoTeam.primary,
+            'team description': $scope.project.infoPublic.teamDescription,
+            'pitch': $scope.project.infoPublic.pitch,
+            'project description': $scope.project.infoPublic.projectDescription,
+            'budget requested': $scope.project.display.budgetAmount,
+            'budget breakdown': $scope.project.infoTeam.budgetBreakdown,
+            'other funding': $scope.project.infoTeam.otherFunding,
+            'timeline': $scope.project.infoTeam.timeline
+        };
+    }
 
     // get project info
     var getProjectInfo = function () {
@@ -30,6 +30,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
             $scope.project = response.data;
             addDisplayFields($scope.project);
+            populateDisplay();
         }, function (response) {
             $location.path('/home');
         });
@@ -38,6 +39,8 @@ angular.module('portal').controller('projectController', function ($scope, $http
     // adds pretty display fields to project object
     var addDisplayFields = function (project) {
 
+        project.display = {};
+
         // team
         var teamDisplay = '';
         project.team.forEach(function (email) {
@@ -45,15 +48,11 @@ angular.module('portal').controller('projectController', function ($scope, $http
         })
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
 
-        // funding
-        console.log(project.granted);
-        var grantedDisplay = '$' + project.granted.toFixed(2);
-        var usedDisplay = '$' + project.used.toFixed(2);
+        var budgetAmountDisplay = '$' + project.infoTeam.budgetAmount.toFixed(2);
 
         // add fields to project object
-        project.teamDisplay = teamDisplay;
-        project.grantedDisplay = grantedDisplay;
-        project.usedDisplay = usedDisplay;
+        project.display.team = teamDisplay;
+        project.display.budgetAmount = budgetAmountDisplay;
         return project;
     }
 
@@ -63,11 +62,9 @@ angular.module('portal').controller('projectController', function ($scope, $http
             saveProject($scope.project, function () {
                 getProjectInfo();
                 $scope.editStatus = false;
-                $scope.editText = "edit";
             });
         } else {
             $scope.editStatus = true;
-            $scope.editText = "save";
         }
     }
 
@@ -76,7 +73,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'project': project
         }).then(function (result) {
             swal({
-                title: "Woo!",
+                title: "Woohoo!",
                 text: "Project saved successfully.",
                 type: "success",
                 timer: 1500,
