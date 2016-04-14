@@ -2,7 +2,7 @@
 var router = require('express').Router();
 var Project = require('../models/Project');
 var User = require('../models/User');
-var middle = require('../middle');
+var perm = require('../perm');
 
 
 // ROUTES //
@@ -11,7 +11,7 @@ var middle = require('../middle');
  * POST / - [auth] Create new project and add current user to team
  * @param req.body.project {object} - new project object (name field required)
  */
-router.post('/', middle.auth, function(req, res) {
+router.post('/', perm.auth, function(req, res) {
     if (!req.body.project.name) res.status(400).send('Name missing')
     else {
         Project.createProject(req.body.project, function(err, project) {
@@ -25,7 +25,7 @@ router.post('/', middle.auth, function(req, res) {
  * GET / - [team] Get project object
  * @param req.query.projectId {string} - id of desired project
  */
-router.get('/', middle.team, function(req, res) {
+router.get('/', perm.team, function(req, res) {
     Project.getProject(req.query.projectId, function (err, project) {
         if (err) res.status(403).send(err);
         else res.status(200).send(project);
@@ -35,7 +35,7 @@ router.get('/', middle.team, function(req, res) {
 /**
  * GET /current - Get list of current user's project objects
  */
-router.get('/current', middle.auth, function(req, res) {
+router.get('/current', perm.auth, function(req, res) {
     if (!req.session.email) res.status(404).send('No user logged in');
     else {
         Project.getProjectsByMember(req.session.email, function (err, projects) {
@@ -48,7 +48,7 @@ router.get('/current', middle.auth, function(req, res) {
 /**
  * GET /all - Get list of all project objects
  */
-router.get('/all', middle.admin, function(req, res) {
+router.get('/all', perm.admin, function(req, res) {
     Project.getAllProjects(function (err, projects) {
         if (err) res.status(403).send(err);
         else res.status(200).send(projects);
@@ -60,7 +60,7 @@ router.get('/all', middle.admin, function(req, res) {
  * @param req.body.projectId - id of project
  * @param req.body.email - email of user to be added
  */
-router.post('/team/add', middle.team, function(req, res) {
+router.post('/team/add', perm.team, function(req, res) {
     Project.addTeamMember(req.body.projectId, req.body.email, function (err, result) {
         if (err) res.status(403).send(err);
         else res.status(200).send('Team member added');
@@ -72,7 +72,7 @@ router.post('/team/add', middle.team, function(req, res) {
  * @param req.body.projectId - id of project
  * @param req.body.email - email of user to be removed
  */
-router.post('/team/remove', middle.team, function(req, res) {
+router.post('/team/remove', perm.team, function(req, res) {
     Project.removeTeamMember(req.body.projectId, req.body.email, function (err, result) {
         if (err) res.status(403).send(err);
         else res.status(200).send('Team member removed');
@@ -83,7 +83,7 @@ router.post('/team/remove', middle.team, function(req, res) {
  * POST /update - [admin] Update a project
  * @param req.body.project - project object
  */
-router.post('/update', middle.admin, function(req, res) {
+router.post('/update', perm.team, function(req, res) {
     Project.updateProject(req.body.project, function (err, result) {
         if (err) res.status(403).send(err);
         else res.status(200).send('Project updated');

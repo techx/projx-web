@@ -4,12 +4,12 @@ var Project = require('./models/Project.js');
 
 
 // MIDDLEWARE FUNCTIONS //
-var middle = {};
+var perm = {};
 
 /**
  * proceed if user is logged in, redirect to home otherwise
  */
-middle.auth = function (req, res, next) {
+perm.auth = function (req, res, next) {
     if (req.session.email) {
         next();
     } else {
@@ -21,7 +21,7 @@ middle.auth = function (req, res, next) {
  * proceed if user is logged in and is on given team or an admin, redirect to home otherwise
  * @param req.body.projectId OR req.query.projectId {string} - id of project to be protected
  */
-middle.team = function (req, res, next) {
+perm.team = function (req, res, next) {
     if (req.session.isAdmin) next();
     else {
         var projectId = req.body.projectId || req.query.projectId;
@@ -44,7 +44,7 @@ middle.team = function (req, res, next) {
  * proceed if user is logged in and has given email or an admin, redirect to home otherwise
  * @param req.body.email OR req.query.email OR req.body.user.email {string} - email of user to be protected
  */
-middle.user = function (req, res, next) {
+perm.user = function (req, res, next) {
     if (req.session.isAdmin) next();
     else {
         var email = req.body.email || req.query.email || req.body.user.email;
@@ -64,7 +64,7 @@ middle.user = function (req, res, next) {
 /**
  * proceed if user is logged in and is an admin, redirect to home otherwise
  */
-middle.admin = function (req, res, next) {
+perm.admin = function (req, res, next) {
     if (req.session.isAdmin) {
         next();
     } else {
@@ -74,4 +74,4 @@ middle.admin = function (req, res, next) {
 
 
 // EXPORTS //
-module.exports = middle;
+module.exports = perm;

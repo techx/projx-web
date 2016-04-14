@@ -1,7 +1,7 @@
 // IMPORTS //
 var router = require('express').Router();
 var User = require('../models/User');
-var middle = require('../middle');
+var perm = require('../perm');
 var config = require('../../config');
 var randomstring = require('randomstring');
 var sha256 = require('sha256');
@@ -13,7 +13,7 @@ var sha256 = require('sha256');
  * GET / [user] - Get user object, return if current user matches or is admin
  * @param req.query.email - user email (required)
  */
-router.get('/', middle.user, function(req, res) {
+router.get('/', perm.user, function(req, res) {
     if (!req.query.email) res.status(400).send('Email missing');
     else {
         User.getUser(req.query.email, function (err, user) {
@@ -123,7 +123,7 @@ router.post('/logout', function(req, res) {
  * POST /update - [user] Update a user
  * @param req.body.user - User object
  */
-router.post('/update', middle.user, function(req, res) {
+router.post('/update', perm.user, function(req, res) {
     User.updateUser(req.body.user, function (err, result) {
         if (err) res.status(403).send(err);
         else res.status(200).send('User updated');
