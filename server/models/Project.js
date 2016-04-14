@@ -13,6 +13,7 @@ var projectSchema = mongoose.Schema({
         teamDescription: { type: String }
     },
     infoTeam: {
+        primary: { type: String }, // valid email, should be on team
         program: { type: String },
         status: { type: String },
         budgetAmount: { type: Number },

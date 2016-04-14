@@ -21,7 +21,7 @@
           <a class="ui card" ng-repeat="project in projects" href="/project/{{ project._id }}">
             <div class="content">
               <div class="header">{{ project.name }}</div>
-              <div class="description">{{ project.pitch }}</div>
+              <div class="description">{{ project.infoPublic.pitch || project.pitch }}</div>
             </div>
           </a>
           <a class="ui card" href="/apply">

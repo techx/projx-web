@@ -17,6 +17,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
                 teamDescription: undefined,
             },
             infoTeam: {
+                primary: undefined,
                 program: undefined,
                 status: undefined,
                 budgetAmount: undefined,
@@ -32,8 +33,6 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
         }
     });
 
-
-
     $scope.addMember = function () {
         if ($scope.newMember.endsWith('@mit.edu')) {
             if ($scope.project.team.indexOf($scope.newMember) === -1) {
@@ -48,7 +47,16 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
     }
 
     $scope.submit = function () {
-        sweetAlert('submit time');
+        $http.post('/api/project', {
+            'project': $scope.project
+        }).then(function (response) {
+            console.log(response);
+            $location.path('/home');
+            sweetAlert("Project created", "Project created and saved! Come back to edit anytime before the deadline.", "success");
+        }, function (response) {
+            console.log(response);
+            sweetAlert("Error saving project", "There was an error submitting your project. Please email projx@mit.edu for help.", "error");
+        });
     }
 
 });

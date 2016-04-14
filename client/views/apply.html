@@ -35,7 +35,7 @@
             <div class="ui grouped fields">
               <div class="field" ng-repeat="member in project.team">
                 <div class="ui radio checkbox">
-                  <input type="radio" checked="" tabindex="0">
+                  <input type="radio" name="team" ng-model="project.infoTeam.primary" value="{{ member }}">
                   <label>{{ member }}</label>
                 </div>
               </div>
@@ -90,7 +90,7 @@
         </div>
         <br>
         <br>
-        <button class="ui large button green-button" type="submit" ng-disabled="!agreed" ng-click="submit()">Submit</button>
+        <button class="ui large button green-button" type="submit" ng-disabled="!agreed" ng-click="submit()">submit</button>
       </div>
     </div>
   </div>
