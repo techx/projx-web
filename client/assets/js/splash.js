@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     // jumping to sections
     var $bodytag = $('html, body');
-    var sections = ['explore', 'faq', 'terms'];
+    var sections = ['spotlight', 'faq'];
     sections.forEach(function (section) {
         $('.goto-'+section).click(function (e) {
             $bodytag.animate({
@@ -10,5 +10,5 @@ $(document).ready(function() {
             }, 400);
         });
     });
-    
+
 });
