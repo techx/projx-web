@@ -79,15 +79,15 @@ nav.navbar.navbar-inverse {
   height: 100vh;
   width: 100vw;
   text-align: center;
-  padding-top: 20vh;
+  padding-top: 15vh;
 
   .logo {
     padding: 10px;
-    width: 40%;
+    width: 35%;
   }
 
   .subtitle {
-    padding-top: 10px;
+    padding-top: 5px;
     color: $dark-grey;
     font-size: 2em;
   }
@@ -96,6 +96,7 @@ nav.navbar.navbar-inverse {
     background-color: $projx-green;
     margin: auto;
     margin-top: 5vh;
+    margin-bottom: 3vh;
     width: 50vw;
     padding: 20px;
     font-size: 2em;
@@ -117,7 +118,6 @@ nav.navbar.navbar-inverse {
   }
 
   .application-info {
-    padding-top: 30px;
     font-size: 1.25em;
   }
 }

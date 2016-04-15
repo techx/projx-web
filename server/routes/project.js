@@ -117,11 +117,15 @@ router.post('/update', perm.team, function(req, res) {
 
         // budget checking
         if (req.body.project.infoTeam.budgetAmount) {
+
+            // remove dollar signs and commas
+            req.body.project.infoTeam.budgetAmount = parseFloat(req.body.project.infoTeam.budgetAmount.replace(/\$|,/g, ''));
+
             if (isNaN(req.body.project.infoTeam.budgetAmount)) {
                 res.status(403).send('Budget amount must be a number');
                 return;
             } else if (req.body.project.infoTeam.budgetAmount > 250) {
-                res.status(403).send('Budget amount must at most $250');
+                res.status(403).send('Budget amount must be at most $250');
                 return;
             }
         }
