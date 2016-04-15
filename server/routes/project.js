@@ -31,6 +31,17 @@ router.post('/', perm.auth, function(req, res) {
         project.infoTeam.batch = 'ProjX Summer 16';
         project.infoTeam.status = 'pending';
 
+        // budget checking
+        if (project.infoTeam.budgetAmount) {
+            if (isNaN(project.infoTeam.budgetAmount)) {
+                res.status(403).send('Budget amount must be a number');
+                return;
+            } else if (project.infoTeam.budgetAmount > 250) {
+                res.status(403).send('Budget amount must at most $250');
+                return;
+            }
+        }
+
         Project.createProject(project, function(err, newProject) {
             if (err) res.status(403).send(err);
             else res.status(200).send('Project created');
@@ -103,6 +114,18 @@ router.post('/team/remove', perm.team, function(req, res) {
 router.post('/update', perm.team, function(req, res) {
     if (!req.body.project.name) res.status(400).send('Project name missing')
     else {
+
+        // budget checking
+        if (req.body.project.infoTeam.budgetAmount) {
+            if (isNaN(req.body.project.infoTeam.budgetAmount)) {
+                res.status(403).send('Budget amount must be a number');
+                return;
+            } else if (req.body.project.infoTeam.budgetAmount > 250) {
+                res.status(403).send('Budget amount must at most $250');
+                return;
+            }
+        }
+
         Project.updateProject(req.body.project, function (err, result) {
             if (err) res.status(403).send(err);
             else res.status(200).send('Project updated');

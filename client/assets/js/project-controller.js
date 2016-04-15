@@ -5,24 +5,6 @@ angular.module('portal').controller('projectController', function ($scope, $http
     $scope.editStatus = false;
     $scope.projectDisplay = {};
 
-    var populateDisplay = function () {
-        // specify which fields to display (maps field name to key in project object)
-        $scope.projectDisplay = {
-            'name': $scope.project.name,
-            'team': $scope.project.display.team,
-            'team lead': $scope.project.infoTeam.primary,
-            'team description': $scope.project.infoPublic.teamDescription,
-            'pitch': $scope.project.infoPublic.pitch,
-            'project description': $scope.project.infoPublic.projectDescription,
-            'budget requested': $scope.project.display.budgetAmount,
-            'budget breakdown': $scope.project.infoTeam.budgetBreakdown,
-            'other funding': $scope.project.infoTeam.otherFunding,
-            'timeline': $scope.project.infoTeam.timeline,
-            'batch': $scope.project.infoTeam.batch,
-            'status': $scope.project.infoTeam.status
-        };
-    }
-
     $scope.addMember = function () {
         if ($scope.newMember.endsWith('@mit.edu')) {
             if ($scope.project.team.indexOf($scope.newMember) === -1) {
@@ -55,6 +37,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             addEmptyFields($scope.project);
             addDisplayFields($scope.project);
             populateDisplay();
+            checkCompletion();
         }, function (response) {
             $location.path('/home');
         });
@@ -102,6 +85,43 @@ angular.module('portal').controller('projectController', function ($scope, $http
         return project;
     }
 
+    var populateDisplay = function () {
+        // specify which fields to display (maps field name to key in project object)
+        $scope.projectDisplay = {
+            'name': $scope.project.name,
+            'team': $scope.project.display.team,
+            'team lead': $scope.project.infoTeam.primary,
+            'team description': $scope.project.infoPublic.teamDescription,
+            'pitch': $scope.project.infoPublic.pitch,
+            'project description': $scope.project.infoPublic.projectDescription,
+            'budget requested': $scope.project.display.budgetAmount,
+            'budget breakdown': $scope.project.infoTeam.budgetBreakdown,
+            'other funding': $scope.project.infoTeam.otherFunding,
+            'timeline': $scope.project.infoTeam.timeline,
+            'batch': $scope.project.infoTeam.batch,
+            'status': $scope.project.infoTeam.status,
+            'complete': false
+        };
+    }
+
+    var checkCompletion = function () {
+        if ($scope.project.name &&
+            $scope.project.team &&
+            $scope.project.infoTeam.primary &&
+            $scope.project.infoPublic.teamDescription &&
+            $scope.project.infoPublic.pitch &&
+            $scope.project.infoPublic.projectDescription &&
+            $scope.project.infoTeam.budgetAmount &&
+            $scope.project.infoTeam.budgetBreakdown &&
+            $scope.project.infoTeam.otherFunding &&
+            $scope.project.infoTeam.timeline) {
+            $scope.projectDisplay.complete = true;
+        } else {
+            $scope.projectDisplay.complete = false;
+        }
+    }
+
+
     // edit project
     $scope.editProject = function () {
         if ($scope.editStatus === true) {
@@ -128,7 +148,6 @@ angular.module('portal').controller('projectController', function ($scope, $http
             callback();
         }, function (result) {
             sweetAlert("Oops... save failed", result.data, "error");
-            callback();
         });
     }
 

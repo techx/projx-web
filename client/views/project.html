@@ -8,7 +8,8 @@
 
       <div id="content" class="ui segment">
         <div class="ui tag projx label" ng-show="projectDisplay.batch==='ProjX Summer 16'">ProjX Summer '16</div>
-        <div class="ui tag yellow label" ng-show="projectDisplay.status==='pending'">Application pending</div>
+        <div class="ui tag yellow label" ng-show="projectDisplay.complete===true">Application complete / pending review</div>
+        <div class="ui tag red label" ng-show="projectDisplay.complete===false">Application incomplete</div>
 
         <h2>
           <span ng-hide="editStatus">summary</span>
@@ -75,7 +76,7 @@
           <div class="ui segment form">
             <div class="ui field">
               <label>budget amount</label>
-              <input type="text" ng-model="project.infoTeam.budgetAmount" placeholder="funding amount you are requesting, at most $250">
+              <input name="number" type="text" ng-model="project.infoTeam.budgetAmount" placeholder="funding amount you are requesting, at most $250">
             </div>
             <div class="ui field">
               <label>budget breakdown</label>
