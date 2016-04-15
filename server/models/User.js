@@ -59,7 +59,7 @@ userSchema.statics.updateUser = function (user, callback) {
         if (err) callback(err);
         else {
             for (field in User.schema.paths) {
-                oldUser[field] = user[field];
+                oldUser[field.split(".")[0]] = user[field.split(".")[0]];
             };
             oldUser.save(function (err) {
                 if (err) callback('Error saving project: ' + err);

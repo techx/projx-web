@@ -135,7 +135,7 @@ projectSchema.statics.updateProject = function (project, callback) {
         if (err) callback(err);
         else {
             for (field in Project.schema.paths) {
-                oldProject[field] = project[field];
+                oldProject[field.split(".")[0]] = project[field.split(".")[0]];
             };
             oldProject.save(function (err) {
                 if (err) callback('Error saving project: ' + err);
