@@ -119,7 +119,7 @@ router.post('/update', perm.team, function(req, res) {
         if (req.body.project.infoTeam.budgetAmount) {
 
             // remove dollar signs and commas
-            req.body.project.infoTeam.budgetAmount = parseFloat(req.body.project.infoTeam.budgetAmount.replace(/\$|,/g, ''));
+            req.body.project.infoTeam.budgetAmount = req.body.project.infoTeam.budgetAmount.toString().replace(/\$|,/g, '');
 
             if (isNaN(req.body.project.infoTeam.budgetAmount)) {
                 res.status(403).send('Budget amount must be a number');
