@@ -40,7 +40,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
         if (member === $scope.user.email) {
             sweetAlert("Oops", "You can't remove yourself from the team!", "error");
         } else {
-            $scope.project.team.pop($scope.project.team.indexOf($scope.newMember));
+            $scope.project.team.splice($scope.project.team.indexOf(member), 1);
         }
     }
 
