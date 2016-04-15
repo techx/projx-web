@@ -23,6 +23,27 @@ angular.module('portal').controller('projectController', function ($scope, $http
         };
     }
 
+    $scope.addMember = function () {
+        if ($scope.newMember.endsWith('@mit.edu')) {
+            if ($scope.project.team.indexOf($scope.newMember) === -1) {
+                $scope.project.team.push($scope.newMember);
+            } else {
+                sweetAlert("Already added", "Team member is already on the team.", "warning");
+            }
+            $scope.newMember = '';
+        } else {
+            sweetAlert("Invalid email", "Please enter a valid email that ends with @mit.edu.", "error");
+        }
+    }
+
+    $scope.removeMember = function (member) {
+        if (member === $scope.user.email) {
+            sweetAlert("Oops", "You can't remove yourself from the team!", "error");
+        } else {
+            $scope.project.team.pop($scope.project.team.indexOf($scope.newMember));
+        }
+    }
+
     // get project info
     var getProjectInfo = function () {
         $http.get('/api/project?projectId=' + $routeParams.projectId).then(function (response) {
@@ -52,7 +73,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
         if (!project.infoAdmin) {
             project.infoAdmin = {};
         }
-        
+
         return project;
     }
 

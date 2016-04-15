@@ -96,6 +96,10 @@ label {
   color: white;
 }
 
+.remove-member {
+  cursor: pointer;
+}
+
 // IMPORTS //
 @import 'login';
 @import 'header';

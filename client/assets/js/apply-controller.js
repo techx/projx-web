@@ -9,7 +9,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
         $scope.user = response.data;
 
         $scope.project = {
-            name: "Awesome Project",
+            name: "catcy project name",
             team: [$scope.user.email],
             infoPublic: {
                 pitch: undefined,
@@ -43,6 +43,14 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
             $scope.newMember = '';
         } else {
             sweetAlert("Invalid email", "Please enter a valid email that ends with @mit.edu.", "error");
+        }
+    }
+
+    $scope.removeMember = function (member) {
+        if (member === $scope.user.email) {
+            sweetAlert("Oops", "You can't remove yourself from the team!", "error");
+        } else {
+            $scope.project.team.pop($scope.project.team.indexOf($scope.newMember));
         }
     }
 

@@ -42,7 +42,7 @@
                 <div class="field" ng-repeat="member in project.team">
                   <div class="ui radio checkbox">
                     <input type="radio" name="team" ng-model="project.infoTeam.primary" value="{{ member }}">
-                    <label>{{ member }}</label>
+                    <label>{{ member }} <i class="ui red close icon remove-member" ng-click="removeMember(member)" ng-hide="member===user.email || member===project.infoTeam.primary"></i></label>
                   </div>
                 </div>
               </div>
