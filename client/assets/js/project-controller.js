@@ -10,7 +10,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
         $scope.projectDisplay = {
             'name': $scope.project.name,
             'team': $scope.project.display.team,
-            'primary lead': $scope.project.infoTeam.primary,
+            'team lead': $scope.project.infoTeam.primary,
             'team description': $scope.project.infoPublic.teamDescription,
             'pitch': $scope.project.infoPublic.pitch,
             'project description': $scope.project.infoPublic.projectDescription,
@@ -127,7 +127,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             });
             callback();
         }, function (result) {
-            sweetAlert("Oops...", "Something went wrong with saving!", "error");
+            sweetAlert("Oops... save failed", result.data, "error");
             callback();
         });
     }

@@ -12,7 +12,7 @@ var perm = require('../perm');
  * @param req.body.project {object} - new project object (name field required)
  */
 router.post('/', perm.auth, function(req, res) {
-    if (!req.body.project.name) res.status(400).send('Name missing')
+    if (!req.body.project.name) res.status(400).send('Project name missing')
     else {
         var project = req.body.project;
 
@@ -101,10 +101,13 @@ router.post('/team/remove', perm.team, function(req, res) {
  * @param req.body.project - project object
  */
 router.post('/update', perm.team, function(req, res) {
-    Project.updateProject(req.body.project, function (err, result) {
-        if (err) res.status(403).send(err);
-        else res.status(200).send('Project updated');
-    });
+    if (!req.body.project.name) res.status(400).send('Project name missing')
+    else {
+        Project.updateProject(req.body.project, function (err, result) {
+            if (err) res.status(403).send(err);
+            else res.status(200).send('Project updated');
+        });
+    }
 });
 
 

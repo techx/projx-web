@@ -9,7 +9,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
         $scope.user = response.data;
 
         $scope.project = {
-            name: "catcy project name",
+            name: undefined,
             team: [$scope.user.email],
             infoPublic: {
                 pitch: undefined,
@@ -17,7 +17,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
                 teamDescription: undefined,
             },
             infoTeam: {
-                primary: undefined,
+                primary: $scope.user.email,
                 program: undefined,
                 status: undefined,
                 budgetAmount: undefined,
@@ -34,9 +34,9 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
     });
 
     $scope.addMember = function () {
-        if ($scope.newMember.endsWith('@mit.edu')) {
-            if ($scope.project.team.indexOf($scope.newMember) === -1) {
-                $scope.project.team.push($scope.newMember);
+        if ($scope.newMember.toLowerCase().endsWith('@mit.edu')) {
+            if ($scope.project.team.indexOf($scope.newMember.toLowerCase()) === -1) {
+                $scope.project.team.push($scope.newMember.toLowerCase());
             } else {
                 sweetAlert("Already added", "Team member is already on the team.", "warning");
             }
@@ -50,7 +50,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
         if (member === $scope.user.email) {
             sweetAlert("Oops", "You can't remove yourself from the team!", "error");
         } else {
-            $scope.project.team.pop($scope.project.team.indexOf($scope.newMember));
+            $scope.project.team.splice($scope.project.team.indexOf(member), 1);
         }
     }
 
@@ -58,12 +58,11 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
         $http.post('/api/project', {
             'project': $scope.project
         }).then(function (response) {
-            console.log(response);
             $location.path('/home');
             sweetAlert("Project created", "Project created and saved! Come back to edit anytime before the deadline.", "success");
         }, function (response) {
             console.log(response);
-            sweetAlert("Error saving project", "There was an error submitting your project. Please email projx@mit.edu for help.", "error");
+            sweetAlert("Error saving project", response.data, "error");
         });
     }
 

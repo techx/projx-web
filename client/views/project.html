@@ -13,7 +13,7 @@
         <h2>
           <span ng-hide="editStatus">summary</span>
           <span ng-show="editStatus">info</span>
-          <div class="ui tiny button" ng-click="editProject()" ng-if="(user.isAdmin)">
+          <div class="ui tiny button" ng-click="editProject()">
             <div ng-hide="editStatus"><i class="ui write icon"></i>edit</div>
             <div ng-show="editStatus"><i class="ui checkmark icon"></i>save</div>
           </div>
@@ -31,18 +31,21 @@
 
         <div class="project-form" ng-show="editStatus">
           <div class="ui segment form">
-            <div class="ui field">
+            <div class="ui required field">
               <label>project name</label>
-              <input type="text" ng-model="project.name">
+              <input type="text" placeholder="catchy project name" ng-model="project.name">
             </div>
             <div class="ui field">
               <label>team</label>
-              <i>add members and select primary lead</i>
               <div class="ui grouped fields">
                 <div class="field" ng-repeat="member in project.team">
                   <div class="ui radio checkbox">
                     <input type="radio" name="team" ng-model="project.infoTeam.primary" value="{{ member }}">
-                    <label>{{ member }} <i class="ui red close icon remove-member" ng-click="removeMember(member)" ng-hide="member===user.email || member===project.infoTeam.primary"></i></label>
+                    <label>
+                      {{ member }}
+                      <i class="ui red close icon remove-member" ng-click="removeMember(member)" ng-hide="member===user.email || member===project.infoTeam.primary"></i>
+                      <span ng-show="member===project.infoTeam.primary"><i>(team lead)</i></span>
+                    </label>
                   </div>
                 </div>
               </div>
