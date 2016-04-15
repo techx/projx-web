@@ -24,7 +24,7 @@ perm.auth = function (req, res, next) {
 perm.team = function (req, res, next) {
     if (req.session.isAdmin) next();
     else {
-        var projectId = req.body.projectId || req.query.projectId;
+        var projectId = req.body.projectId || req.query.projectId || req.body.project._id || req.query.project._id;
         if (projectId && req.session.email) {
             Project.getProject(projectId, function (err, project) {
                 if (err) res.redirect('/');
