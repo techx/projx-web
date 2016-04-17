@@ -115,9 +115,9 @@ angular.module('portal').controller('projectController', function ($scope, $http
             $scope.project.infoTeam.budgetBreakdown &&
             $scope.project.infoTeam.otherFunding &&
             $scope.project.infoTeam.timeline) {
-            $scope.projectDisplay.complete = true;
+            $scope.projectDisplay.complete = "yes";
         } else {
-            $scope.projectDisplay.complete = false;
+            $scope.projectDisplay.complete = "no";
         }
     }
 

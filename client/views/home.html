@@ -22,7 +22,14 @@
         <div id="project-cards" class="ui cards">
           <a class="ui card" ng-repeat="project in projects" href="/project/{{ project._id }}">
             <div class="content">
-              <div class="header">{{ project.name }}</div>
+              <div class="header">
+                {{ project.name }}
+                <div class="ui right floated">
+                  <div class="ui tag projx label" ng-show="project.infoTeam.batch==='ProjX Summer 16'">ProjX Summer '16</div>
+                  <div class="ui tag yellow label" ng-show="project.display.complete==='yes'">Application complete / pending review</div>
+                  <div class="ui tag red label" ng-show="project.display.complete==='no'">Application incomplete</div>
+                </div>
+              </div>
               <div class="description">{{ project.infoPublic.pitch || project.pitch }}</div>
             </div>
           </a>
