@@ -24,8 +24,11 @@
               <!-- ng-switch for linking columns -->
               <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-switch on="field">
                 <a ng-switch-when="name" href="/project/{{ project._id }}">{{ project[key] }}</a>
-                <a ng-switch-when="point" href="/profile/{{ project.point }}">{{ project[key] }}</a>
-                <a ng-switch-when="primary" href="/profile/{{ project.primary }}">{{ project[key] }}</a>
+                <a ng-switch-when="point" href="/profile/{{ project.infoTeam.point }}">{{ project[key] }}</a>
+                <a ng-switch-when="primary" href="/profile/{{ project.infoTeam.primary }}">{{ project[key] }}</a>
+                <div ng-switch-when="team">
+                  <span ng-repeat="member in project.team"><a href="/profile/{{ member }}">{{member.slice(0, -8)}}</a><span ng-hide="$last">, </span></span>
+                </div>
                 <div ng-switch-default>{{ project[key] }}</div>
               </td>
             </tr>
