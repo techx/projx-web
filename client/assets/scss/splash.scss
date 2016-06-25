@@ -79,7 +79,7 @@ nav.navbar.navbar-inverse {
   height: 100vh;
   width: 100vw;
   text-align: center;
-  padding-top: 15vh;
+  padding-top: 30vh;
 
   .logo {
     padding: 10px;
@@ -90,6 +90,11 @@ nav.navbar.navbar-inverse {
     padding-top: 5px;
     color: $dark-grey;
     font-size: 2em;
+  }
+
+  .chevron {
+    padding-top: 10vh;
+    font-size: 30px;
   }
 
   .application-button {
