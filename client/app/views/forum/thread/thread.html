@@ -1,9 +1,16 @@
 <div class="px-head">
   {{thread.title}}
 </div>
+
 <div class="ui segment" ng-repeat="post in posts">
   {{post.content}}
   <div class="post-meta">
     {{post.author}} | {{post.date}}
   </div>
+</div>
+
+<div class="new-post-container">
+  <a class="ui card new-post">
+    <div class="content"><i class="icon plus"></i> New Post</div>
+  </a>
 </div>

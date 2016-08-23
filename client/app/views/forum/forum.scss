@@ -1,8 +1,23 @@
 .forum-container {
-  display: flex;
-  flex-wrap: wrap;
+  .new-thread-container {
+    padding: $px-grid / 2;
+    display: flex;
 
-  thread-card {
-    width: 50%;
+    .new-thread {
+      flex-grow: 1;
+      text-align: center;
+      color: $px-green;
+
+      @include font-button();
+    }
+  }
+
+  .threads-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    thread-card {
+      width: 50%;
+    }
   }
 }

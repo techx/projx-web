@@ -1,3 +1,15 @@
 .post-meta {
   text-align: right;
 }
+
+.new-post-container {
+  display: flex;
+
+  .new-post {
+    flex-grow: 1;
+    text-align: center;
+    color: $px-green;
+
+    @include font-button();
+  }
+}
