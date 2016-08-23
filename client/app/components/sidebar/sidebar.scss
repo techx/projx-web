@@ -1,0 +1,23 @@
+sidebar {
+  background-color: $px-green;
+  box-shadow: $px-shadow 0 $px-shadow $px-grey;
+  color: $px-white;
+  height: 100vh;
+  position: fixed;
+  width: $px-sidebar-size * $px-grid;
+
+  .item {
+    @include font-subhead();
+
+    border-bottom: $px-white $px-shadow solid;
+    padding: $px-grid 0px;
+    text-align: center;
+
+    &:hover {
+      background-color: $px-white;
+      color: $px-green;
+      cursor: pointer;
+      transition-duration: $px-transition-duration;
+    }
+  }
+}

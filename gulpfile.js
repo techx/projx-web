@@ -1,13 +1,11 @@
 // PACKAGES //
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 var exec = require('child_process').exec;
 
-
-
 // MONGO //
-
 // only kill mongo if it was used
 var usedMongo = false;
 
@@ -27,10 +25,7 @@ var startMongo = function () {
     exec('mongod');
 }
 
-
-
 // APP SCRIPTS //
-
 // start the database
 gulp.task('startdb', function () {
     startMongo();
@@ -41,10 +36,7 @@ gulp.task('runserver', ['startdb'], function () {
     nodemon({script: 'bin/www'});
 });
 
-
-
 // UPDATING //
-
 // install npm dependencies
 gulp.task('install', function () {
     exec('npm install');
@@ -85,22 +77,28 @@ gulp.task('update', ['install', 'copylib']);
 // DEV ENVIRONMENT //
 
 // compile sass files into compressed css file
-gulp.task('sass', function () {
-    gulp.src('client/assets/scss/**/*.scss')
+gulp.task('minjs', function () {
+    gulp.src('client/app/**/*.js')
+    .pipe(concat('projx.min.js'))
+    .pipe(gulp.dest('client/assets/js/'));
+});
+
+gulp.task('mincss', function () {
+    gulp.src('client/app/**/*.scss')
+        .pipe(concat('projx.min.css'))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(gulp.dest('client/assets/css'));
+        .pipe(gulp.dest('client/assets/css/'));
 });
 
 // watch for file changes while developing
 gulp.task('watch', function () {
-    gulp.watch('client/assets/scss/**/*.scss', ['sass']);
+    gulp.watch('client/app/**/*.js', ['minjs']);
+    gulp.watch('client/app/**/*.scss', ['mincss']);
 });
 
 // start watching for file changes and run server
-gulp.task('dev', ['watch', 'runserver']);
-
-
+gulp.task('dev', ['minjs', 'mincss', 'watch', 'runserver']);
 
 // DEFAULT //
-
+// set default to dev
 gulp.task('default', ['dev']);

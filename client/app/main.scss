@@ -1,0 +1,52 @@
+// CONSTANTS //
+$px-white: rgba(255, 255, 255, 1.0);
+$px-grey: rgba(120, 120, 120, 1.0);
+$px-green: rgba(110, 190, 69, 1.0);
+$px-green-light: rgba(110, 190, 69, 0.1);
+$px-grid: 10px;
+$px-shadow: 2px;
+$px-sidebar-size: 13;
+$px-transition-duration: 0.2s;
+
+// FONTS //
+@font-face {
+  font-family: "Biko";
+  src: url("../font/Biko-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../font/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url("../font/Icons.ttf") format('truetype');
+}
+
+// MIXINS //
+@mixin font-subhead() {
+  font-family: "Biko" !important;
+  font-size: 1.2em;
+}
+
+// GLOBAL //
+body {
+  font-family: "Open Sans" !important;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background-color: $px-green-light;
+}
+
+i.icon {
+  font-family: 'Icons' !important;
+}
+
+.view {
+  height: 100vh;
+  margin-left: $px-sidebar-size * $px-grid + 2 * $px-shadow;
+  padding: 2 * $px-grid;
+}

@@ -24,3 +24,6 @@ node bin/www
 ```
 
 Must include `server/config.js` and `auth-server/config.php` (not included in repo) to work.
+
+## specs
+- splash page has full-page logo

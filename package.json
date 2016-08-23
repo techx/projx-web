@@ -14,8 +14,8 @@
   "author": "ProjX DevOps",
   "license": "MIT",
   "dependencies": {
-    "angular": "^1.4.8",
-    "angular-route": "^1.4.8",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
     "body-parser": "^1.14.2",
     "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.3",
@@ -31,8 +31,9 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
     "gulp-nodemon": "^2.0.6",
     "gulp-sass": "^2.1.1",
-    "scp": "0.0.3"
+    "gulp-uglifyjs": "^0.6.2"
   }
 }

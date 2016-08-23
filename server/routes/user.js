@@ -53,8 +53,6 @@ router.post('/assignkey', function(req, res) {
  * @param req.query.name - user's name
  */
 router.get('/login', function(req, res) {
-    console.log(req.session);
-
     if (req.session.email) {
         // user already logged in
         res.redirect('/portal');
