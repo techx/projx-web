@@ -7,7 +7,7 @@ sidebar {
   width: $px-sidebar-size * $px-grid;
 
   .item {
-    @include font-subhead();
+    @include font-button();
 
     border-bottom: $px-white $px-shadow solid;
     padding: $px-grid 0px;

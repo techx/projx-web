@@ -29,6 +29,9 @@ angular.module('projx', ['ngRoute'])
     templateUrl: '/app/components/sidebar/sidebar.html',
     controller: 'sidebarController'
 })
+.component('footer', {
+    templateUrl: '/app/components/footer/footer.html'
+})
 .component('threadCard', {
     templateUrl: '/app/components/thread-card/thread-card.html',
     controller: 'threadCardController'

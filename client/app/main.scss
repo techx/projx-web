@@ -25,7 +25,18 @@ $px-transition-duration: 0.2s;
 }
 
 // MIXINS //
+@mixin font-head() {
+  font-family: "Biko" !important;
+  font-size: 2em;
+  font-weight: bold;
+}
+
 @mixin font-subhead() {
+  font-family: "Biko" !important;
+  font-size: 1.5em;
+}
+
+@mixin font-button() {
   font-family: "Biko" !important;
   font-size: 1.2em;
 }
@@ -58,4 +69,16 @@ i.icon {
 
 .ui.segment {
   padding: $px-grid;
+}
+
+.px-head {
+  text-align: center;
+  padding: 2 * $px-grid;
+  @include font-head();
+}
+
+.px-subhead {
+  text-align: center;
+  padding: 2 * $px-grid;
+  @include font-subhead();
 }
