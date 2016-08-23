@@ -1,58 +1,3 @@
-angular.module('projx', ['ngRoute'])
-.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    // routing definitions
-    $routeProvider
-        .when('/home', {
-            templateUrl: '/app/views/home/home.html',
-            controller: 'homeController'
-        })
-        .when('/forum', {
-            templateUrl: '/app/views/forum/forum.html',
-            controller: 'forumController'
-        })
-        .otherwise({
-            redirectTo: '/home'
-        });
-
-        // remove # from URL
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
-    }
-])
-.component('sidebar', {
-    templateUrl: '/app/components/sidebar/sidebar.html',
-    controller: 'sidebarController'
-})
-.component('threadCard', {
-    templateUrl: '/app/components/thread-card/thread-card.html',
-    controller: 'threadCardController'
-});
-
-angular.module('projx').factory('user', function($http) {
-    var userService = {};
-    var currentUser;
-
-    userService.get = function (cb) {
-        if (currentUser) cb(currentUser);
-        else {
-            $http.get('/api/user/current').then(function (response) {
-                currentUser = response.data;
-                cb(currentUser);
-            });
-        }
-    }
-
-    return userService;
-});
-
-angular.module('projx').controller('sidebarController', function ($scope, $location, user) {
-    $scope.go = function (path) {
-        $location.path(path);
-    }
-});
-
 angular.module('projx').controller('threadCardController', function ($scope) {
     // TODO: Needs as input the thread ID, and perhaps the truncate cutoffs.
 
@@ -99,7 +44,3 @@ angular.module('projx').controller('threadCardController', function ($scope) {
 
     $scope.thread = fakeThreads[0];
 });
-
-angular.module('projx').controller('forumController', function ($scope) {});
-
-angular.module('projx').controller('homeController', function () {});

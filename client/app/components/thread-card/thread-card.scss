@@ -1,0 +1,10 @@
+thread-card {
+  .card-container {
+    margin: 0;
+    padding: $px-grid/2;
+
+    .card {
+      width: 100%;
+    }
+  }  
+}

@@ -1,0 +1,15 @@
+<div class="card-container">
+  <a class="ui card" href="/forum/thread/{{thread.id}}">
+    <div class="content">
+      <div class="header">
+        {{truncate(thread.title, 55)}}
+      </div>
+      <div class="description">
+        {{truncate(thread.content, 200)}}
+        <div class="ui right floated meta">
+          {{thread.author}} | {{thread.date}}
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

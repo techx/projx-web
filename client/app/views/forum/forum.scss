@@ -2,13 +2,7 @@
   display: flex;
   flex-wrap: wrap;
 
-  .card-container {
-    margin: 0;
+  thread-card {
     width: 50%;
-    padding: $px-grid/2;
-
-    .card {
-      width: 100%;
-    }
   }
 }
