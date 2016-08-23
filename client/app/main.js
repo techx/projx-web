@@ -6,6 +6,10 @@ angular.module('projx', ['ngRoute'])
             templateUrl: '/app/views/home/home.html',
             controller: 'homeController'
         })
+        .when('/forum', {
+            templateUrl: '/app/views/forum/forum.html',
+            controller: 'forumController'
+        })
         .otherwise({
             redirectTo: '/home'
         });
