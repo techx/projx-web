@@ -50,3 +50,9 @@ i.icon {
   margin-left: $px-sidebar-size * $px-grid + 2 * $px-shadow;
   padding: 2 * $px-grid;
 }
+
+.ui.card {
+  .content {
+    padding: $px-grid;
+  }
+}
