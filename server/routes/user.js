@@ -1,7 +1,7 @@
 // IMPORTS //
 var router = require('express').Router();
 var User = require('../models/User');
-var perm = require('../perm');
+var perm = require('../helpers/perm');
 var config = require('../../config');
 var randomstring = require('randomstring');
 var sha256 = require('sha256');
@@ -10,7 +10,7 @@ var sha256 = require('sha256');
 // ROUTES //
 
 /**
- * GET / [user] - Get user object, return if current user matches or is admin
+ * GET / [user] - Get user object by email
  * @param req.query.email - user email (required)
  */
 router.get('/', perm.auth, function(req, res) {
@@ -27,7 +27,7 @@ router.get('/', perm.auth, function(req, res) {
  * GET /current - Get current user object
  */
 router.get('/current', function(req, res) {
-    if (!req.session.email) res.status(404).send('No user logged in');
+    if (!req.session.email) res.send(null);
     else {
         User.getUser(req.session.email, function (err, user) {
             if (err) res.status(403).send(err);

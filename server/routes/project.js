@@ -2,7 +2,7 @@
 var router = require('express').Router();
 var Project = require('../models/Project');
 var User = require('../models/User');
-var perm = require('../perm');
+var perm = require('../helpers/perm');
 
 
 // ROUTES //

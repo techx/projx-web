@@ -1,6 +1,7 @@
 // PACKAGES //
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var toc = require('gulp-doctoc');
 var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 var exec = require('child_process').exec;
@@ -77,27 +78,34 @@ gulp.task('update', ['install', 'copylib']);
 // DEV ENVIRONMENT //
 
 // compile sass files into compressed css file
-gulp.task('minjs', function () {
+gulp.task('js', function () {
     gulp.src('client/app/**/*.js')
     .pipe(concat('projx.min.js'))
     .pipe(gulp.dest('client/assets/js/'));
 });
 
-gulp.task('mincss', function () {
+gulp.task('css', function () {
     gulp.src('client/app/**/*.scss')
         .pipe(concat('projx.min.css'))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(gulp.dest('client/assets/css/'));
 });
 
+gulp.task('md', function () {
+    gulp.src('README.md')
+        .pipe(toc())
+        .pipe(gulp.dest('./'));
+})
+
 // watch for file changes while developing
 gulp.task('watch', function () {
-    gulp.watch('client/app/**/*.js', ['minjs']);
-    gulp.watch('client/app/**/*.scss', ['mincss']);
+    gulp.watch('client/app/**/*.js', ['js']);
+    gulp.watch('client/app/**/*.scss', ['css']);
+    gulp.watch('README.md', ['md']);
 });
 
 // start watching for file changes and run server
-gulp.task('dev', ['minjs', 'mincss', 'watch', 'runserver']);
+gulp.task('dev', ['js', 'css', 'md', 'watch', 'runserver']);
 
 // DEFAULT //
 // set default to dev
