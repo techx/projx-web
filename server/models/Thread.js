@@ -1,9 +1,14 @@
-// IMPORTS //
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
-
-// SCHEMA //
 var threadSchema = mongoose.Schema({
     title: { type: String, required: true },
-    posts: [{ type: String }]
+    posts: [{ type: ObjectId, ref: 'Post'}]
 });
+
+threadSchema.statics.validate = function (thread, cb) {
+    // TODO: check that each post in posts exists
+    cb(true);
+}
+
+module.exports = mongoose.model('Thread', threadSchema);

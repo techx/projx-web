@@ -1,6 +1,6 @@
 // IMPORTS //
-var User = require('./models/User.js');
-var Project = require('./models/Project.js');
+var User = require('../models/User.js');
+var Project = require('../models/Project.js');
 
 
 // MIDDLEWARE FUNCTIONS //
