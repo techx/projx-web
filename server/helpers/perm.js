@@ -1,77 +1,71 @@
-// IMPORTS //
-var User = require('../models/User.js');
 var Project = require('../models/Project.js');
-
-
-// MIDDLEWARE FUNCTIONS //
 var perm = {};
 
 /**
- * proceed if user is logged in, redirect to home otherwise
+ * Proceed with no conditions.
+ */
+perm.none = function (req, res, next) {
+    next();
+}
+
+/**
+ * Proceed if user is logged in, redirect to home otherwise.
  */
 perm.auth = function (req, res, next) {
-    if (req.session.email) {
-        next();
-    } else {
-        res.status(401).send('Must be logged in for access');
-    }
+    if (req.session.user === undefined) res.status(401).send('Must be logged in');
+    else next();
 }
 
 /**
- * proceed if user is logged in and is on given team or an admin, redirect to home otherwise
- * @param req.body.projectId OR req.query.projectId {string} - id of project to be protected
+ * Proceed if user is logged in and is on given team or an admin.
+ * @param {string} req.body.projectId OR req.query.projectId OR req.body.project._id OR req.query.project._id - id of project to be protected
  */
 perm.team = function (req, res, next) {
-    if (req.session.isAdmin) next();
+    if (req.session.user === undefined) res.status(401).send('Must be logged in');
+    else if (req.session.isAdmin) next();
     else {
         var projectId = req.body.projectId || req.query.projectId || req.body.project._id || req.query.project._id;
-        if (projectId && req.session.email) {
-            Project.getProject(projectId, function (err, project) {
-                if (err) res.redirect('/');
-                else if (project.team.indexOf(req.session.email) !== -1) {
+
+        Project.findOne({_id: projectId}, function (err, project) {
+            if (err) res.status(500).send(err);
+            else {
+                if (project.team.indexOf(req.session.email) !== -1) {
                     next();
                 } else {
-                    res.status(401).send('Must be on requested team for access');
+                    res.status(401).send('Must be on requested team');
                 }
-            })
-        } else {
-            res.status(401).send('Must be on requested team for access');
-        }
+            }
+        })
     }
 }
 
 /**
- * proceed if user is logged in and has given email or an admin, redirect to home otherwise
- * @param req.body.email OR req.query.email OR req.body.user.email {string} - email of user to be protected
+ * Proceed if user is logged in and has given email or an admin.
+ * @param {string} req.body.email OR req.query.email OR req.body.user.email OR req.query.user.email - email of user to be protected
  */
 perm.user = function (req, res, next) {
-    if (req.session.isAdmin) next();
+    if (req.session.user === undefined) res.status(401).send('Must be logged in');
+    else if (req.session.user.isAdmin) next();
     else {
-        var email = req.body.email || req.query.email || req.body.user.email;
-
-        if (email && req.session.email) {
-            if (email.toLowerCase() === req.session.email) {
-                next();
-            } else {
-                res.status(401).send('Must be requested user for access');
-            }
+        var email = req.body.email || req.query.email || req.body.user.email || req.query.user.email;
+        if (email.toLowerCase() === req.session.user.email) {
+            next();
         } else {
-            res.status(401).send('Must be requested user for access');
+            res.status(401).send('Logged in user must match user in request');
         }
     }
 }
 
 /**
- * proceed if user is logged in and is an admin, redirect to home otherwise
+ * Proceed if user is logged in and is an admin.
  */
 perm.admin = function (req, res, next) {
-    if (req.session.isAdmin) {
+    if (req.session.user === undefined) res.status(401).send('Must be logged in');
+    else if (req.session.user.isAdmin) {
         next();
     } else {
-        res.status(401).send('Must be admin for access');
+        res.status(401).send('Must be admin');
     }
 }
 
-
-// EXPORTS //
 module.exports = perm;
