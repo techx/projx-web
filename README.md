@@ -68,7 +68,7 @@ All client code is imported into `index.html`, which should be served by the bac
 
 ### Session and Authentication
 
-The identity of a logged in user is maintained as a session (accessible at `req.session` on the server and handled behind the scenes via cookies).
+The identity of a logged in user is maintained as a session (accessible at `req.session` on the server and handled behind the scenes via cookies). Specifically, `req.session.user` has `email` and `isAdmin` properties (other properties should be retrieved from the database for the most up to date values). 
 
 Initial authentication of MIT certificates is processed on an MIT server, the protocol for which is detailed [here](https://github.com/vfazel/mit-cert-auth).
 
