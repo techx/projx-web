@@ -18,9 +18,9 @@ router.get('/', perm.auth, function(req, res) {
 });
 
 /**
- * GET /current [auth] Get current user object.
+ * GET /current [none] Get current user object.
  */
-router.get('/current', perm.auth, function(req, res) {
+router.get('/current', function(req, res) {
     if (req.session.user === undefined) res.send(null);
     else {
         User.findOne({email: req.session.user.email}, function (err, user) {
@@ -65,8 +65,10 @@ router.get('/login', perm.none, function(req, res) {
             if (err) error.internal(err, res);
             else if (user) {
                 req.session.key = null;
-                req.session.user.email = user.email;
-                req.session.user.isAdmin = user.isAdmin;
+                req.session.user = {
+                    'email': user.email,
+                    'isAdmin': user.isAdmin
+                }
                 res.redirect('/');
             } else {
                 var newUser = new User({

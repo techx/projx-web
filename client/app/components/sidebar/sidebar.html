@@ -1,2 +1,4 @@
 <div class="item" ng-click="go('/home')">home</div>
-<div class="item" ng-click="go('/forum')">forum</div>
+<div class="item" ng-if="user === null" ng-click="login()">login</div>
+<div class="item" ng-if="user !== null" ng-click="go('/forum')">forum</div>
+<div class="item" ng-if="user !== null" ng-click="logout()">logout</div>
