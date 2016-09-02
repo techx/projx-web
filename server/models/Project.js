@@ -3,11 +3,14 @@ var User = require('./User');
 
 var projectSchema = mongoose.Schema({
     name: { type: String, required: true },
-    team: [{ type: String }], // list of valid emails
-    teamDescription: { type: String },
-    projectPitch: { type: String },
-    projectDescription: { type: String },
-    infoTeam: {
+    visibility: { type: String }, // one of: team, mit, public; default to team
+    public: {
+        team: [{ type: String }], // list of valid emails
+        teamDescription: { type: String },
+        projectPitch: { type: String },
+        projectDescription: { type: String },
+    },
+    private: {
         primary: { type: String }, // valid email, should be on team
         budgetAmount: { type: Number },
         budgetUsed: { type: Number },
@@ -18,7 +21,7 @@ var projectSchema = mongoose.Schema({
         batch: { type: String },
         status: { type: String }
     },
-    infoAdmin: {
+    admin: {
         comments: { type: String }
     }
 });

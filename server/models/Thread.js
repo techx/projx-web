@@ -3,7 +3,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var threadSchema = mongoose.Schema({
     title: { type: String, required: true },
-    posts: [{ type: ObjectId, ref: 'Post'}]
+    posts: [{ type: ObjectId, ref: 'Post' }]
 });
 
 threadSchema.statics.validate = function (thread, cb) {
