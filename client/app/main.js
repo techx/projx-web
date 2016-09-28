@@ -10,6 +10,10 @@ angular.module('projx', ['ngRoute'])
             templateUrl: '/app/views/forum/forum.html',
             controller: 'forumController'
         })
+	.when('/apply', {
+		templateUrl: 'app/views/apply/apply.html',
+		controller: 'applyController'
+	})
         .when('/profile/:email', {
             templateUrl: '/app/views/profile/profile.html',
             controller: 'profileController'
