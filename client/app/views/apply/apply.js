@@ -10,24 +10,27 @@ angular.module('projx').controller('applyController', function ($scope, $http, $
 
         $scope.project = {
             name: undefined,
-            team: [$scope.user.email],
-            infoPublic: {
-                pitch: undefined,
+	    visibility: undefined,
+            public: {
+            	// team: [$scope.user.email],
+		team: ['test1', 'test2'],
+                projectPitch: undefined,
                 projectDescription: undefined,
                 teamDescription: undefined,
             },
-            infoTeam: {
-                primary: $scope.user.email,
-                program: undefined,
-                status: undefined,
+            private: {
+                // primary: $scope.user.email,
+		primary: 'myemail@mit.edu',
                 budgetAmount: undefined,
                 budgetUsed: undefined,
                 budgetBreakdown: undefined,
                 otherFunding: undefined,
                 timeline: undefined,
-                point: undefined
+                point: undefined,
+		batch: undefined,
+		status: undefined
             },
-            infoAdmin: {
+            admin: {
                 comments: undefined
             }
         }

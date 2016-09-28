@@ -28,6 +28,10 @@ var projectSchema = mongoose.Schema({
 
 projectSchema.statics.validate = function (project, cb) {
     // TODO
+    // Primary is valid email on team
+    // Point is valid email for admin
+    // budgetAmount <= max funding for semester?
+    // status is one of 'pending', 'funded', 'complete'?
     cb(true);
 }
 
