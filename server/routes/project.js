@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var Project = require('../models/Project');
 var User = require('../models/User');
-var perm = require('../helpers/perm');
+var perm = require('../perm');
 
 // Max funding amount for this semester
 var MAX_FUNDING = 500;
@@ -16,31 +16,31 @@ router.post('/', perm.auth, function(req, res) {
         var project = req.body.project;
         
         // Check that max funding is not exceeded
-        if (project.budgetAmount > MAX_AMOUNT) {
+        if (project.private.budgetAmount > MAX_FUNDING) {
             res.status(400).send('Max funding exceeded');
         }
 
         // Hardcode batch
-        project.infoTeam.batch = "ProjX Fall 2016";
-        project.infoTeam.status = "pending";
+        project.private.batch = "ProjX Fall 2016";
+        project.private.status = "pending";
 
         // Empty defaults for optional fields
-        if (!project.budgetUsed) {
+        if (!project.private.budgetUsed) {
             project.budgetUsed = 0;
         }
         if (!project.visibility) {
             project.visibility = "team";
         }
-        if (!project.team) {
-            project.team = [req.session.user.email];
+        if (!project.public.team) {
+            project.public.team = [req.session.user.email];
         }
 
         var newProject = new Project({
             name : project.name,
             team: project.team,
-            infoPublic: project.infoPublic,
-            infoTeam: project.infoTeam,
-            infoAdmin: {comments: undefined}        
+            public: project.public,
+            private: project.private,
+            admin: {comments: undefined}        
         });
     
             newProject.save(function (err) {

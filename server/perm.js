@@ -26,9 +26,9 @@ perm.team = function (req, res, next) {
     else {
         var projectId = req.body.projectId || req.query.projectId || req.body.project._id || req.query.project._id;
         if (projectId && req.session.email) {
-            Project.getProject(projectId, function (err, project) {
+	    Project.find({_id: projectId}, function(err, results) {
                 if (err) res.redirect('/');
-                else if (project.team.indexOf(req.session.email) !== -1) {
+                else if (project.public.team.indexOf(req.session.email) !== -1) {
                     next();
                 } else {
                     res.status(401).send('Must be on requested team for access');
