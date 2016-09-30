@@ -10,24 +10,25 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
 
         $scope.project = {
             name: undefined,
-            team: [$scope.user.email],
-            infoPublic: {
-                pitch: undefined,
+	    visibility: undefined,
+            public: {
+            	team: [$scope.user.email],
+                projectPitch: undefined,
                 projectDescription: undefined,
                 teamDescription: undefined,
             },
-            infoTeam: {
+            private: {
                 primary: $scope.user.email,
-                program: undefined,
-                status: undefined,
                 budgetAmount: undefined,
                 budgetUsed: undefined,
                 budgetBreakdown: undefined,
                 otherFunding: undefined,
                 timeline: undefined,
-                point: undefined
+                point: undefined,
+		batch: undefined,
+		status: undefined
             },
-            infoAdmin: {
+            admin: {
                 comments: undefined
             }
         }
@@ -55,15 +56,19 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
     }
 
     $scope.submit = function () {
-        $http.post('/api/project', {
-            'project': $scope.project
-        }).then(function (response) {
-            $location.path('/home');
-            sweetAlert("Project created", "Project created and saved! Come back to edit anytime before the deadline.", "success");
-        }, function (response) {
-            console.log(response);
-            sweetAlert("Error saving project", response.data, "error");
-        });
+        if (!$scope.agreed) {
+        sweetAlert('Please agree to the terms and conditions');
+        } else {
+            $http.post('/api/project', {
+                'project': $scope.project
+            }).then(function (response) {
+                $location.path('/home');
+                sweetAlert("Project created", "Project created and saved! Come back to edit anytime before the deadline.", "success");
+            }, function (response) {
+                console.log(response);
+                sweetAlert("Error saving project", response.data, "error");
+            });
+        }
     }
 
 });
