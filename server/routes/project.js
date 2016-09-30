@@ -32,7 +32,7 @@ router.post('/', perm.auth, function(req, res) {
             project.visibility = "team";
         }
         if (!project.public.team) {
-            project.public.team = [req.session.user.email];
+            project.public.team = [req.session.email];
         }
 
         var newProject = new Project({
@@ -74,19 +74,31 @@ router.post('/update', perm.team, function(req, res) {
         !req.body.project._id) res.status(400).send('Invalid update');
     else {
         var project = req.body.project;
+	var validatedProject = {
+	    	name: project.name,
+		private: project.private,
+		public: project.public,
+		admin: project.admin
+	};
         //Validate that they don't exceed the funding limits
-        if (project.budgetAmount > MAX_AMOUNT) {
+        if (validatedProject.private.budgetAmount && project.private.budgetAmount > MAX_FUNDING) {
             res.status(400).send('Max funding exceeded');
         }
 
         // If user is not admin, don't allow them to edit budgetUsed, status, or comments
-        if (!req.session.user.isAdmin) {
-            delete project.infoTeam.budgetUsed;
-            delete project.infoTeam.status;
-            delete project.infoAdmin;
+        if (!req.session.isAdmin) {
+	    if (validatedProject.private.budgetUsed) {
+                delete validatedProject.private.budgetUsed;
+	    }
+	    if (validatedProject.private.status) {
+                delete validatedProject.private.status;
+	    }
+	    if (validatedProject.admin) {
+		delete validatedProject.admin;
+	    }
         }
 
-        Project.findByIdAndUpdate(project._id, project,{new : true, runValidators: true}, function(err, updatedProject) {
+        Project.findByIdAndUpdate(project._id, validatedProject, {new : true, runValidators: true}, function(err, updatedProject) {
             if (err) res.status(403).send('Project could not be updated');
             else res.status(200).send('Project updated');
             }); 
@@ -97,11 +109,9 @@ router.post('/update', perm.team, function(req, res) {
  * GET /current [auth] Get list of current user's project objects.
  */
 router.get('/current', perm.auth, function(req, res) {
-    // TODO
-
     if (!req.session.email) res.status(404).send('No user logged in');
     else {
-        Project.find({team : req.session.email.toLowerCase()}, function (err, projects) {
+        Project.find({'public.team' : req.session.email.toLowerCase()}, function (err, projects) {
             if (err) res.status(403).send(err);
             else res.status(200).send(projects);
         });

@@ -7,8 +7,8 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
     $scope.addMember = function () {
         if ($scope.newMember.endsWith('@mit.edu')) {
-            if ($scope.project.team.indexOf($scope.newMember) === -1) {
-                $scope.project.team.push($scope.newMember);
+            if ($scope.project.public.team.indexOf($scope.newMember) === -1) {
+                $scope.project.public.team.push($scope.newMember);
             } else {
                 sweetAlert("Already added", "Team member is already on the team.", "warning");
             }
@@ -22,7 +22,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
         if (member === $scope.user.email) {
             sweetAlert("Oops", "You can't remove yourself from the team!", "error");
         } else {
-            $scope.project.team.splice($scope.project.team.indexOf(member), 1);
+            $scope.project.public.team.splice($scope.project.public.team.indexOf(member), 1);
         }
     }
 
@@ -47,14 +47,14 @@ angular.module('portal').controller('projectController', function ($scope, $http
     var addEmptyFields = function (project) {
 
         // create empty categories
-        if (!project.infoPublic) {
-            project.infoPublic = {};
+        if (!project.public) {
+            project.public = {};
         }
-        if (!project.infoTeam) {
-            project.infoTeam = {};
+        if (!project.private) {
+            project.private = {};
         }
-        if (!project.infoAdmin) {
-            project.infoAdmin = {};
+        if (!project.admin) {
+            project.admin = {};
         }
 
         return project;
@@ -67,14 +67,14 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
         // team
         var teamDisplay = '';
-        project.team.forEach(function (email) {
+        project.public.team.forEach(function (email) {
             teamDisplay += email + ', ';
         })
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
 
         var budgetAmountDisplay = '';
-        if (project.infoTeam.budgetAmount) {
-            budgetAmountDisplay = '$' + project.infoTeam.budgetAmount.toFixed(2);
+        if (project.private.budgetAmount) {
+            budgetAmountDisplay = '$' + project.private.budgetAmount.toFixed(2);
         } else {
             budgetAmountDisplay = '';
         }
@@ -90,31 +90,31 @@ angular.module('portal').controller('projectController', function ($scope, $http
         $scope.projectDisplay = {
             'name': $scope.project.name,
             'team': $scope.project.display.team,
-            'team lead': $scope.project.infoTeam.primary,
-            'team description': $scope.project.infoPublic.teamDescription,
-            'pitch': $scope.project.infoPublic.pitch,
-            'project description': $scope.project.infoPublic.projectDescription,
+            'team lead': $scope.project.private.primary,
+            'team description': $scope.project.public.teamDescription,
+            'pitch': $scope.project.public.pitch,
+            'project description': $scope.project.public.projectDescription,
             'budget requested': $scope.project.display.budgetAmount,
-            'budget breakdown': $scope.project.infoTeam.budgetBreakdown,
-            'other funding': $scope.project.infoTeam.otherFunding,
-            'timeline': $scope.project.infoTeam.timeline,
-            'batch': $scope.project.infoTeam.batch,
-            'status': $scope.project.infoTeam.status,
+            'budget breakdown': $scope.project.private.budgetBreakdown,
+            'other funding': $scope.project.private.otherFunding,
+            'timeline': $scope.project.private.timeline,
+            'batch': $scope.project.private.batch,
+            'status': $scope.project.private.status,
             'complete': false
         };
     }
 
     var checkCompletion = function () {
         if ($scope.project.name &&
-            $scope.project.team &&
-            $scope.project.infoTeam.primary &&
-            $scope.project.infoPublic.teamDescription &&
-            $scope.project.infoPublic.pitch &&
-            $scope.project.infoPublic.projectDescription &&
-            $scope.project.infoTeam.budgetAmount &&
-            $scope.project.infoTeam.budgetBreakdown &&
-            $scope.project.infoTeam.otherFunding &&
-            $scope.project.infoTeam.timeline) {
+            $scope.project.public.team &&
+            $scope.project.private.primary &&
+            $scope.project.public.teamDescription &&
+            $scope.project.public.pitch &&
+            $scope.project.public.projectDescription &&
+            $scope.project.private.budgetAmount &&
+            $scope.project.private.budgetBreakdown &&
+            $scope.project.private.otherFunding &&
+            $scope.project.private.timeline) {
             $scope.projectDisplay.complete = "yes";
         } else {
             $scope.projectDisplay.complete = "no";
