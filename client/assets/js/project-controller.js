@@ -92,7 +92,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'team': $scope.project.display.team,
             'team lead': $scope.project.private.primary,
             'team description': $scope.project.public.teamDescription,
-            'pitch': $scope.project.public.pitch,
+            'pitch': $scope.project.public.projectPitch,
             'project description': $scope.project.public.projectDescription,
             'budget requested': $scope.project.display.budgetAmount,
             'budget breakdown': $scope.project.private.budgetBreakdown,
@@ -109,7 +109,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             $scope.project.public.team &&
             $scope.project.private.primary &&
             $scope.project.public.teamDescription &&
-            $scope.project.public.pitch &&
+            $scope.project.public.projectPitch &&
             $scope.project.public.projectDescription &&
             $scope.project.private.budgetAmount &&
             $scope.project.private.budgetBreakdown &&

@@ -23,10 +23,10 @@ angular.module('portal').controller('homeController', function ($scope, $http, $
             project.display = {};
 
             if (project.name &&
-                project.team &&
+                project.public.team &&
                 project.private.primary &&
                 project.public.teamDescription &&
-                project.public.pitch &&
+                project.public.projectPitch &&
                 project.public.projectDescription &&
                 project.private.budgetAmount &&
                 project.private.budgetBreakdown &&
