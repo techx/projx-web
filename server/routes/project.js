@@ -69,8 +69,6 @@ router.post('/', perm.auth, function(req, res) {
                       username: 'appbot',
                       icon_url: 'http://techx.mit.edu/img/projx.svg',
                       text: slackText
-                    }, function(err, response) {
-                      console.log(response);
                     });
                     res.status(201).send('Project created');
                 }

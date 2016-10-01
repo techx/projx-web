@@ -36,8 +36,8 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
 
     $scope.addMember = function () {
         if ($scope.newMember.toLowerCase().endsWith('@mit.edu')) {
-            if ($scope.project.team.indexOf($scope.newMember.toLowerCase()) === -1) {
-                $scope.project.team.push($scope.newMember.toLowerCase());
+            if ($scope.project.public.team.indexOf($scope.newMember.toLowerCase()) === -1) {
+                $scope.project.public.team.push($scope.newMember.toLowerCase());
             } else {
                 sweetAlert("Already added", "Team member is already on the team.", "warning");
             }
@@ -51,7 +51,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
         if (member === $scope.user.email) {
             sweetAlert("Oops", "You can't remove yourself from the team!", "error");
         } else {
-            $scope.project.team.splice($scope.project.team.indexOf(member), 1);
+            $scope.project.public.team.splice($scope.project.public.team.indexOf(member), 1);
         }
     }
 
