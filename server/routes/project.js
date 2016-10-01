@@ -2,9 +2,14 @@ var router = require('express').Router();
 var Project = require('../models/Project');
 var User = require('../models/User');
 var perm = require('../perm');
+var config = require('../../config');
+var Slack = require('slack-node');
 
+var slack = new Slack();
+slack.setWebhook(config.slackWebhookUri);
 // Max funding amount for this semester
 var MAX_FUNDING = 500;
+
 
 /**
  * POST / [auth] Create new project and add current user to team.
@@ -57,7 +62,18 @@ router.post('/', perm.auth, function(req, res) {
 
             newProject.save(function (err) {
                 if (err) res.status(500).send('Failed to save project');
-                else res.status(201).send('Project created');
+                else {
+                    var slackText = '*' + newProject.name + '*\n' + newProject.public.projectDescription + '\nhttp://projx.mit.edu/project/' + '57f0273d857af1b342a9e564';//+ newProject._id;
+                    slack.webhook({
+                      channel: '#apps-16fa',
+                      username: 'appbot',
+                      icon_url: 'http://techx.mit.edu/img/projx.svg',
+                      text: slackText
+                    }, function(err, response) {
+                      console.log(response);
+                    });
+                    res.status(201).send('Project created');
+                }
             });
         }
     }

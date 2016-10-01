@@ -29,8 +29,8 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
 
         // team
         var teamDisplay = '';
-        project.team.forEach(function (email) {
-            teamDisplay += email + ', ';
+        project.public.team.forEach(function (email) {
+            teamDisplay += email.replace(/@mit.edu/g, '') + ', ';
         })
         teamDisplay = teamDisplay.substring(0, teamDisplay.length - 2);
         project.teamDisplay = teamDisplay;
