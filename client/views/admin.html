@@ -9,6 +9,7 @@
       <div id="content" class="ui segment">
 
         <h2>all projects</h2>
+        Count: {{projects.length}}
         <table class="ui celled striped unstackable selectable sortable very compact small table">
           <thead>
             <tr>
@@ -23,7 +24,7 @@
             <tr ng-repeat="project in projects | orderBy : sortKey : sortReverse">
               <!-- ng-switch for linking columns -->
               <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-switch on="field">
-                <a ng-switch-when="name" href="/project/{{ project._id }}">{{ project[key] }}</a>
+                <div ng-switch-when="name"><a href="/project/{{ project._id }}">{{ project[key] }}</a> ({{ project.date }})</div>
                 <a ng-switch-when="point" href="/profile/{{ project.infoTeam.point }}">{{ project[key] }}</a>
                 <a ng-switch-when="primary" href="/profile/{{ project.infoTeam.primary }}">{{ project[key] }}</a>
                 <div ng-switch-when="team">
