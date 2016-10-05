@@ -25,7 +25,7 @@
           <table class="ui celled striped unstackable table">
             <tr ng-repeat="(key, val) in projectDisplay">
               <td class="field">{{ key }}</td>
-              <td ng-style="(val) ? {'white-space': 'pre-wrap'} : {'font-style': 'italic'}">{{ val || 'none' }}</td>
+              <td class="breakwrap" ng-style="(val) ? {'white-space': 'pre-wrap'} : {'font-style': 'italic'}">{{ val || 'none' }}</td>
             </tr>
           </table>
           <br>

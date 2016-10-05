@@ -60,6 +60,10 @@ table {
     font-weight: bold;
     white-space: nowrap;
   }
+
+  .breakwrap {
+    word-break: break-all;
+  }
 }
 
 .labeled-title {
