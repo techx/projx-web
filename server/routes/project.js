@@ -63,12 +63,14 @@ router.post('/', perm.auth, function(req, res) {
             newProject.save(function (err) {
                 if (err) res.status(500).send('Failed to save project');
                 else {
-                    var slackText = '*' + newProject.name + '*\n' + newProject.public.projectDescription + '\nhttp://projx.mit.edu/project/' + '57f0273d857af1b342a9e564';//+ newProject._id;
+                    var slackText = '*' + newProject.name + '*\n' + newProject.public.projectDescription + '\nhttp://projx.mit.edu/project/' + newProject._id;
                     slack.webhook({
-                      channel: '#apps-16fa',
-                      username: 'appbot',
-                      icon_url: 'http://techx.mit.edu/img/projx.svg',
-                      text: slackText
+                        channel: '#apps-16fa',
+                        username: 'appbot',
+                        icon_url: 'http://techx.mit.edu/img/projx.svg',
+                        text: slackText
+                    }, function(err, response) {
+                        if (err) console.log(err);
                     });
                     res.status(201).send('Project created');
                 }
