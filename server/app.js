@@ -15,6 +15,7 @@ var config = require('../config');
 var index = require('./routes/index');
 var user = require('./routes/user');
 var project = require('./routes/project');
+var checkIn = require('./routes/checkIn');
 
 // APP //
 var app = express();
@@ -45,6 +46,7 @@ app.use(helmet()); // bunch of security stuff
 // ROUTES //
 app.use('/api/user', user); // user routes
 app.use('/api/project', project); // project routes
+app.use('/api/checkIn', checkIn); // checkIn routes
 app.use('/', index); // index routes
 
 // ERROR HANDLER //

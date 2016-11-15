@@ -103,7 +103,7 @@ router.post('/update', perm.team, function(req, res) {
         !req.body.project._id) res.status(400).send('Invalid update');
     else {
         var project = req.body.project;
-	    var validatedProject = {
+        var validatedProject = {
             name: project.name,
             private: project.private,
             public: project.public,
@@ -128,15 +128,15 @@ router.post('/update', perm.team, function(req, res) {
         if (budgetValid) {
             // If user is not admin, don't allow them to edit budgetUsed, status, or comments
             if (!req.session.isAdmin) {
-    	    if (validatedProject.private.budgetUsed) {
+                if (validatedProject.private.budgetUsed) {
                     delete validatedProject.private.budgetUsed;
-    	    }
-    	    if (validatedProject.private.status) {
+                }
+                if (validatedProject.private.status) {
                     delete validatedProject.private.status;
-    	    }
-    	    if (validatedProject.admin) {
-    		        delete validatedProject.admin;
-    	    }
+                }
+                if (validatedProject.admin) {
+                    delete validatedProject.admin;
+                }
             }
 
             Project.findByIdAndUpdate(project._id, validatedProject, {new : true, runValidators: true}, function(err, updatedProject) {
