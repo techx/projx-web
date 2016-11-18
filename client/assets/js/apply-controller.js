@@ -10,9 +10,9 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
 
         $scope.project = {
             name: undefined,
-	    visibility: undefined,
+            visibility: undefined,
             public: {
-            	team: [$scope.user.email],
+                team: [$scope.user.email],
                 projectPitch: undefined,
                 projectDescription: undefined,
                 teamDescription: undefined,
@@ -25,8 +25,8 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
                 otherFunding: undefined,
                 timeline: undefined,
                 point: undefined,
-		batch: undefined,
-		status: undefined
+            batch: undefined,
+            status: undefined
             },
             admin: {
                 comments: undefined

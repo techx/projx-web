@@ -5,6 +5,7 @@ var User = require('./User');
 var checkInSchema = mongoose.Schema({
     project: { type: Schema.ObjectId, ref: 'Project', required: true }, // Project for checkin
     admin: { type: String, required: true }, // email of ProjX admin who conducted checkin
+    number: { type: Number }, // The number of the checkin
 
     date: { type: Date, default: Date.now },
 

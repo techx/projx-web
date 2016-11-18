@@ -1,0 +1,40 @@
+<loader-include></loader-include>
+
+<div id="checkIn-container" ng-show="showPage">
+  <div class="ui centered stackable grid">
+    <div class="twelve wide column">
+
+      <header-include></header-include>
+
+      <div id="content" class="ui segment">
+      
+        <h2>
+          checkin {{ checkInNumber }} for project {{ project.projectName }}
+        </h2>
+
+        <div class="ui segment form">
+            <div class="ui required field">
+                <label>progress</label>
+                <textarea rows=8 ng-model="checkIn.progress" placeholder="What has the team done so far?"></textarea>
+            </div>
+
+            <div class="ui field">
+                <label>concerns</label>
+                <textarea rows=8 ng-model="checkIn.concerns" placeholder="Concerns aboud team progress"></textarea>
+            </div>
+
+            <div class="ui required field">
+                <label>budget used</label>
+                <input type="text" ng-model="checkIn.budgetUsedToDate" placeholder="Amount of budged used"/>
+            </div>
+        </div>
+
+        <h2>submit</h2>
+        <div class='ui checkbox'>
+            <button class="ui large button green-button" type="submit" ng-click="submit()">submit</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,11 +14,13 @@ router.post('/', perm.admin, function(req, res) {
         var checkIn = req.body.checkIn;
 
         // Make sure the project being referenced exists
+        // Also make sure the checkIn is saved with the right number
         Project.find({ _id: checkIn.project }, function (err, results) {
             if (err || results.length === 0) res.status(404).send('Invalid project');
-            else {
+            else CheckIn.count({ _id: checkIn.project }, function (err, count) {
                 checkIn.project = results[0]._id;
                 checkIn.admin = req.session.email;
+                checkIn.number = count + 1;
 
                 if (isNaN(checkIn.budgetUsedToDate)) {
                     res.status(400).send('Budget used to date not a number');
@@ -39,7 +41,7 @@ router.post('/', perm.admin, function(req, res) {
                     if (err) res.status(500).send('Failed to save checkin');
                     else res.status(201).send('Checkin saved!');
                 });
-            }
+            });
         });
     }
 });
@@ -59,6 +61,7 @@ router.get('/', perm.admin, function(req, res) {
 
 /**
  * GET /project [admin] Get list of all checkins for a project, sorted by date
+ * Returns object { project: project, checkIns: [checkIn] }
  * @param {string} req.query.projectId - id of desired project
  */
 router.get('/project', perm.admin, function(req, res) {
@@ -66,7 +69,10 @@ router.get('/project', perm.admin, function(req, res) {
         if (err || projects.length == 0) res.status(404).send('Invalid project id');    
         else CheckIn.find({ project: req.query.projectId }).sort('date').exec(function(err, results) {
             if (err) res.status(500).send('Unable to retrieve checkins');
-            else res.status(200).send(results);
+            else res.status(200).send({
+                project: projects[0],
+                checkIns: results
+            });
         });
     });
 });
