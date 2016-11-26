@@ -17,7 +17,8 @@ router.post('/', perm.admin, function(req, res) {
         // Also make sure the checkIn is saved with the right number
         Project.find({ _id: checkIn.project }, function (err, results) {
             if (err || results.length === 0) res.status(404).send('Invalid project');
-            else CheckIn.count({ _id: checkIn.project }, function (err, count) {
+            else CheckIn.count({ project: checkIn.project }, function (err, count) {
+                console.log(count);
                 checkIn.project = results[0]._id;
                 checkIn.admin = req.session.email;
                 checkIn.number = count + 1;
@@ -34,7 +35,8 @@ router.post('/', perm.admin, function(req, res) {
                     admin: checkIn.admin,
                     budgetUsedToDate: checkIn.budgetUsedToDate,
                     progress: checkIn.progress,
-                    concerns: checkIn.concerns
+                    concerns: checkIn.concerns,
+                    number: checkIn.number
                 });
 
                 newCheckIn.save(function(err) {
@@ -52,7 +54,8 @@ router.post('/', perm.admin, function(req, res) {
  * @param {string} req.query.checkInId - id of desired checkin
  */
 router.get('/', perm.admin, function(req, res) {
-    CheckIn.find({ _id: req.query.checkInId }, function(err, results) {
+    CheckIn.find({ _id: req.query.checkInId })
+    .populate('project').exec(function(err, results) {
         if (err || results.length == 0) res.status(404).send('Checkin not found');
         else res.status(200).send(results[0]);
     });
@@ -104,7 +107,7 @@ router.post('/update', perm.admin, function(req, res) {
                 } 
                 checkIn.budgedUsedToDate = newCheckIn.budgetUsedToDate;
                 
-                checkIn.save(function(err, updatedCheckIn} {
+                checkIn.save(function(err, updatedCheckIn) {
                     if (err) res.status(500).send('Failed to save checkin');
                     else res.status(200).send('Checkin updated');
                 });
@@ -112,3 +115,5 @@ router.post('/update', perm.admin, function(req, res) {
         });
     }
 });
+
+module.exports = router;

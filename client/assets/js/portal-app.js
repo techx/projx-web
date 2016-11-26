@@ -26,6 +26,14 @@ angular.module('portal', ['ngRoute'])
             templateUrl: '/views/project.html',
             controller: 'projectController'
         })
+        .when('/project/:projectId/newCheckIn', {
+            templateUrl: '/views/checkin.html',
+            controller: 'checkInController'
+        })
+        .when('/project/:projectId/checkIn/:checkInId', {
+            templateUrl: '/views/checkin.html',
+            controller: 'checkInController'
+        })
         .when('/admin', {
             templateUrl: '/views/admin.html',
             controller: 'adminController'

@@ -21,11 +21,23 @@
           </div>
         </h2>
 
+
         <div class="project-display" ng-hide="editStatus">
           <table class="ui celled striped unstackable table">
             <tr ng-repeat="(key, val) in projectDisplay">
               <td class="field">{{ key }}</td>
               <td class="breakwrap" ng-style="(val) ? {'white-space': 'pre-wrap'} : {'font-style': 'italic'}">{{ val || 'none' }}</td>
+            </tr>
+            <tr ng-show='user.isAdmin'>
+                <td class='field'> check ins </td>
+                <td class='breakwrap'>
+                    <ul>
+                        <li ng-repeat='c in checkIns'>
+                            <a href='/project/{{ project._id }}/checkIn/{{ c._id }}'>Checkin {{ c.number }}</a>
+                        </li> 
+                    </ul>
+                    <a class='ui tiny button' href='/project/{{ project._id }}/newCheckIn'>new check in</>
+                </td>
             </tr>
           </table>
           <br>

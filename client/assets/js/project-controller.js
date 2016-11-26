@@ -4,6 +4,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
     $scope.title = 'project';
     $scope.editStatus = false;
     $scope.projectDisplay = {};
+    $scope.checkIns = [];
 
     $scope.addMember = function () {
         if ($scope.newMember.endsWith('@mit.edu')) {
@@ -40,6 +41,14 @@ angular.module('portal').controller('projectController', function ($scope, $http
             checkCompletion();
         }, function (response) {
             $location.path('/home');
+        });
+    }
+
+    // Gets project checkins if admin
+    var getProjectCheckIns = function() {
+        $http.get('/api/checkIn/project?projectId=' + $routeParams.projectId).then(function (response) {
+            $scope.checkIns = response.data.checkIns;
+            console.log(response.data);
         });
     }
 
@@ -153,5 +162,6 @@ angular.module('portal').controller('projectController', function ($scope, $http
 
     // get info right away
     getProjectInfo();
+    getProjectCheckIns();
 
 });

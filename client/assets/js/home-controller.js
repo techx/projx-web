@@ -20,6 +20,8 @@ angular.module('portal').controller('homeController', function ($scope, $http, $
                 project.admin = {};
             }
 
+            project.checkIns = [];
+            project.getCheckIns
             project.display = {};
 
             if (project.name &&
@@ -38,5 +40,4 @@ angular.module('portal').controller('homeController', function ($scope, $http, $
             }
         })
     });
-
 });

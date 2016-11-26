@@ -9,10 +9,39 @@
       <div id="content" class="ui segment">
       
         <h2>
-          checkin {{ checkInNumber }} for project {{ project.projectName }}
+            {{ checkInStatus }} for project {{ project.name }}
         </h2>
 
-        <div class="ui segment form">
+        <h2>
+          <span ng-hide="editStatus">summary</span>
+          <span ng-show="editStatus">info</span>
+          <div class="ui tiny button" ng-click="editCheckIn()">
+            <div ng-hide="editStatus"><i class="ui write icon"></i>edit</div>
+            <div ng-show="editStatus"><i class="ui checkmark icon"></i>save</div>
+          </div>
+        </h2>
+
+        <div class="project-display" ng-hide="editStatus">
+          <table class="ui celled striped unstackable table">
+            <tr ng-repeat="(key, val) in displayCheckIn">
+              <td class="field">{{ key }}</td>
+              <td class="breakwrap" ng-style="(val) ? {'white-space': 'pre-wrap'} : {'font-style': 'italic'}">{{ val || 'none' }}</td>
+            </tr>
+          </table>
+          <br>
+        </div>
+ 
+
+        <div class="ui segment form" ng-show="editStatus">
+            <div class="ui field">
+                <label>projected timeline</label>
+                <i>Timeline from the project application. Compare with actual reported progress</i>
+                <br>
+                <textarea rows=4 ng-disabled='true' ng-model="project.private.timeline" placeholder="No timeline">
+                </textarea>
+                <br>
+            </div>
+
             <div class="ui required field">
                 <label>progress</label>
                 <textarea rows=8 ng-model="checkIn.progress" placeholder="What has the team done so far?"></textarea>
@@ -29,9 +58,8 @@
             </div>
         </div>
 
-        <h2>submit</h2>
-        <div class='ui checkbox'>
-            <button class="ui large button green-button" type="submit" ng-click="submit()">submit</button>
+        <div class='ui checkbox' ng-show='editStatus && (!checkIn._id)'>
+            <button class="ui large button green-button" type="submit" ng-click="editCheckIn()">submit</button>
         </div>
 
       </div>
