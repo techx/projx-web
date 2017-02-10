@@ -8,9 +8,9 @@
 
       <div id="content" class="ui segment">
 
-        <div class="ui tag projx label" ng-show="projectDisplay.batch==='ProjX Fall 2016'">ProjX Fall 2016</div>
-        <!-- <div class="ui tag yellow label" ng-show="projectDisplay.complete==='yes'">Application complete</div>
-        <div class="ui tag red label" ng-show="projectDisplay.complete==='no'">Application incomplete</div> -->
+        <div class="ui tag projx label" ng-show="projectDisplay.batch==='ProjX Spring 2017'">ProjX Spring 2017</div>
+        <div class="ui tag yellow label" ng-show="projectDisplay.complete==='yes'">Application complete</div>
+        <div class="ui tag red label" ng-show="projectDisplay.complete==='no'">Application incomplete</div>
 
         <h2>
           <span ng-hide="editStatus">summary</span>
@@ -32,66 +32,74 @@
 	</div>
 
 	<div class="project-form" ng-show="editStatus">
-        <div class="ui segment form">
-          <div class="ui required field">
-            <label>project name</label>
-            <input type="text" placeholder="catchy project name" ng-model="project.name">
-          </div>
-          <div class="ui field">
-            <label>team</label>
-            <div class="ui grouped fields">
-              <div class="field" ng-repeat="member in project.public.team">
-                <div class="ui radio checkbox">
-                  <input type="radio" name="team" ng-model="project.private.primary" value="{{ member }}">
-                  <label>
-                    {{ member }}
-                    <i class="ui red close icon remove-member" ng-click="removeMember(member)" ng-hide="member===user.email || member===project.private.primary"></i>
-                    <span ng-show="member===project.private.primary"><i>(team lead)</i></span>
-                  </label>
-                </div>
-              </div>
+    <h2>
+      project
+    </h2>
+    <div class="ui segment form">
+      <div class="ui required field">
+        <label>title</label>
+        <input type="text" placeholder="catchy project name" ng-model="project.name">
+      </div>
+      <div class="ui field">
+        <label>pitch</label>
+        <textarea rows="3" ng-model="project.public.projectPitch" placeholder="one-line summary of your project"></textarea>
+      </div>
+      <div class="ui field">
+        <label>description</label>
+        <textarea rows="8" ng-model="project.public.projectDescription" placeholder="in-depth description of your project, about a couple paragraphs"></textarea>
+      </div>
+    </div>
+    <h2>
+      team
+    </h2>
+    <div class="ui segment form">
+      <div class="ui field">
+        <label>members</label>
+        <div class="ui grouped fields">
+          <div class="field" ng-repeat="member in project.public.team">
+            <div class="ui radio checkbox">
+              <input type="radio" name="team" ng-model="project.private.primary" value="{{ member }}">
+              <label>
+                {{ member }}
+                <i class="ui red close icon remove-member" ng-click="removeMember(member)" ng-hide="member===user.email || member===project.private.primary"></i>
+                <span ng-show="member===project.private.primary"><i>(team lead)</i></span>
+              </label>
             </div>
-            <div class="three fields">
-              <div class="field">
-                <div class="ui icon input">
-                  <input type="text" placeholder="enter an @mit.edu email address" ng-model="newMember">
-                  <i class="inverted circular plus link icon" ng-click="addMember()"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ui field">
-            <label>team description</label>
-            <textarea rows="3" ng-model="project.public.teamDescription" placeholder="backgrounds and any relevant experiences of team members (although experience is not necessary)"></textarea>
-          </div>
-          <div class="ui field">
-            <label>pitch</label>
-            <textarea rows="3" ng-model="project.public.projectPitch" placeholder="single-line summary of your project"></textarea>
-          </div>
-          <div class="ui field">
-            <label>project description</label>
-            <textarea rows="6" ng-model="project.public.projectDescription" placeholder="detailed description of your project"></textarea>
           </div>
         </div>
-        <h2>budget and timeline</h2>
-        <div class="ui segment form">
-          <div class="ui field">
-            <label>budget amount</label>
-            <input type="text" ng-model="project.private.budgetAmount" placeholder="funding amount you are requesting, at most $500">
-          </div>
-          <div class="ui field">
-            <label>budget breakdown</label>
-            <textarea rows="6" ng-model="project.private.budgetBreakdown" placeholder="please provide an itemized breakdown of your requested budget, feel free to link to spreadsheet (e.g. Google sheets)"></textarea>
-          </div>
-          <div class="ui field">
-            <label>other funding</label>
-            <textarea rows="3" ng-model="project.private.otherFunding" placeholder="are you getting funding from any other sources? if so, which sources?"></textarea>
-          </div>
-          <div class="ui field">
-            <label>timeline</label>
-            <textarea rows="6" ng-model="project.private.timeline" placeholder="please outline an expected timeline with specific milestones, feel free to link to spreadsheet (e.g. Google sheets)"></textarea>
+        <div class="three fields">
+          <div class="field">
+            <div class="ui icon input">
+              <input type="text" placeholder="enter an @mit.edu email address" ng-model="newMember">
+              <i class="inverted circular plus link icon" ng-click="addMember()"></i>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="ui field">
+        <label>background</label>
+        <textarea rows="3" ng-model="project.public.teamDescription" placeholder="context and any relevant experiences of team members (although experience is not necessary)"></textarea>
+      </div>
+    </div>
+    <h2>
+      timeline and budget
+    </h2>
+    <div class="ui segment form">
+      <div class="ui field">
+        <label>timeline</label>
+        <textarea rows="6" ng-model="project.private.timeline" placeholder="please outline an expected timeline with explicit milestones, be as specific as possible, feel free to link to a Google spreadsheet and enable sharing"></textarea>
+      </div>
+      <div class="ui field">
+        <label>budget</label>
+        <textarea rows="6" ng-model="project.private.budgetBreakdown" placeholder="please provide an itemized breakdown of your requested budget, be as specific as possible, feel free to link to a Google spreadsheet and enable sharing"></textarea>
+      </div>
+      <div class="ui field">
+        <label>funding amount</label>
+        <input type="text" ng-model="project.private.budgetAmount" placeholder="how much money you are requesting (at most $500)?">
+      </div>
+      <div class="ui field">
+        <label>miscellaneous</label>
+        <textarea rows="3" ng-model="project.private.otherFunding" placeholder="are you getting funding from any other sources? if so, which sources? also include any other relevant information for your project"></textarea>
       </div>
     </div>
   </div>

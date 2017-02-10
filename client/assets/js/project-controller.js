@@ -88,15 +88,15 @@ angular.module('portal').controller('projectController', function ($scope, $http
     var populateDisplay = function () {
         // specify which fields to display (maps field name to key in project object)
         $scope.projectDisplay = {
-            'name': $scope.project.name,
-            'team': $scope.project.display.team,
-            'team lead': $scope.project.private.primary,
-            'team description': $scope.project.public.teamDescription,
+            'title': $scope.project.name,
             'pitch': $scope.project.public.projectPitch,
-            'project description': $scope.project.public.projectDescription,
-            'budget requested': $scope.project.display.budgetAmount,
-            'budget breakdown': $scope.project.private.budgetBreakdown,
-            'other funding': $scope.project.private.otherFunding,
+            'description': $scope.project.public.projectDescription,
+            'members': $scope.project.display.team,
+            'team lead': $scope.project.private.primary,
+            'background': $scope.project.public.teamDescription,
+            'funding amount': $scope.project.display.budgetAmount,
+            'budget': $scope.project.private.budgetBreakdown,
+            'miscellaneous': $scope.project.private.otherFunding,
             'timeline': $scope.project.private.timeline,
             'batch': $scope.project.private.batch,
             'status': $scope.project.private.status,
