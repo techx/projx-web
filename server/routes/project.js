@@ -65,7 +65,7 @@ router.post('/', perm.auth, function(req, res) {
                 else {
                     var slackText = '*' + newProject.name + '*\n' + newProject.public.projectDescription + '\nhttp://projx.mit.edu/project/' + newProject._id;
                     slack.webhook({
-                        channel: '#live-apps',
+                        channel: '#apps',
                         username: 'appbot',
                         icon_url: 'http://techx.mit.edu/img/projx.svg',
                         text: slackText
