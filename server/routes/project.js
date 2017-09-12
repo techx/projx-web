@@ -38,7 +38,7 @@ router.post('/', perm.auth, function(req, res) {
         if (budgetValid) {
 
             // Hardcode batch
-            project.private.batch = "ProjX Spring 2017";
+            project.private.batch = "ProjX Fall 2017";
             project.private.status = "pending";
 
             // Empty defaults for optional fields
