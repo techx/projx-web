@@ -113,7 +113,8 @@ angular.module('portal').controller('projectController', function ($scope, $http
             $scope.project.public.projectDescription &&
             $scope.project.private.budgetAmount &&
             $scope.project.private.budgetBreakdown &&
-            $scope.project.private.otherFunding &&
+            //Shouldn't be marked as incomplete if miscellaneous isn't filled in
+            //$scope.project.private.otherFunding &&
             $scope.project.private.timeline) {
             $scope.projectDisplay.complete = "yes";
         } else {
