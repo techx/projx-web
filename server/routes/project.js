@@ -16,6 +16,8 @@ var MAX_FUNDING = 500;
  * @param {object} req.body.project new project object (name field required)
  */
 router.post('/', perm.auth, function(req, res) {
+    res.status(400).send("Not accepting applications at this time.");
+    /*
     if (!req.body.project.name) res.status(400).send('Project name missing');
     else {
         var project = req.body.project;
@@ -76,7 +78,7 @@ router.post('/', perm.auth, function(req, res) {
                 }
             });
         }
-    }
+    }*/
 });
 
 /**
@@ -98,6 +100,8 @@ router.get('/', perm.team, function(req, res) {
  * @param {object} req.body.project - project object
  */
 router.post('/update', perm.team, function(req, res) {
+    res.send("Not allowed to update an application at this time.");
+    /*
     if (!req.body.project ||
         !req.body.project.name ||
         !req.body.project._id) res.status(400).send('Invalid update');
@@ -144,7 +148,7 @@ router.post('/update', perm.team, function(req, res) {
                 else res.status(200).send('Project updated');
             });
         }
-    }
+    }*/
 });
 
 /**
