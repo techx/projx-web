@@ -1,0 +1,210 @@
+@media (max-width: 991px) {
+  /**
+	 * =======================
+	 * Navigation
+	 * =======================
+	 */
+  .main-navbar-top .navbar-nav li .btn-nav {
+    padding: 15px;
+  }
+  /**
+	 * ====================================
+	 * Features Style 1
+	 * ====================================
+	 */
+  .features-section-1 .features-image {
+    height: 100px;
+  }
+  .features-section-1 .inner.border {
+    padding: 20px 25px;
+  }
+  /**
+	 * ====================================
+	 * Features Style 2 
+	 * ====================================
+	 */
+  .features-section-2 .section-header,
+  .features-section-2 .detail p,
+  .features-section-2 .btn-form {
+    text-align: center !important;
+  }
+  .features-section-2 .inner {
+    margin-top: 0px;
+  }
+  .features-section-2 .btn-form {
+    margin-top: 80px;
+  }
+  /**
+	 * ====================================
+	 * Features Style 5
+	 * ====================================
+	 */
+  .features-section-5 .form-outer {
+    padding: 40px;
+  }
+  /**
+	 * ====================================
+	 * Features Style 7
+	 * ====================================
+	 */
+  .features-section-7 .inner {
+    padding-right: 0px;
+  }
+  .features-section-7 .section-heading,
+  .features-section-7 .detail p {
+    text-align: center;
+  }
+  .pricing-table .each-table {
+    margin-bottom: 30px;
+  }
+  .pricing-table .each-table > .inner {
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pricing-table .each-table:last-child {
+    margin-bottom: 0px;
+  }
+}
+@media (max-width: 767px) {
+  /**
+	 * =======================
+	 * Navigation
+	 * =======================
+	 */
+  .main-navbar-top .navbar-header .navbar-brand {
+    margin-left: 15px;
+    height: 70px;
+  }
+  .main-navbar-top .navbar-collapse {
+    border: 1px solid;
+    border-color: rgba(88, 88, 88, 0.08);
+  }
+  .main-navbar-top .navbar-nav {
+    padding-top: 11px;
+    padding-right: 15px;
+  }
+  .main-navbar-top .navbar-nav li {
+    float: left;
+  }
+  .main-navbar-top .navbar-nav li .btn-nav {
+    padding: 0px 10px;
+    line-height: 40px;
+  }
+  /**
+	 * ====================================
+	 * Features Style 1
+	 * ====================================
+	 */
+  .features-section-1 .each-features .inner {
+    margin-bottom: 30px;
+    padding: 30px 15px;
+  }
+  .features-section-1 .each-features:nth-last-child(-n + 1) .inner {
+    margin-bottom: 0px;
+  }
+  .features-section-1 .inner {
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .features-section-1 .inner.border {
+    padding: 15px;
+  }
+  .features-section-1 .inner.border .title,
+  .features-section-1 .inner.border .detail p {
+    text-align: center;
+  }
+  /**
+	 * ====================================
+	 * Features Style 4
+	 * ====================================
+	 */
+  .pricing-table .each-table .inner {
+    padding: 30px 15px;
+  }
+  .pricing-table .each-table .inner .meta-price {
+    font-size: 60px;
+    line-height: 60px;
+  }
+  .pricing-table .each-table .inner .category {
+    left: 15px;
+    right: 15px;
+    top: 30px;
+    font-size: 40px;
+    line-height: 55px;
+    letter-spacing: 1px;
+  }
+  .pricing-table .each-table .inner .btn-form .btn {
+    margin: 0px !important;
+  }
+  /**
+	 * ====================================
+	 * Features Style 5
+	 * ====================================
+	 */
+  .features-section-5 .form-outer {
+    padding: 30px 0px;
+  }
+  /**
+	 * ====================================
+	 * Features Style 6
+	 * ====================================
+	 */
+  .features-section-6 .each-features .inner {
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /**
+	 * ====================================
+	 * Features Style 8
+	 * ====================================
+	 */
+  .project-item .each-project .each-project-inner {
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 45px;
+    padding-bottom: 45px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(88, 88, 88, 0.08);
+  }
+  .project-item .each-project:last-child .each-project-inner {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0px solid;
+  }
+  .project-item .project-image {
+    position: relative;
+    height: 250px;
+    left: 0;
+    right: 0;
+    margin-bottom: 20px;
+  }
+  .project-item .inner {
+    padding: 0px !important;
+  }
+  /**
+	 * ====================================
+	 * Footer Section 1
+	 * ====================================
+	 */
+  .footer-section .each-item {
+    margin-top: 40px;
+  }
+  .footer-section .each-item > .inner {
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-section .each-item:first-child {
+    margin-top: 0px;
+  }
+  .footer-section .each-item .social-icon {
+    margin-top: 25px;
+  }
+  .subscribe-form .input-group {
+    display: block;
+  }
+}
