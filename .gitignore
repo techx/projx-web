@@ -1,4 +1,5 @@
 config.json
+config.js
 data
 node_modules
 npm-debug.log
