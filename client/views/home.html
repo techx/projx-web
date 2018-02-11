@@ -10,7 +10,7 @@
 
         <!-- announcements -->
         <h2>announcements</h2>
-        Fall batch projects applications now open!
+        {{ cycle }} batch projects applications now open!
         <br><br>
         <a href="http://projx.mit.edu" target="_self">back to projx.mit.edu</a>
         <br>
@@ -23,7 +23,7 @@
               <div class="header">
                 {{ project.name }}
                 <div class="ui right floated">
-                  <div class="ui tag projx label" ng-show="project.private.batch==='ProjX Fall 2017'">ProjX Fall 2017</div>
+                  <div class="ui tag projx label" ng-show="project.private.batch==='ProjX {{ cycle }}'">ProjX {{ cycle }}</div>
                   <div class="ui tag yellow label" ng-show="project.display.complete==='yes'">Application complete</div>
                   <div class="ui tag red label" ng-show="project.display.complete==='no'">Application incomplete</div>
                 </div>
@@ -31,13 +31,19 @@
               <div class="description">{{ project.public.projectPitch }}</div>
             </div>
           </a>
-          
-           <a class="ui card"> <!-- href="/apply"> commented out to prevent new projects from being created -->
-            <div class="content new">
-              <div class="header"><i class="plus icon"></i> New Application</div>
-              <div class="description">Applications are closed for Fall 2017. <!-- Create a new project to apply to ProjX for Fall 2017!</div> --> </div>
-            </div>
-          </a> 
+            <a class="ui card" ng-if="open" href="/apply">
+              <div class="content new">
+                <div class="header"><i class="plus icon"></i> New Application</div>
+                <div class="description">Create a new project to apply to ProjX for {{ cycle }}!</div>
+              </div>
+              </a> 
+            <a class="ui card" ng-if="!open">
+              <div class="content new">
+                <div class="header"><i class="plus icon"></i> New Application</div>
+                <div class="description">Applications are closed for {{ cycle }}.</div>
+              </div>
+            </a> 
+           
         </div>
         <br>
 

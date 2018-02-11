@@ -18,6 +18,12 @@ angular.module('portal').controller('projectController', function ($scope, $http
         }
     }
 
+    $http.get('/api/project/cycle').then(function(response) {
+        $scope.open = response.data.open;
+        $scope.cycle = response.data.cycle;
+    });
+
+
     $scope.removeMember = function (member) {
         if (member === $scope.user.email) {
             sweetAlert("Oops", "You can't remove yourself from the team!", "error");

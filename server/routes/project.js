@@ -16,69 +16,71 @@ var MAX_FUNDING = 500;
  * @param {object} req.body.project new project object (name field required)
  */
 router.post('/', perm.auth, function(req, res) {
-    res.status(400).send("Not accepting applications at this time.");
-    /*
-    if (!req.body.project.name) res.status(400).send('Project name missing');
-    else {
-        var project = req.body.project;
-
-        //Validate that they don't exceed the funding limits
-        var budgetValid = true;
-        if (project.private.budgetAmount) {
-            var budget = project.private.budgetAmount.toString();;
-            budget = parseFloat(budget.replace(/\$/g, ''));
-            project.private.budgetAmount = budget;
-
-            if (isNaN(budget)) {
-                budgetValid = false;
-                res.status(400).send('Budget amount not a number');
-            } else if (budget > MAX_FUNDING) {
-                budgetValid = false;
-                res.status(400).send('Max budget exceeded');
-            }
-        }
-        if (budgetValid) {
-
-            // Hardcode batch
-            project.private.batch = "ProjX Fall 2017";
-            project.private.status = "pending";
-
-            // Empty defaults for optional fields
-            if (!project.private.budgetUsed) {
-                project.budgetUsed = 0;
-            }
-            if (!project.visibility) {
-                project.visibility = "team";
-            }
-            if (!project.public.team) {
-                project.public.team = [req.session.email];
-            }
-
-            var newProject = new Project({
-                name : project.name,
-                team: project.team,
-                public: project.public,
-                private: project.private,
-                admin: {comments: undefined}
-            });
-
-            newProject.save(function (err) {
-                if (err) res.status(500).send('Failed to save project');
-                else {
-                    var slackText = '*' + newProject.name + '*\n' + newProject.public.projectDescription + '\nhttp://projx.mit.edu/project/' + newProject._id;
-                    slack.webhook({
-                        channel: '#apps',
-                        username: 'appbot',
-                        icon_url: 'http://techx.mit.edu/img/projx.svg',
-                        text: slackText
-                    }, function(err, response) {
-                        if (err) console.log(err);
-                    });
-                    res.status(201).send('Project created');
+    if (config.appsOpen) {
+        if (!req.body.project.name) res.status(400).send('Project name missing');
+        else {
+            var project = req.body.project;
+    
+            //Validate that they don't exceed the funding limits
+            var budgetValid = true;
+            if (project.private.budgetAmount) {
+                var budget = project.private.budgetAmount.toString();;
+                budget = parseFloat(budget.replace(/\$/g, ''));
+                project.private.budgetAmount = budget;
+    
+                if (isNaN(budget)) {
+                    budgetValid = false;
+                    res.status(400).send('Budget amount not a number');
+                } else if (budget > MAX_FUNDING) {
+                    budgetValid = false;
+                    res.status(400).send('Max budget exceeded');
                 }
-            });
+            }
+            if (budgetValid) {
+    
+                // Hardcode batch
+                project.private.batch = "ProjX Fall 2017";
+                project.private.status = "pending";
+    
+                // Empty defaults for optional fields
+                if (!project.private.budgetUsed) {
+                    project.budgetUsed = 0;
+                }
+                if (!project.visibility) {
+                    project.visibility = "team";
+                }
+                if (!project.public.team) {
+                    project.public.team = [req.session.email];
+                }
+    
+                var newProject = new Project({
+                    name : project.name,
+                    team: project.team,
+                    public: project.public,
+                    private: project.private,
+                    admin: {comments: undefined}
+                });
+    
+                newProject.save(function (err) {
+                    if (err) res.status(500).send('Failed to save project');
+                    else {
+                        var slackText = '*' + newProject.name + '*\n' + newProject.public.projectDescription + '\nhttp://projx.mit.edu/project/' + newProject._id;
+                        slack.webhook({
+                            channel: '#apps',
+                            username: 'appbot',
+                            icon_url: 'http://techx.mit.edu/img/projx.svg',
+                            text: slackText
+                        }, function(err, response) {
+                            if (err) console.log(err);
+                        });
+                        res.status(201).send('Project created');
+                    }
+                });
+            }
         }
-    }*/
+    } else {
+        res.status(400).send("Not accepting applications at this time.");
+    }
 });
 
 /**
@@ -100,55 +102,57 @@ router.get('/', perm.team, function(req, res) {
  * @param {object} req.body.project - project object
  */
 router.post('/update', perm.team, function(req, res) {
-    res.send("Not allowed to update an application at this time.");
-    /*
-    if (!req.body.project ||
-        !req.body.project.name ||
-        !req.body.project._id) res.status(400).send('Invalid update');
-    else {
-        var project = req.body.project;
-	    var validatedProject = {
-            name: project.name,
-            private: project.private,
-            public: project.public,
-            admin: project.admin
-        };
-
-        //Validate that they don't exceed the funding limits
-        var budgetValid = true;
-        if (validatedProject.private.budgetAmount) {
-            var budget = validatedProject.private.budgetAmount.toString();
-            budget = parseFloat(budget.replace(/\$/g, ''));
-            validatedProject.private.budgetAmount = budget;
-
-            if (isNaN(budget)) {
-                budgetValid = false;
-                res.status(400).send('Budget amount not a number');
-            } else if (budget > MAX_FUNDING) {
-                budgetValid = false;
-                res.status(400).send('Max budget exceeded');
+    if (config.appsOpen) {
+        if (!req.body.project ||
+            !req.body.project.name ||
+            !req.body.project._id) res.status(400).send('Invalid update');
+        else {
+            var project = req.body.project;
+            var validatedProject = {
+                name: project.name,
+                private: project.private,
+                public: project.public,
+                admin: project.admin
+            };
+    
+            //Validate that they don't exceed the funding limits
+            var budgetValid = true;
+            if (validatedProject.private.budgetAmount) {
+                var budget = validatedProject.private.budgetAmount.toString();
+                budget = parseFloat(budget.replace(/\$/g, ''));
+                validatedProject.private.budgetAmount = budget;
+    
+                if (isNaN(budget)) {
+                    budgetValid = false;
+                    res.status(400).send('Budget amount not a number');
+                } else if (budget > MAX_FUNDING) {
+                    budgetValid = false;
+                    res.status(400).send('Max budget exceeded');
+                }
+            }
+            if (budgetValid) {
+                // If user is not admin, don't allow them to edit budgetUsed, status, or comments
+                if (!req.session.isAdmin) {
+                if (validatedProject.private.budgetUsed) {
+                        delete validatedProject.private.budgetUsed;
+                }
+                if (validatedProject.private.status) {
+                        delete validatedProject.private.status;
+                }
+                if (validatedProject.admin) {
+                        delete validatedProject.admin;
+                }
+                }
+    
+                Project.findByIdAndUpdate(project._id, validatedProject, {new : true, runValidators: true}, function(err, updatedProject) {
+                    if (err) res.status(403).send('Project could not be updated');
+                    else res.status(200).send('Project updated');
+                });
             }
         }
-        if (budgetValid) {
-            // If user is not admin, don't allow them to edit budgetUsed, status, or comments
-            if (!req.session.isAdmin) {
-    	    if (validatedProject.private.budgetUsed) {
-                    delete validatedProject.private.budgetUsed;
-    	    }
-    	    if (validatedProject.private.status) {
-                    delete validatedProject.private.status;
-    	    }
-    	    if (validatedProject.admin) {
-    		        delete validatedProject.admin;
-    	    }
-            }
-
-            Project.findByIdAndUpdate(project._id, validatedProject, {new : true, runValidators: true}, function(err, updatedProject) {
-                if (err) res.status(403).send('Project could not be updated');
-                else res.status(200).send('Project updated');
-            });
-        }
-    }*/
+    } else {
+        res.send("Not allowed to update an application at this time.");
+    }
 });
 
 /**
@@ -162,6 +166,10 @@ router.get('/current', perm.auth, function(req, res) {
             else res.status(200).send(projects);
         });
     }
+});
+
+router.get('/cycle', function(req, res) {
+    res.status(200).send({"open":config.appsOpen, "cycle":config.cycle});
 });
 
 /**
