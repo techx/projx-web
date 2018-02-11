@@ -26,13 +26,13 @@ Then type `username`'s password on MIT athena server.
 4. create a file called `config.json`. this file will store a bunch of settings, and will end up looking something like this:
 ```JSON
 {
-    "mongoUri":"data", // may be more complex if db is actually secure.
+    "mongoUri":"data",
     "loginUrl": "http://projx.mit.edu/api/user/login",
     "scriptsUsername":"vfazel",
     "scriptsPath":"/projx",
     "authSecret":"insert_some_secret_here",
     "cookieSecret":"insert_secret_here",
-    "appsOpen":true, // tell whether or not the apps are open or not.
+    "appsOpen":true,
     "cycle": "Spring 2018"
 }
 ```
