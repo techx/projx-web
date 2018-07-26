@@ -40,10 +40,17 @@ router.get('/current', function(req, res) {
  * POST /assignkey - Assign a random key to current session and return it
  */
 router.post('/assignkey', function(req, res) {
-    var key = randomstring.generate(10);
-    var url = 'https://' + config.scriptsUsername + '.scripts.mit.edu:444' + config.scriptsPath + '/auth.php';;
-    req.session.key = key;
-    res.status(200).send(url + '?key=' + key);
+    if (!config.development) {
+        var key = randomstring.generate(10);
+        var url = 'https://' + config.scriptsUsername + '.scripts.mit.edu:444' + config.scriptsPath + '/auth.php';
+        req.session.key = key;
+        res.status(200).send(url + '?key=' + key);
+    } else {
+        // var key = 0
+        var url = '/api/user/login'
+        res.redirect(url)
+        // res.status(200).send(url + '?key=' + key)
+    }
 });
 
 /**
@@ -52,57 +59,95 @@ router.post('/assignkey', function(req, res) {
  * @param req.query.token - user's token from cert auth site
  * @param req.query.name - user's name
  */
+
+
 router.get('/login', function(req, res) {
-    if (req.session.email) {
-        // user already logged in
-        res.redirect('/portal');
-    } else {
-        // get query params
-        var email = req.query.email.toLowerCase();
-        var token = req.query.token;
-        var name = req.query.name;
-
-        // compute token
-        var key = req.session.key;
-        var secret = config.authSecret;
-        var correctToken = sha256(email + key + secret);
-
-        if (email && token && (token === correctToken)) {
-
-            // log in successful
-            User.getUser(email, function (err, user) {
-                if (err) {
-
-                    // user not found
-                    User.createUser({
-                        'email': email,
-                        'name': name
-                    }, function (err, newUser) {
-                        if (err) {
-                            res.send('Log in failed (requires valid MIT certificate)');
-                        } else {
-
-                            // user created, mount info to session and redirect to root
-                            req.session.key = null;
-                            req.session.email = newUser.email;
-                            req.session.isAdmin = newUser.isAdmin;
-                            res.redirect('/portal');
-                        }
-                    });
-                } else {
-
-                    // user found, mount info to session and redirect to root
-                    req.session.key = null;
-                    req.session.email = user.email;
-                    req.session.isAdmin = user.isAdmin;
-                    res.redirect('/portal');
-                }
-            });
+    if (!config.development) {
+        if (req.session.email) {
+            // user already logged in
+            res.redirect('/portal');
         } else {
-            // error message
-            res.send('Log in failed (requires valid MIT certificate)');
+            // get query params
+            var email = req.query.email.toLowerCase();
+            var token = req.query.token;
+            var name = req.query.name;
+    
+            // compute token
+            var key = req.session.key;
+            var secret = config.authSecret;
+            var correctToken = sha256(email + key + secret);
+    
+            if (email && token && (token === correctToken)) {
+    
+                // log in successful
+                User.getUser(email, function (err, user) {
+                    if (err) {
+    
+                        // user not found
+                        User.createUser({
+                            'email': email,
+                            'name': name
+                        }, function (err, newUser) {
+                            if (err) {
+                                res.send('Log in failed (requires valid MIT certificate) 3');
+                            } else {
+    
+                                // user created, mount info to session and redirect to root
+                                req.session.key = null;
+                                req.session.email = newUser.email;
+                                req.session.isAdmin = newUser.isAdmin;
+                                res.redirect('/portal');
+                            }
+                        });
+                    } else {
+    
+                        // user found, mount info to session and redirect to root
+                        req.session.key = null;
+                        req.session.email = user.email;
+                        req.session.isAdmin = user.isAdmin;
+                        res.redirect('/portal');
+                    }
+                });
+            } else {
+                // error message
+                res.send('Log in failed (requires valid MIT certificate) 2');
+            }
         }
+    } else {
+         // FORCE log in successful
+         const email = config.devEmail
+         const name = config.devName
+         User.getUser(email, function (err, user) {
+            if (err) {
+                console.log("error in User.getUser()")
+                // // user not found
+                // User.createUser({
+                //     'email': email,
+                //     'name': name
+                // }, function (err, newUser) {
+                //     if (err) {
+                //         res.send('Log in failed (requires valid MIT certificate) 3');
+                //     } else {
+
+                //         // user created, mount info to session and redirect to root
+                //         req.session.key = null;
+                //         req.session.email = newUser.email;
+                //         req.session.isAdmin = newUser.isAdmin;
+                //         res.redirect('/portal');
+                //     }
+                // });
+            } else {
+
+                // user found, mount info to session and redirect to root
+                req.session.key = null;
+                req.session.email = user.email;
+                req.session.isAdmin = user.isAdmin;
+                res.redirect('/portal');
+            }
+        });
+
     }
+    
 });
 
 /**

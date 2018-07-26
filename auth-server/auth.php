@@ -27,14 +27,26 @@
         $valid = False;
     }
 
+    // if () {
+    //     $email = "agolla@mit.edu"
+    //     $name = "Anurag Golla"
+    //     $token = ""
+    //     $redirect_url = $login_url . '?email=' . $email . '&name=' . $name . '&token=' . $token;
+    // }
+
+
     # on success
     $success_meta = '<meta http-equiv="refresh" content="1; url=' . $redirect_url . '" />';
     $success_message = 'Redirecting...';
 
     # on error
     $error_meta = '<meta charset="utf-8">';
-    $error_message = 'Log in failed (requires valid MIT certificate)';
+    $error_message = 'Log in failed (requires valid MIT certificate) 1';
+
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
