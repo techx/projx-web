@@ -37,7 +37,7 @@ Then type `username`'s password on MIT athena server.
 }
 ```
 
-5. for rapid development start: `$ gulp`
+5. for rapid development start: `$ gulp`, and if you encounter any difficulties with authentication follow "Bypass Certificate Authentication" below.
 
 6. for production start: 
     ```
@@ -56,3 +56,24 @@ use `$ ps aux` to locate the node process, terminate it, then restart it with `$
 
 
 Must include `config.js` and `auth-server/config.php` (not included in repo) to work.
+
+
+##Bypass Certificate Authentication
+
+1. install local mongodb: `https://docs.mongodb.com/manual/installation/`
+
+2. open terminal and run: `$ mongod`
+
+3. open another terminal and run: `$ mongo`
+
+4. In the mongo shell, create database "projx": `> use projx`
+
+5. In projx database create "users" collection: `> db.createCollection("users")`
+
+6. Create your own user profile with an email address and full name: `>  db.users.insert({"email":"YOUR_EMAIL_HERE","name":"YOUR_NAME_HERE","isAdmin":true})`. Shutdown mongodb with `> exit`. 
+
+7. Update `devEmail` and `devName` in `config.json` accordingly to the projile you created in step 6. 
+
+8. Change `mongoUri` in `config.json` from `"data"` to `"mongodb://localhost:27017/projx"`. 
+
+9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder. 

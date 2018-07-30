@@ -25,14 +25,7 @@
         $redirect_url = $login_url . '?email=' . $email . '&name=' . $name . '&token=' . $token;
     } else {
         $valid = False;
-    }
-
-    // if () {
-    //     $email = "agolla@mit.edu"
-    //     $name = "Anurag Golla"
-    //     $token = ""
-    //     $redirect_url = $login_url . '?email=' . $email . '&name=' . $name . '&token=' . $token;
-    // }
+    };
 
 
     # on success

@@ -46,10 +46,8 @@ router.post('/assignkey', function(req, res) {
         req.session.key = key;
         res.status(200).send(url + '?key=' + key);
     } else {
-        // var key = 0
-        var url = '/api/user/login'
-        res.redirect(url)
-        // res.status(200).send(url + '?key=' + key)
+        var url = '/api/user/login';
+        res.redirect(url);
     }
 });
 
@@ -115,27 +113,11 @@ router.get('/login', function(req, res) {
         }
     } else {
          // FORCE log in successful
-         const email = config.devEmail
-         const name = config.devName
+         const email = config.devEmail;
+         const name = config.devName;
          User.getUser(email, function (err, user) {
             if (err) {
-                console.log("error in User.getUser()")
-                // // user not found
-                // User.createUser({
-                //     'email': email,
-                //     'name': name
-                // }, function (err, newUser) {
-                //     if (err) {
-                //         res.send('Log in failed (requires valid MIT certificate) 3');
-                //     } else {
-
-                //         // user created, mount info to session and redirect to root
-                //         req.session.key = null;
-                //         req.session.email = newUser.email;
-                //         req.session.isAdmin = newUser.isAdmin;
-                //         res.redirect('/portal');
-                //     }
-                // });
+                console.log("error in User.getUser()");
             } else {
 
                 // user found, mount info to session and redirect to root
@@ -143,7 +125,7 @@ router.get('/login', function(req, res) {
                 req.session.email = user.email;
                 req.session.isAdmin = user.isAdmin;
                 res.redirect('/portal');
-            }
+            };
         });
 
     }
@@ -172,6 +154,17 @@ router.post('/update', perm.user, function(req, res) {
         else res.status(200).send('User updated');
     });
 });
+
+/**
+ * POST /countdown - gets event name and time from config
+ */
+router.get('/countdown', function(req,res,next) {
+    res.status(200).send({
+        "eventName": config.upcomingEventName,
+        "eventDate": config.upcomingEventDate
+    });
+});
+
 
 // EXPORTS //
 module.exports = router;
