@@ -119,12 +119,12 @@ router.get('/login', function(req, res) {
             if (err) {
                 console.log("error in User.getUser()");
             } else {
-
+                console.log("dev user confirmed")
                 // user found, mount info to session and redirect to root
                 req.session.key = null;
                 req.session.email = user.email;
                 req.session.isAdmin = user.isAdmin;
-                res.redirect('/portal');
+                res.status(200).send('/portal');
             };
         });
 
