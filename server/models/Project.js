@@ -19,7 +19,8 @@ var projectSchema = mongoose.Schema({
         timeline: { type: String },
         point: { type: String }, // valid email, should be admin
         batch: { type: String },
-        status: { type: String }
+        status: { type: String },
+        contact: { type: String }
     },
     admin: {
         comments: { type: String }
