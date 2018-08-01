@@ -24,41 +24,12 @@
             <tr ng-repeat="project in projects | orderBy : sortKey : sortReverse">
               <!-- ng-switch for linking columns -->
               <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-switch on="field">
-                <div ng-switch-when="name">
-                  <a href="/project/{{ project._id }}">{{ project[key] }}</a> ({{ project.date }})
-                </div>
+                <div ng-switch-when="name"><a href="/project/{{ project._id }}">{{ project[key] }}</a> ({{ project.date }})</div>
                 <a ng-switch-when="point" href="/profile/{{ project.infoTeam.point }}">{{ project[key] }}</a>
                 <a ng-switch-when="primary" href="/profile/{{ project.infoTeam.primary }}">{{ project[key] }}</a>
                 <div ng-switch-when="team">
                   <span ng-repeat="member in project.public.team"><a href="/profile/{{ member }}">{{member.slice(0, -8)}}</a><span ng-hide="$last">, </span></span>
                 </div>
-                <div ng-switch-when="status">
-                    <div>
-                      <center>
-                          <select ng-model="project.private.status" placeholder="pending">
-                            <option value="pending">pending</option>
-                            <option value="accepted">accepted</option>
-                            <option value="rejected">rejected</option>
-                          </select>
-                      </center>
-                    </div>
-                </div>
-                <!-- Team members can be modified in config.json -->
-                <div ng-switch-when="contact">
-                    <center>
-                        <select ng-model="project.private.contact" placeholder="unassigned">
-                          <option ng-repeat="(key,value) in projxTeam" value="{{ value }}">{{ key }}</option>
-                        </select>
-                    </center>
-                </div>
-                <!-- Contact can be inputed on the admin side -->
-                <!-- <div ng-switch-when="contact">
-                    <div>
-                      <center>
-                          <textarea rows="1" ng-model="project.private.contact" placeholder="unassigned"></textarea>
-                      </center>
-                    </div>
-                </div> -->
                 <div ng-switch-default>{{ project[key] }}</div>
               </td>
             </tr>
@@ -70,10 +41,9 @@
             </tr>
           </tbody>
         </table>
-        <center>
-            <button class="ui large button green-button" type="submit" ng-click="adminUpdate()">save</button>
-        </center>
+
       </div>
+
     </div>
   </div>
 </div>

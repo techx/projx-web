@@ -41,7 +41,6 @@ router.post('/', perm.auth, function(req, res) {
                 // Hardcode batch
                 project.private.batch = config.cycle;
                 project.private.status = "pending";
-                project.private.contact = "unassigned";
     
                 // Empty defaults for optional fields
                 if (!project.private.budgetUsed) {

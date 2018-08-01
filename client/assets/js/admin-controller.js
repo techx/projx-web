@@ -1,4 +1,4 @@
-angular.module('portal').controller('adminController', function ($scope, $http, $location, $routeParams) {
+angular.module('portal').controller('adminController', function ($scope, $http, $location) {
 
     // page title
     $scope.title = 'admin';
@@ -6,25 +6,16 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
     // specify which fields to display (maps field name to key in project object)
     $scope.projectFields = {
         'name': 'name',
-        'team': 'teamDisplay',
-        'status': 'status',
-        'contact': 'contact'
+        'team': 'teamDisplay'
     };
 
     // sorting state
     $scope.sortKey = 'pointDisplay';
     $scope.sortReverse = true;
 
-
-    // store projex members
-    $http.get('/api/user/projxTeam').then(function (response) {
-        $scope.projxTeam = response.data.team;
-    });
-
     // get all projects
     $http.get('/api/project/all').then(function (response) {
         $scope.projects = response.data;
-        $scope.projectsOldState = angular.copy($scope.projects)
         $scope.projects.forEach(function (project) {
             addDisplayFields(project);
         });
@@ -73,72 +64,4 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         }
     }
 
-    $scope.adminUpdate = function () {
-        $scope.projectsUpdated = [];
-        $scope.internalError = false;
-
-        $scope.projects.forEach(function(project) {
-
-            $scope.projectMatches = 0;
-            $scope.projectsOldState.forEach(function(projectOld) {
-                if (project._id === projectOld._id) {
-                    $scope.projectMatches += 1;
-                    if (project.private.status !== projectOld.private.status) {
-                        //$scope.statusChangeUpdater(project);
-                    };
-                    if (project.private.status !== projectOld.private.status || project.private.contact !== projectOld.private.contact) {
-                        $scope.projectsUpdated += project;
-                    };
-                }
-            });
-            
-            if ($scope.projectMatches !== 1) {
-                $internalError = true;
-                console.log('Project states are not alligned correctly');
-            }
-
-            // project.private.status = project.private.status.toLowerCase();
-            // project.private.contact = project.private.contact.toLowerCase();
-
-            if (!$scope.internalError) {
-                $http.post('/api/project/update', {
-                    'project': project
-                }).then(function (response) {
-                    console.log("Project Updated!")
-                }, function (response) {
-                    $scope.internalError = true;
-                    console.log('Error accessing server to complete update');
-                });
-            };
-
-        });
-
-        if (!$scope.internalError) {
-            swal({
-                title: "Woohoo!",
-                text: "All Projects Saved!",
-                type: "success",
-                timer: null,
-                showConfirmButton: true
-            });
-        } else {
-            swal({
-                title: "Oh No!",
-                text: "Error Occured!",
-                type: "error",
-                timer: null,
-                showConfirmButton: true
-            });
-        };
-        
-    };
-
-    // sends email to everyone who's project's status has changed
-    $scope.statusChangeUpdater = function(project) {
-        $scope.team = project.public.team;
-        $scope.team.forEach(function(member) {
-            // needs implementation
-        });
-    };
-    
 });

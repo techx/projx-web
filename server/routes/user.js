@@ -156,22 +156,12 @@ router.post('/update', perm.user, function(req, res) {
 });
 
 /**
- * GET /countdown - gets event name and time from config
+ * POST /countdown - gets event name and time from config
  */
 router.get('/countdown', function(req,res,next) {
     res.status(200).send({
         "eventName": config.upcomingEventName,
         "eventDate": config.upcomingEventDate
-    });
-});
-
-
-/**
- * GET /projxTeam - gets projx team members from config
- */
-router.get('/projxTeam', function(req,res,next) {
-    res.status(200).send({
-        "team": config.projxTeam
     });
 });
 
