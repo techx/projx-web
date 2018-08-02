@@ -63,7 +63,7 @@ use `$ ps aux` to locate the node process, terminate it, then restart it with `$
 Must include `config.js` and `auth-server/config.php` (not included in repo) to work.
 
 
-##Bypass Certificate Authentication
+## Bypass Certificate Authentication
 
 1. install local mongodb: `https://docs.mongodb.com/manual/installation/`
 
