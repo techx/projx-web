@@ -97,9 +97,6 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
                 console.log('Project states are not alligned correctly');
             }
 
-            // project.private.status = project.private.status.toLowerCase();
-            // project.private.contact = project.private.contact.toLowerCase();
-
             if (!$scope.internalError) {
                 $http.post('/api/project/update', {
                     'project': project
