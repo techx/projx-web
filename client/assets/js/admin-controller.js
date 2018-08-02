@@ -1,4 +1,4 @@
-angular.module('portal').controller('adminController', function ($scope, $http, $location, $routeParams) {
+angular.module('portal').controller('adminController', function ($scope, $http, $location) {
 
     // page title
     $scope.title = 'admin';
@@ -16,7 +16,7 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
     $scope.sortReverse = true;
 
 
-    // store projex members
+    // store projx members
     $http.get('/api/user/projxTeam').then(function (response) {
         $scope.projxTeam = response.data.team;
     });
@@ -83,9 +83,9 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
             $scope.projectsOldState.forEach(function(projectOld) {
                 if (project._id === projectOld._id) {
                     $scope.projectMatches += 1;
-                    if (project.private.status !== projectOld.private.status) {
-                        //$scope.statusChangeUpdater(project);
-                    };
+                    // if (project.private.status !== projectOld.private.status) {
+                    //     $scope.statusChangeUpdater(project);
+                    // };
                     if (project.private.status !== projectOld.private.status || project.private.contact !== projectOld.private.contact) {
                         $scope.projectsUpdated += project;
                     };

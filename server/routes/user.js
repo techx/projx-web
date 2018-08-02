@@ -158,7 +158,7 @@ router.post('/update', perm.user, function(req, res) {
 /**
  * GET /countdown - gets event name and time from config
  */
-router.get('/countdown', function(req,res,next) {
+router.get('/countdown', function(req, res, next) {
     res.status(200).send({
         "eventName": config.upcomingEventName,
         "eventDate": config.upcomingEventDate
@@ -169,7 +169,7 @@ router.get('/countdown', function(req,res,next) {
 /**
  * GET /projxTeam - gets projx team members from config
  */
-router.get('/projxTeam', function(req,res,next) {
+router.get('/projxTeam', function(req, res, next) {
     res.status(200).send({
         "team": config.projxTeam
     });
