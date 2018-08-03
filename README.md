@@ -86,17 +86,4 @@ Must include `config.js` and `auth-server/config.php` (not included in repo) to 
 
 8. Change `mongoUri` in `config.json` from `"data"` to `"mongodb://localhost:27017/projx"`. 
 
-9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder. 
-
-
-db.projxmembers.insert({"email":"agolla@mit.edu","name":"Anurag Golla","isAdmin":true})
-db.projxmembers.insert({"email":"antoncao@mit.edu","name":"Anton Cao","isAdmin":false})
-db.projxmembers.insert({"email":"rachelgr@mit.edu","name":"Rachel Groberman","isAdmin":true})
-db.projxmembers.insert({"email":"member1@mit.edu","name":"Member One","isAdmin":false})
-
-
-db.projxmembers.insert({"email":"agolla@mit.edu","name":"Anurag Golla","isAdmin":true})
-db.users.insert({"email":"antoncao@mit.edu","name":"Anton Cao","isAdmin":false})
-db.users.insert({"email":"rachelgr@mit.edu","name":"Rachel Groberman","isAdmin":true})
-db.users.insert({"email":"member1@mit.edu","name":"Member One","isAdmin":false})
-db.users.insert({"email":"user1@mit.edu","name":"User One","isAdmin":false})
+9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder.
