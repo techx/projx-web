@@ -1,7 +1,11 @@
-angular.module('portal').controller('adminController', function ($scope, $http, $location) {
+angular.module('portal').controller('adminController', function ($route, $scope, $http, $location) {
 
     // page title
     $scope.title = 'admin';
+
+    // adding new admin and projx tema member 
+    $scope.changeAdminEmail = '';
+    $scope.changeTeamMemberEmail = '';
 
     // specify which fields to display (maps field name to key in project object)
     $scope.projectFields = {
@@ -17,8 +21,11 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
 
 
     // store projx members
-    $http.get('/api/user/projxTeam').then(function (response) {
-        $scope.projxTeam = response.data.team;
+    $http.get('/api/user/getProjxmembers').then(function (response) {
+        $scope.projxmembersDict = {};
+        response.data.forEach(function(projxmember) {
+            $scope.projxmembersDict[projxmember.email] = projxmember.name;
+        });
     });
 
     // get all projects
@@ -86,7 +93,8 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
                     // if (project.private.status !== projectOld.private.status) {
                     //     $scope.statusChangeUpdater(project);
                     // };
-                    if (project.private.status !== projectOld.private.status || project.private.contact !== projectOld.private.contact) {
+                    if (project.private.status !== projectOld.private.status || 
+                        project.private.contact !== projectOld.private.contact) {
                         $scope.projectsUpdated += project;
                     };
                 }
@@ -137,5 +145,223 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
             // needs implementation
         });
     };
+
+    // get all admin
+    $http.get('/api/user/getUsers').then(function(response) {
+        $scope.admins = {};
+        $scope.comUsers = {};
+        $scope.userData = response.data;
+        console.log("ALL USERS: ", $scope.userData);
+        $scope.userData.forEach(function(user) {
+            if (user.isAdmin === true) {
+                $scope.admins[user.email] = user.name;
+            } else {
+                $scope.comUsers[user.email] = user.name;
+            };
+        });
+    });
+
+
+    $scope.addAdmin = function() {
+        $scope.internalError = false;
+
+        if ($scope.projxmembersDict[$scope.changeAdminEmail]) {
+
+            if ($scope.comUsers[$scope.changeAdminEmail]) {
+
+                $scope.changeUser = $http.post('/api/user/getSingleUser', {
+                    "email": $scope.changeAdminEmail
+                }).then(function (response) {
+                    console.log("Found User!")
+                }, function (response) {
+                    $scope.internalError = true;
+                    console.log('Error finding user.');
+                });
+    
+                $scope.userData.forEach(function(user) {
+                    if (user.email === $scope.changeAdminEmail) {
+                        $scope.identifiedUser = user;
+                    };
+                });
+    
+                if (!$scope.identifiedUser) {
+                    console.log("Error finding user.");
+                };
+                
+                $scope.identifiedUser.isAdmin = true;
+                
+                $http.post('/api/user/update', {
+                    'user': $scope.identifiedUser
+                }).then(function (response) {
+                    console.log("User Updated!")
+    
+                    // $http.post('/api/user/updateProjxmember', {
+                    //     'projxmember': $scope.identifiedUser
+                    // }).then(function (response) {
+                    //     console.log("Projxmember Updated!")
+                    // }, function (response) {
+                    //     $scope.internalError = true;
+                    //     console.log('Error updating projxmember to admin.');
+                    // });
+
+                    swal({
+                        title: "WooHoo!",
+                        text: "This user is now an admin!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    $route.reload();
+    
+                }, function (response) {
+                    $scope.internalError = true;
+                    console.log('Error updating user to admin.');
+                });
+                
+            } else if ($scope.admins[$scope.changeAdminEmail]) {
+                swal({
+                    title: "already admin!",
+                    text: "This user is already an admin!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            } else {
+                swal({
+                    title: "user not found",
+                    text: "The email that you entered is not a current user.",
+                    type: "error",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            };
+
+        } else {
+            swal({
+                title: "Woops!",
+                text: "The email that you entered is not a current Projx member.",
+                type: "error",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+    };
+
+
+    $scope.removeAdmin = function() {
+        $scope.internalError = false;
+
+        if ($scope.admins[$scope.changeAdminEmail]) {
+
+            // look into direct implement as done for addMember
+
+            $scope.userData.forEach(function(user) {
+                if (user.email === $scope.changeAdminEmail) {
+                    $scope.identifiedUser = user;
+                };
+            });
+            
+            if (!$scope.identifiedUser) {
+                console.log("Error finding user.");
+            };
+            
+            $scope.identifiedUser.isAdmin = false;
+            
+            $http.post('/api/user/update', {
+                'user': $scope.identifiedUser
+            }).then(function (response) {
+                console.log("User Updated!")
+
+                // $http.post('/api/user/updateProjxmember', {
+                //     'member': $scope.identifiedUser
+                // }).then(function (response) {
+                //     console.log("Projxmember Updated!")
+                // }, function (response) {
+                //     $scope.internalError = true;
+                //     console.log('Error updating projxmember to deny admin.');
+                // });
+
+                swal({
+                    title: "WooHoo!",
+                    text: "This admin has been removed!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                $route.reload();
+
+
+            }, function (response) {
+                $scope.internalError = true;
+                console.log('Error updating user to deny admin.');
+            });
+
+        } else if ($scope.comUsers[$scope.changeAdminEmail]) {
+            swal({
+                title: "not admin!",
+                text: "This user was not an admin!",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else {
+            swal({
+                title: "user not found",
+                text: "The email that you entered is not a current user.",
+                type: "error",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        };
+        
+    };
+
+    $scope.addProjxmember = function() {
+
+        $scope.userData.forEach(function(user) {
+            if (user.email === $scope.changeTeamMemberEmail) {
+                $scope.newProjxmember = user;
+            }
+        })
+
+        if ($scope.newProjxmember) {
+
+            $http.post('/api/user/addProjxmember', {
+                'projxmember': $scope.newProjxmember
+            }).then(function (response) {
+                console.log("Projxmember Created!")
+
+                swal({
+                    title: "WooHoo!",
+                    text: "This user is now a Projx member!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                $route.reload();
+
+
+            }, function (response) {
+                // $scope.internalError = true;
+                console.log('Error creating projxmember.');
+            });
+
+        } else {
+            swal({
+                title: "user not found",
+                text: "The email that you entered is not a current user.",
+                type: "error",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        };
+    };
+
+    // $scope.removeProjxember() = function() {
+    //     // implement
+    // };
     
 });

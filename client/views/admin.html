@@ -8,6 +8,33 @@
 
       <div id="content" class="ui segment">
 
+        {{ tester }}
+
+        <h2>all active projx members</h2>
+        <ul>
+          <li ng-repeat="(key,value) in projxmembersDict">{{ value }} ({{ key }})</li>
+        </ul>
+        
+
+        <h3>add projx member</h3>
+        <input type="text" placeholder="enter an email" ng-model="changeTeamMemberEmail">
+        <button class="ui tiny button green-button" type="submit" ng-click="addProjxmember()">add</button>
+        <!-- <button class="ui tiny button green-button" type="submit" ng-click="removeProjxmember()">remove</button> -->
+
+
+        
+        <h2>all active admin</h2>
+        <ul>
+          <li ng-repeat="(key,value) in admins">{{ value }} ({{ key }})</li>
+        </ul>
+
+        <h3>add admin</h3>
+        <input type="text" placeholder="enter an email" ng-model="changeAdminEmail">
+        <button class="ui tiny button green-button" type="submit" ng-click="addAdmin()">add</button>
+        <button class="ui tiny button green-button" type="submit" ng-click="removeAdmin()">remove</button>
+        <br><br>
+        
+
         <h2>all projects</h2>
         Count: {{projects.length}}
         <table class="ui celled striped unstackable selectable sortable very compact small table">

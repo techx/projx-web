@@ -1,6 +1,7 @@
 // IMPORTS //
 var router = require('express').Router();
 var User = require('../models/User');
+var Projxmember = require('../models/Projxmember');
 var perm = require('../perm');
 var config = require('../../config');
 var randomstring = require('randomstring');
@@ -23,6 +24,31 @@ router.get('/', perm.auth, function(req, res) {
     }
 });
 
+
+/**
+ * GET /getSingleUser [admin] - Get user object, 
+ * @param req.body.email - user email (required)
+ */
+router.get('/getSingleUser', function(req, res) {
+    console.log("req: ", req.body);
+    if (!req.body.email) {
+        res.status(400).send('Email missing');
+    } else {
+        User.getUser(req.body.email, function (err, user) {
+            if (err) {
+                console.log("error");
+                res.status(403).send(err);
+            } else {
+                console.log("success");
+
+                res.status(200).send(user);
+            };
+        });
+    }
+});
+
+
+
 /**
  * GET /current - Get current user object
  */
@@ -33,7 +59,7 @@ router.get('/current', function(req, res) {
             if (err) res.status(403).send(err);
             else res.status(200).send(user);
         });
-    }
+    };
 });
 
 /**
@@ -156,7 +182,7 @@ router.post('/update', perm.user, function(req, res) {
 });
 
 /**
- * GET /countdown - gets event name and time from config
+ * GET /countdown - [user] gets event name and time from config
  */
 router.get('/countdown', function(req, res, next) {
     res.status(200).send({
@@ -167,13 +193,73 @@ router.get('/countdown', function(req, res, next) {
 
 
 /**
- * GET /projxTeam - gets projx team members from config
+ * GET /projxTeam - [admin] gets projx team members from config
  */
 router.get('/projxTeam', function(req, res, next) {
     res.status(200).send({
         "team": config.projxTeam
     });
 });
+
+
+/**
+ * GET /getUsers [admin] Get list of all users
+ */
+router.get('/getUsers', perm.admin, function(req, res) {
+    User.find({}, function(err, users) {
+        if (err) {
+            res.status(403).send(err);
+        } else {
+            res.status(200).send(users);
+
+        };
+    });
+});
+
+
+
+
+// NEED TO SEPERATE INTO DIFFERENT ROUTE FILE! ###########################
+
+/**
+ * GET /getProjxmembers [admin] Get list of all projxmembers
+ */
+router.get('/getProjxmembers', perm.admin, function(req, res) {
+    Projxmember.find({}, function(err, projxmembers) {
+        if (err) {
+            res.status(403).send(err);
+        } else {
+            res.status(200).send(projxmembers);
+        };
+    });
+});
+
+
+/**
+ * POST /updateProjxmember - [admin] Update a projxmember
+ * @param req.body.projxmember - projxmember object
+ */
+router.post('/updateProjxmember', function(req, res) {
+    Projxmember.updateProjxmember(req.body.projxmember, function (err, result) {
+        if (err) res.status(403).send(err);
+        else res.status(200).send('projxmember updated');
+    });
+});
+
+
+
+
+/**
+ * POST /addProjxmember - [admin] Update a projxmember
+ * @param req.body.projxmember - projxmember object
+ */
+router.post('/addProjxmember', function(req, res) {
+    Projxmember.createProjxmember(req.body.projxmember, function (err, result) {
+        if (err) res.status(403).send(err);
+        else res.status(200).send('projxmember created');
+    });
+});
+
 
 
 // EXPORTS //
