@@ -86,4 +86,4 @@ Must include `config.js` and `auth-server/config.php` (not included in repo) to 
 
 8. Change `mongoUri` in `config.json` from `"data"` to `"mongodb://localhost:27017/projx"`. 
 
-9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder.
+9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal while in the projx directory.
