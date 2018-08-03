@@ -41,8 +41,10 @@
                 {{ project.name }}
                 <div class="ui right floated">
                   <div class="ui tag projx label" ng-show="project.private.batch==='ProjX {{ cycle }}'">ProjX {{ cycle }}</div>
-                  <div class="ui tag yellow label" ng-show="project.display.complete==='yes'">Application complete</div>
-                  <div class="ui tag red label" ng-show="project.display.complete==='no'">Application incomplete</div>
+                  <div class="ui tag yellow label" ng-show="project.display.complete==='yes'">Application Under Review</div>
+                  <div class="ui tag orange label" ng-show="project.display.complete==='no'">Application Incomplete</div>
+                  <div class="ui tag green label" ng-show="project.private.status==='accepted'">Application Accepted</div>
+                  <div class="ui tag red label" ng-show="project.private.status==='rejected'">Application Rejected</div>
                 </div>
               </div>
               <div class="description">{{ project.public.projectPitch }}</div>

@@ -9,8 +9,10 @@
       <div id="content" class="ui segment">
 
         <div class="ui tag projx label" ng-show="projectDisplay.batch==='ProjX {{ cycle }}'">ProjX {{ cycle }}</div>
-        <div class="ui tag yellow label" ng-show="projectDisplay.complete==='yes'">Application complete</div>
-        <div class="ui tag red label" ng-show="projectDisplay.complete==='no'">Application incomplete</div>
+        <div class="ui tag yellow label" ng-show="projectDisplay.complete==='yes'">Application Under Review</div>
+        <div class="ui tag orange label" ng-show="projectDisplay.complete==='no'">Application Incomplete</div>
+        <div class="ui tag green label" ng-show="projectDisplay.status==='accepted'">Application Accepted</div>
+        <div class="ui tag red label" ng-show="projectDisplay.status==='rejected'">Application Rejected</div>
 
         <h2>
           <span ng-hide="editStatus">summary</span>
