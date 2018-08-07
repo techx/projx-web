@@ -10,16 +10,16 @@
 
         {{ tester }}
 
-        <h2>all active projx members</h2>
+        <!-- <h2>all active projx members</h2>
         <ul>
           <li ng-repeat="(key,value) in projxmembersDict">{{ value }} ({{ key }})</li>
-        </ul>
+        </ul> -->
         
 
-        <h3>add projx member</h3>
+        <!-- <h3>add projx member</h3>
         <input type="text" placeholder="enter an email" ng-model="changeTeamMemberEmail">
         <button class="ui tiny button green-button" type="submit" ng-click="addProjxmember()">add</button>
-        <!-- <button class="ui tiny button green-button" type="submit" ng-click="removeProjxmember()">remove</button> -->
+        <button class="ui tiny button green-button" type="submit" ng-click="removeProjxmember()">remove</button> -->
 
 
         
@@ -74,7 +74,7 @@
                 <div ng-switch-when="contact">
                     <center>
                         <select ng-model="project.private.contact" placeholder="unassigned">
-                          <option ng-repeat="(key,value) in projxTeam" value="{{ value }}">{{ key }}</option>
+                          <option ng-repeat="(key,value) in admins" value="{{ key }}">{{ value }} ({{ key }})</option>
                         </select>
                     </center>
                 </div>

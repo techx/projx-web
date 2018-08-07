@@ -195,15 +195,6 @@ angular.module('portal').controller('adminController', function ($route, $scope,
                 }).then(function (response) {
                     console.log("User Updated!")
     
-                    // $http.post('/api/user/updateProjxmember', {
-                    //     'projxmember': $scope.identifiedUser
-                    // }).then(function (response) {
-                    //     console.log("Projxmember Updated!")
-                    // }, function (response) {
-                    //     $scope.internalError = true;
-                    //     console.log('Error updating projxmember to admin.');
-                    // });
-
                     swal({
                         title: "WooHoo!",
                         text: "This user is now an admin!",
@@ -273,15 +264,6 @@ angular.module('portal').controller('adminController', function ($route, $scope,
             }).then(function (response) {
                 console.log("User Updated!")
 
-                // $http.post('/api/user/updateProjxmember', {
-                //     'member': $scope.identifiedUser
-                // }).then(function (response) {
-                //     console.log("Projxmember Updated!")
-                // }, function (response) {
-                //     $scope.internalError = true;
-                //     console.log('Error updating projxmember to deny admin.');
-                // });
-
                 swal({
                     title: "WooHoo!",
                     text: "This admin has been removed!",
@@ -318,50 +300,50 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         
     };
 
-    $scope.addProjxmember = function() {
+    // $scope.addProjxmember = function() {
 
-        $scope.userData.forEach(function(user) {
-            if (user.email === $scope.changeTeamMemberEmail) {
-                $scope.newProjxmember = user;
-            }
-        })
+    //     $scope.userData.forEach(function(user) {
+    //         if (user.email === $scope.changeTeamMemberEmail) {
+    //             $scope.newProjxmember = user;
+    //         }
+    //     })
 
-        if ($scope.newProjxmember) {
+    //     if ($scope.newProjxmember) {
 
-            $http.post('/api/user/addProjxmember', {
-                'projxmember': $scope.newProjxmember
-            }).then(function (response) {
-                console.log("Projxmember Created!")
+    //         $http.post('/api/user/addProjxmember', {
+    //             'projxmember': $scope.newProjxmember
+    //         }).then(function (response) {
+    //             console.log("Projxmember Created!")
 
-                swal({
-                    title: "WooHoo!",
-                    text: "This user is now a Projx member!",
-                    type: "success",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
+    //             swal({
+    //                 title: "WooHoo!",
+    //                 text: "This user is now a Projx member!",
+    //                 type: "success",
+    //                 timer: 2000,
+    //                 showConfirmButton: false
+    //             });
 
-                $route.reload();
+    //             $route.reload();
 
 
-            }, function (response) {
-                // $scope.internalError = true;
-                console.log('Error creating projxmember.');
-            });
+    //         }, function (response) {
+    //             // $scope.internalError = true;
+    //             console.log('Error creating projxmember.');
+    //         });
 
-        } else {
-            swal({
-                title: "user not found",
-                text: "The email that you entered is not a current user.",
-                type: "error",
-                timer: 2000,
-                showConfirmButton: false
-            });
-        };
-    };
-
-    // $scope.removeProjxember() = function() {
-    //     // implement
+    //     } else {
+    //         swal({
+    //             title: "user not found",
+    //             text: "The email that you entered is not a current user.",
+    //             type: "error",
+    //             timer: 2000,
+    //             showConfirmButton: false
+    //         });
+    //     };
     // };
+
+    // // $scope.removeProjxember() = function() {
+    // //     // implement
+    // // };
     
 });
