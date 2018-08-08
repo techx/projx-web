@@ -1,7 +1,6 @@
 // IMPORTS //
 var router = require('express').Router();
 var User = require('../models/User');
-var Projxmember = require('../models/Projxmember');
 var perm = require('../perm');
 var config = require('../../config');
 var randomstring = require('randomstring');

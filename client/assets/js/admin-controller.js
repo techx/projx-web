@@ -3,7 +3,7 @@ angular.module('portal').controller('adminController', function ($route, $scope,
     // page title
     $scope.title = 'admin';
 
-    // adding new admin and projx tema member 
+    // adding new admin and projx team member 
     $scope.changeAdminEmail = '';
     $scope.changeTeamMemberEmail = '';
 
@@ -300,50 +300,4 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         
     };
 
-    // $scope.addProjxmember = function() {
-
-    //     $scope.userData.forEach(function(user) {
-    //         if (user.email === $scope.changeTeamMemberEmail) {
-    //             $scope.newProjxmember = user;
-    //         }
-    //     })
-
-    //     if ($scope.newProjxmember) {
-
-    //         $http.post('/api/user/addProjxmember', {
-    //             'projxmember': $scope.newProjxmember
-    //         }).then(function (response) {
-    //             console.log("Projxmember Created!")
-
-    //             swal({
-    //                 title: "WooHoo!",
-    //                 text: "This user is now a Projx member!",
-    //                 type: "success",
-    //                 timer: 2000,
-    //                 showConfirmButton: false
-    //             });
-
-    //             $route.reload();
-
-
-    //         }, function (response) {
-    //             // $scope.internalError = true;
-    //             console.log('Error creating projxmember.');
-    //         });
-
-    //     } else {
-    //         swal({
-    //             title: "user not found",
-    //             text: "The email that you entered is not a current user.",
-    //             type: "error",
-    //             timer: 2000,
-    //             showConfirmButton: false
-    //         });
-    //     };
-    // };
-
-    // // $scope.removeProjxember() = function() {
-    // //     // implement
-    // // };
-    
 });
