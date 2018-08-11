@@ -165,78 +165,67 @@ angular.module('portal').controller('adminController', function ($route, $scope,
     $scope.addAdmin = function() {
         $scope.internalError = false;
 
-        if ($scope.projxmembersDict[$scope.changeAdminEmail]) {
+        if ($scope.comUsers[$scope.changeAdminEmail]) {
 
-            if ($scope.comUsers[$scope.changeAdminEmail]) {
+            $scope.changeUser = $http.post('/api/user/getSingleUser', {
+                "email": $scope.changeAdminEmail
+            }).then(function (response) {
+                console.log("Found User!")
+            }, function (response) {
+                $scope.internalError = true;
+                console.log('Error finding user.');
+            });
 
-                $scope.changeUser = $http.post('/api/user/getSingleUser', {
-                    "email": $scope.changeAdminEmail
-                }).then(function (response) {
-                    console.log("Found User!")
-                }, function (response) {
-                    $scope.internalError = true;
-                    console.log('Error finding user.');
-                });
-    
-                $scope.userData.forEach(function(user) {
-                    if (user.email === $scope.changeAdminEmail) {
-                        $scope.identifiedUser = user;
-                    };
-                });
-    
-                if (!$scope.identifiedUser) {
-                    console.log("Error finding user.");
+            $scope.userData.forEach(function(user) {
+                if (user.email === $scope.changeAdminEmail) {
+                    $scope.identifiedUser = user;
                 };
-                
-                $scope.identifiedUser.isAdmin = true;
-                
-                $http.post('/api/user/update', {
-                    'user': $scope.identifiedUser
-                }).then(function (response) {
-                    console.log("User Updated!")
-    
-                    swal({
-                        title: "WooHoo!",
-                        text: "This user is now an admin!",
-                        type: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
+            });
 
-                    $route.reload();
-    
-                }, function (response) {
-                    $scope.internalError = true;
-                    console.log('Error updating user to admin.');
-                });
-                
-            } else if ($scope.admins[$scope.changeAdminEmail]) {
+            if (!$scope.identifiedUser) {
+                console.log("Error finding user.");
+            };
+            
+            $scope.identifiedUser.isAdmin = true;
+            
+            $http.post('/api/user/update', {
+                'user': $scope.identifiedUser
+            }).then(function (response) {
+                console.log("User Updated!")
+
                 swal({
-                    title: "already admin!",
-                    text: "This user is already an admin!",
+                    title: "WooHoo!",
+                    text: "This user is now an admin!",
                     type: "success",
                     timer: 2000,
                     showConfirmButton: false
                 });
-            } else {
-                swal({
-                    title: "user not found",
-                    text: "The email that you entered is not a current user.",
-                    type: "error",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-            };
 
+                $route.reload();
+
+            }, function (response) {
+                $scope.internalError = true;
+                console.log('Error updating user to admin.');
+            });
+            
+        } else if ($scope.admins[$scope.changeAdminEmail]) {
+            swal({
+                title: "already admin!",
+                text: "This user is already an admin!",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
         } else {
             swal({
-                title: "Woops!",
-                text: "The email that you entered is not a current Projx member.",
+                title: "user not found",
+                text: "The email that you entered is not a current user.",
                 type: "error",
                 timer: 2000,
                 showConfirmButton: false
             });
-        }
+        };
+
     };
 
 
