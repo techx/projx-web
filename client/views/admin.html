@@ -10,7 +10,7 @@
 
         <h2>all active admin</h2>
         <ul>
-          <li ng-repeat="(key,value) in admins">{{ value }} ({{ key }})</li>
+          <li ng-repeat="(num,user) in admins">{{ user.name }} ({{ user.email }})</li>
         </ul>
 
         <h3>add admin</h3>
@@ -59,7 +59,7 @@
                 <div ng-switch-when="contact">
                     <center>
                         <select ng-model="project.private.contact" placeholder="unassigned">
-                          <option ng-repeat="(key,value) in admins" value="{{ key }}">{{ value }} ({{ key }})</option>
+                          <option ng-repeat="(num,user) in admins" value="{{ user.email }}">{{ user.name }}</option>
                         </select>
                     </center>
                 </div>

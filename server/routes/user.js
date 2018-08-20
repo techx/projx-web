@@ -25,11 +25,11 @@ router.get('/', perm.auth, function(req, res) {
 
 
 /**
- * GET /getSingleUser [admin] - Get user object, 
+ * GET /findUser [admin] - Get user object, 
  * @param req.body.email - user email (required)
  */
-router.get('/getSingleUser', function(req, res) {
-    console.log("req: ", req.body);
+router.get('/findUser', function(req, res) {
+    console.log("REQ: ", req.body, req.query)
     if (!req.body.email) {
         res.status(400).send('Email missing');
     } else {
@@ -39,7 +39,6 @@ router.get('/getSingleUser', function(req, res) {
                 res.status(403).send(err);
             } else {
                 console.log("success");
-
                 res.status(200).send(user);
             };
         });
@@ -192,16 +191,6 @@ router.get('/countdown', function(req, res, next) {
 
 
 /**
- * GET /projxTeam - [admin] gets projx team members from config
- */
-router.get('/projxTeam', function(req, res, next) {
-    res.status(200).send({
-        "team": config.projxTeam
-    });
-});
-
-
-/**
  * GET /getUsers [admin] Get list of all users
  */
 router.get('/getUsers', perm.admin, function(req, res) {
@@ -215,50 +204,20 @@ router.get('/getUsers', perm.admin, function(req, res) {
     });
 });
 
-
-
-
-// NEED TO SEPERATE INTO DIFFERENT ROUTE FILE! ###########################
-
 /**
- * GET /getProjxmembers [admin] Get list of all projxmembers
+ * GET /getAdmin [admin] Get list of all admin
  */
-router.get('/getProjxmembers', perm.admin, function(req, res) {
-    Projxmember.find({}, function(err, projxmembers) {
+router.get('/getAdmin', perm.admin, function(req, res) {
+    User.find({ isAdmin: true }, function(err, users) {
         if (err) {
             res.status(403).send(err);
         } else {
-            res.status(200).send(projxmembers);
+            res.status(200).send(users);
+            console.log("Admins: ", users)
+
         };
     });
 });
-
-
-/**
- * POST /updateProjxmember - [admin] Update a projxmember
- * @param req.body.projxmember - projxmember object
- */
-router.post('/updateProjxmember', function(req, res) {
-    Projxmember.updateProjxmember(req.body.projxmember, function (err, result) {
-        if (err) res.status(403).send(err);
-        else res.status(200).send('projxmember updated');
-    });
-});
-
-
-
-
-/**
- * POST /addProjxmember - [admin] Update a projxmember
- * @param req.body.projxmember - projxmember object
- */
-router.post('/addProjxmember', function(req, res) {
-    Projxmember.createProjxmember(req.body.projxmember, function (err, result) {
-        if (err) res.status(403).send(err);
-        else res.status(200).send('projxmember created');
-    });
-});
-
 
 
 // EXPORTS //
