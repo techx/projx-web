@@ -25,29 +25,6 @@ router.get('/', perm.auth, function(req, res) {
 
 
 /**
- * GET /findUser [admin] - Get user object, 
- * @param req.body.email - user email (required)
- */
-router.get('/findUser', function(req, res) {
-    console.log("REQ: ", req.body, req.query)
-    if (!req.body.email) {
-        res.status(400).send('Email missing');
-    } else {
-        User.getUser(req.body.email, function (err, user) {
-            if (err) {
-                console.log("error");
-                res.status(403).send(err);
-            } else {
-                console.log("success");
-                res.status(200).send(user);
-            };
-        });
-    }
-});
-
-
-
-/**
  * GET /current - Get current user object
  */
 router.get('/current', function(req, res) {
