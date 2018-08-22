@@ -71,6 +71,7 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         }
     }
 
+    // save changes to all project's decisions and contacts
     $scope.adminUpdate = function () {
         let projectsUpdated = [];
         let internalError = false;
@@ -93,17 +94,13 @@ angular.module('portal').controller('adminController', function ($route, $scope,
             
             if (projectMatches !== 1) {
                 internalError = true;
-                console.log('Project states are not alligned correctly');
             }
 
             if (!internalError) {
                 $http.post('/api/project/update', {
                     'project': project
-                }).then(function (response) {
-                    console.log("Project Updated!")
-                }, function (response) {
+                }).then(function (err) {
                     internalError = true;
-                    console.log('Error accessing server to complete update');
                 });
             };
 
@@ -129,6 +126,7 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         
     };
 
+
     // sends email to everyone who's project's status has changed
     $scope.statusChangeUpdater = function(project) {
         let team = project.public.team;
@@ -147,12 +145,22 @@ angular.module('portal').controller('adminController', function ($route, $scope,
     });
 
 
+    //get current user data
+    $http.get('/api/user/current').then(function (response) {
+        $scope.curUser = response.data;
+    });
+
+
+    // sets user's isAdmin param to true
     $scope.addAdmin = function() {
-        
+
         $http.get('/api/user', {
-            params : { 'email': $scope.changeAdminEmail }
+            params : { 
+                'email': $scope.changeAdminEmail,
+                'curEmail': $scope.curUser.email, 
+                'curAdmin': $scope.curUser.isAdmin
+            }
         }).then(function (response) {
-            console.log("Found User!")
             let changeUser = response.data;
 
             if ( changeUser.isAdmin == true ) {
@@ -169,7 +177,6 @@ angular.module('portal').controller('adminController', function ($route, $scope,
                 $http.post('/api/user/update', {
                     'user': changeUser
                 }).then(function (response) {
-                    console.log("User Updated!")
     
                     swal({
                         title: "WooHoo!",
@@ -184,7 +191,6 @@ angular.module('portal').controller('adminController', function ($route, $scope,
             };
 
         }, function (response) {
-            console.log('Error finding user.');
             swal({
                 title: "user not found",
                 text: "The email that you entered is not a current user.",
@@ -193,15 +199,21 @@ angular.module('portal').controller('adminController', function ($route, $scope,
                 showConfirmButton: false
             });
         });
+        
     };
 
 
+
+    // sets user's isAdmin param to false
     $scope.removeAdmin = function() {
 
         $http.get('/api/user', {
-            params : { 'email': $scope.changeAdminEmail }
+            params : { 
+                'email': $scope.changeAdminEmail, 
+                'curEmail': $scope.curUser.email,
+                'curAdmin': $scope.curUser.isAdmin
+            }
         }).then(function (response) {
-            console.log("Found User!");
 
             let changeUser = response.data;
 
@@ -219,7 +231,6 @@ angular.module('portal').controller('adminController', function ($route, $scope,
                 $http.post('/api/user/update', {
                     'user': changeUser
                 }).then(function (response) {
-                    console.log("User Updated!");
                     swal({
                         title: "WooHoo!",
                         text: "This admin has been removed!",
@@ -233,7 +244,6 @@ angular.module('portal').controller('adminController', function ($route, $scope,
             };
 
         }, function (response) {
-            console.log('Error finding user.');
             swal({
                 title: "user not found",
                 text: "The email that you entered is not a current user.",

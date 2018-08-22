@@ -15,9 +15,19 @@ angular.module('portal').controller('profileController', function ($scope, $http
 
     // get profile user
     var getProfileInfo = function () {
-        $http.get('/api/user?email=' + $routeParams.email).then(function (response) {
-            console.log(response.data);
-            $scope.profileUser = response.data;
+
+        $http.get('/api/user/current').then(function (response) {
+            $scope.cur = response.data;
+            $http.get('/api/user?email=' + $routeParams.email, {
+                params : { 
+                    'curEmail' : $scope.cur.email, 
+                    'curAdmin' : $scope.cur.isAdmin 
+                }
+            }).then(function (response) {
+                $scope.profileUser = response.data;
+            }, function (response) {
+                sweetAlert("Oops...", "User not found!", "error");
+            });
         }, function (response) {
             sweetAlert("Oops...", "User not found!", "error");
         });

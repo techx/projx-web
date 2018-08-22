@@ -13,7 +13,7 @@
           <li ng-repeat="(key, value) in admins">{{ value }} ({{ key }})</li>
         </ul>
 
-        <h3>add admin</h3>
+        <h3>modify admin</h3>
         <input type="text" placeholder="enter an email" ng-model="changeAdminEmail">
         <button class="ui tiny button green-button" type="submit" ng-click="addAdmin()">add</button>
         <button class="ui tiny button green-button" type="submit" ng-click="removeAdmin()">remove</button>

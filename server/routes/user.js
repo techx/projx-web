@@ -12,15 +12,19 @@ var sha256 = require('sha256');
 /**
  * GET / [user] - Get user object, return if current user matches or is admin
  * @param req.query.email - user email (required)
+ * @param req.query.curEmail - current user obj email (required)
+ * @param req.query.curAdmin - current user obj isAdmin bool (required)
  */
 router.get('/', perm.auth, function(req, res) {
     if (!req.query.email) res.status(400).send('Email missing');
     else {
-        User.getUser(req.query.email, function (err, user) {
-            if (err) res.status(403).send(err);
-            else res.status(200).send(user);
-        });
-    }
+        if (req.query.curEmail == req.query.email || req.query.curAdmin == 'true') {
+            User.getUser(req.query.email, function (err, user) {
+                if (err) res.status(403).send(err);
+                else res.status(200).send(user);
+            });
+        };
+    };
 });
 
 
@@ -166,21 +170,6 @@ router.get('/countdown', function(req, res, next) {
     });
 });
 
-
-/**
- * GET /getUsers [admin] Get list of all users
- */
-router.get('/getUsers', perm.admin, function(req, res) {
-    User.find({}, function(err, users) {
-        if (err) {
-            res.status(403).send(err);
-        } else {
-            res.status(200).send(users);
-
-        };
-    });
-});
-
 /**
  * GET /getAdmin [admin] Get list of all admin
  */
@@ -190,8 +179,6 @@ router.get('/getAdmin', perm.admin, function(req, res) {
             res.status(403).send(err);
         } else {
             res.status(200).send(users);
-            console.log("Admins: ", users)
-
         };
     });
 });
