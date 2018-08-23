@@ -16,12 +16,10 @@ var sha256 = require('sha256');
 router.get('/', perm.user, function(req, res) {
     if (!req.query.email) res.status(400).send('Email missing');
     else {
-        if (req.session.email == req.query.email || req.session.isAdmin == true) {
-            User.getUser(req.query.email, function (err, user) {
-                if (err) res.status(403).send(err);
-                else res.status(200).send(user);
-            });
-        };
+        User.getUser(req.query.email, function (err, user) {
+            if (err) res.status(403).send(err);
+            else res.status(200).send(user);
+        });
     };
 });
 
