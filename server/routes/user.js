@@ -12,13 +12,11 @@ var sha256 = require('sha256');
 /**
  * GET / [user] - Get user object, return if current user matches or is admin
  * @param req.query.email - user email (required)
- * @param req.query.curEmail - current user obj email (required)
- * @param req.query.curAdmin - current user obj isAdmin bool (required)
  */
-router.get('/', perm.auth, function(req, res) {
+router.get('/', perm.user, function(req, res) {
     if (!req.query.email) res.status(400).send('Email missing');
     else {
-        if (req.query.curEmail == req.query.email || req.query.curAdmin == 'true') {
+        if (req.session.email == req.query.email || req.session.isAdmin == true) {
             User.getUser(req.query.email, function (err, user) {
                 if (err) res.status(403).send(err);
                 else res.status(200).send(user);

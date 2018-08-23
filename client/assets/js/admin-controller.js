@@ -209,9 +209,7 @@ angular.module('portal').controller('adminController', function ($route, $scope,
 
         $http.get('/api/user', {
             params : { 
-                'email': $scope.changeAdminEmail, 
-                'curEmail': $scope.curUser.email,
-                'curAdmin': $scope.curUser.isAdmin
+                'email': $scope.changeAdminEmail
             }
         }).then(function (response) {
 
