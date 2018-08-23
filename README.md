@@ -38,12 +38,7 @@ Then type `username`'s password on MIT athena server.
     "devEmail": "agolla@mit.edu",
     "devName": "Anurag Golla",
     "upcomingEventName": "PROJXPO 2019", 
-    "upcomingEventDate": "May 18, 2019 19:00:00",
-    "projxTeam": {
-        "Rachel Groberman": "rachelgr@mit.edu",
-        "Anton Cao": "antoncao@mit.edu",
-        "Anurag Golla": "agolla@mit.edu"
-    }
+    "upcomingEventDate": "May 18, 2019 19:00:00"
 }
 ```
 
@@ -86,4 +81,4 @@ Must include `config.js` and `auth-server/config.php` (not included in repo) to 
 
 8. Change `mongoUri` in `config.json` from `"data"` to `"mongodb://localhost:27017/projx"`. 
 
-9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder. 
+9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder.

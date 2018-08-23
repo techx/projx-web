@@ -16,12 +16,11 @@ angular.module('portal').controller('profileController', function ($scope, $http
     // get profile user
     var getProfileInfo = function () {
         $http.get('/api/user?email=' + $routeParams.email).then(function (response) {
-            console.log(response.data);
             $scope.profileUser = response.data;
         }, function (response) {
             sweetAlert("Oops...", "User not found!", "error");
         });
-    }
+    };
 
     // edit profile
     $scope.editProfile = function () {

@@ -13,15 +13,16 @@ var sha256 = require('sha256');
  * GET / [user] - Get user object, return if current user matches or is admin
  * @param req.query.email - user email (required)
  */
-router.get('/', perm.auth, function(req, res) {
+router.get('/', perm.user, function(req, res) {
     if (!req.query.email) res.status(400).send('Email missing');
     else {
         User.getUser(req.query.email, function (err, user) {
             if (err) res.status(403).send(err);
             else res.status(200).send(user);
         });
-    }
+    };
 });
+
 
 /**
  * GET /current - Get current user object
@@ -33,7 +34,7 @@ router.get('/current', function(req, res) {
             if (err) res.status(403).send(err);
             else res.status(200).send(user);
         });
-    }
+    };
 });
 
 /**
@@ -156,7 +157,7 @@ router.post('/update', perm.user, function(req, res) {
 });
 
 /**
- * GET /countdown - gets event name and time from config
+ * GET /countdown - [user] gets event name and time from config
  */
 router.get('/countdown', function(req, res, next) {
     res.status(200).send({
@@ -165,13 +166,16 @@ router.get('/countdown', function(req, res, next) {
     });
 });
 
-
 /**
- * GET /projxTeam - gets projx team members from config
+ * GET /getAdmin [admin] Get list of all admin
  */
-router.get('/projxTeam', function(req, res, next) {
-    res.status(200).send({
-        "team": config.projxTeam
+router.get('/getAdmin', perm.admin, function(req, res) {
+    User.find({ isAdmin: true }, function(err, users) {
+        if (err) {
+            res.status(403).send(err);
+        } else {
+            res.status(200).send(users);
+        };
     });
 });
 

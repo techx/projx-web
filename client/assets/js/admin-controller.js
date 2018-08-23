@@ -1,7 +1,10 @@
-angular.module('portal').controller('adminController', function ($scope, $http, $location) {
+angular.module('portal').controller('adminController', function ($route, $scope, $http, $location) {
 
     // page title
     $scope.title = 'admin';
+
+    // adding new admin
+    $scope.changeAdminEmail = '';
 
     // specify which fields to display (maps field name to key in project object)
     $scope.projectFields = {
@@ -15,11 +18,6 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
     $scope.sortKey = 'pointDisplay';
     $scope.sortReverse = true;
 
-
-    // store projx members
-    $http.get('/api/user/projxTeam').then(function (response) {
-        $scope.projxTeam = response.data.team;
-    });
 
     // get all projects
     $http.get('/api/project/all').then(function (response) {
@@ -73,44 +71,42 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         }
     }
 
+    // save changes to all project's decisions and contacts
     $scope.adminUpdate = function () {
-        $scope.projectsUpdated = [];
-        $scope.internalError = false;
+        let projectsUpdated = [];
+        let internalError = false;
 
         $scope.projects.forEach(function(project) {
 
-            $scope.projectMatches = 0;
+            let projectMatches = 0;
             $scope.projectsOldState.forEach(function(projectOld) {
                 if (project._id === projectOld._id) {
-                    $scope.projectMatches += 1;
+                    projectMatches += 1;
                     // if (project.private.status !== projectOld.private.status) {
                     //     $scope.statusChangeUpdater(project);
                     // };
-                    if (project.private.status !== projectOld.private.status || project.private.contact !== projectOld.private.contact) {
-                        $scope.projectsUpdated += project;
+                    if (project.private.status !== projectOld.private.status || 
+                        project.private.contact !== projectOld.private.contact) {
+                        projectsUpdated += project;
                     };
                 }
             });
             
-            if ($scope.projectMatches !== 1) {
-                $internalError = true;
-                console.log('Project states are not alligned correctly');
+            if (projectMatches !== 1) {
+                internalError = true;
             }
 
-            if (!$scope.internalError) {
+            if (!internalError) {
                 $http.post('/api/project/update', {
                     'project': project
-                }).then(function (response) {
-                    console.log("Project Updated!")
-                }, function (response) {
-                    $scope.internalError = true;
-                    console.log('Error accessing server to complete update');
+                }).then(function (err) {
+                    internalError = true;
                 });
             };
 
         });
 
-        if (!$scope.internalError) {
+        if (!internalError) {
             swal({
                 title: "Woohoo!",
                 text: "All Projects Saved!",
@@ -130,12 +126,131 @@ angular.module('portal').controller('adminController', function ($scope, $http, 
         
     };
 
+
     // sends email to everyone who's project's status has changed
     $scope.statusChangeUpdater = function(project) {
-        $scope.team = project.public.team;
-        $scope.team.forEach(function(member) {
+        let team = project.public.team;
+        team.forEach(function(member) {
             // needs implementation
         });
     };
+
+
+    // get all admin
+    $http.get('/api/user/getAdmin').then(function(response) {
+        $scope.admins = {};
+        response.data.forEach(function(user) {
+            $scope.admins[user.email] = user.name;
+        });
+    });
+
+
+    //get current user data
+    $http.get('/api/user/current').then(function (response) {
+        $scope.curUser = response.data;
+    });
+
+
+    // sets user's isAdmin param to true
+    $scope.addAdmin = function() {
+
+        $http.get('/api/user', {
+            params : { 
+                'email': $scope.changeAdminEmail,
+                'curEmail': $scope.curUser.email, 
+                'curAdmin': $scope.curUser.isAdmin
+            }
+        }).then(function (response) {
+            let changeUser = response.data;
+
+            if ( changeUser.isAdmin == true ) {
+                swal({
+                    title: "already admin!",
+                    text: "This user is already an admin!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
     
+            } else if ( changeUser.isAdmin == false ) {
+                changeUser.isAdmin = true;
+                $http.post('/api/user/update', {
+                    'user': changeUser
+                }).then(function (response) {
+    
+                    swal({
+                        title: "WooHoo!",
+                        text: "This user is now an admin!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+    
+                    $route.reload();
+                });
+            };
+
+        }, function (response) {
+            swal({
+                title: "user not found",
+                text: "The email that you entered is not a current user.",
+                type: "error",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+        
+    };
+
+
+
+    // sets user's isAdmin param to false
+    $scope.removeAdmin = function() {
+
+        $http.get('/api/user', {
+            params : { 
+                'email': $scope.changeAdminEmail
+            }
+        }).then(function (response) {
+
+            let changeUser = response.data;
+
+            if ( changeUser.isAdmin == false ) {
+                swal({
+                    title: "not an admin!",
+                    text: "This user is not an admin!",
+                    type: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+    
+            } else if ( changeUser.isAdmin == true ) {
+                changeUser.isAdmin = false;
+                $http.post('/api/user/update', {
+                    'user': changeUser
+                }).then(function (response) {
+                    swal({
+                        title: "WooHoo!",
+                        text: "This admin has been removed!",
+                        type: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+    
+                    $route.reload();
+                });
+            };
+
+        }, function (response) {
+            swal({
+                title: "user not found",
+                text: "The email that you entered is not a current user.",
+                type: "error",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+
+    };
+
 });
