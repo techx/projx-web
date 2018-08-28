@@ -11,7 +11,8 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         'name': 'name',
         'team': 'teamDisplay',
         'status': 'status',
-        'contact': 'contact'
+        'contact': 'contact', 
+        'checks': 'checks'
     };
 
     // sorting state

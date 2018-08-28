@@ -107,6 +107,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'batch': $scope.project.private.batch,
             'status': $scope.project.private.status,
             'contact': $scope.project.private.contact,
+            'checks': $scope.project.private.checks,
             'complete': false
         };
     }

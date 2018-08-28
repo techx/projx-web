@@ -55,6 +55,21 @@
                       </center>
                     </div>
                 </div>
+                <div ng-switch-when="checks">
+                  <div>
+                    <center>
+                        <select ng-model="project.private.checks" placeholder="no checks yet">
+                          <option value="No Checks Yet">no checks yet</option>
+                          <option value="Check 1 Complete">Check 1 Complete</option>
+                          <option value="Check 1 Pending">Check 1 Pending</option>
+                          <option value="Check 2 Complete">Check 2 Complete</option>
+                          <option value="Check 2 Pending">Check 2 Pending</option>
+                          <option value="Check 3 Complete">Check 3 Complete</option>
+                          <option value="Check 3 Pending">Check 3 Pending</option>
+                        </select>
+                    </center>
+                  </div>
+              </div>
                 <!-- Team members can be modified in config.json -->
                 <div ng-switch-when="contact">
                     <center>
