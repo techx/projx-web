@@ -112,8 +112,8 @@ router.get('/login', function(req, res) {
         }
     } else {
          // FORCE log in successful
-         const email = config.devEmail;
-         const name = config.devName;
+         var email = config.devEmail;
+         var name = config.devName;
          User.getUser(email, function (err, user) {
             if (err) {
                 console.log("error in User.getUser()");
