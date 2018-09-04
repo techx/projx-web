@@ -58,8 +58,6 @@ router.post('/assignkey', function(req, res) {
  * @param req.query.token - user's token from cert auth site
  * @param req.query.name - user's name
  */
-
-
 router.get('/login', function(req, res) {
     if (!config.development) {
         if (req.session.email) {
@@ -88,7 +86,7 @@ router.get('/login', function(req, res) {
                             'name': name
                         }, function (err, newUser) {
                             if (err) {
-                                res.send('Log in failed (requires valid MIT certificate) 3');
+                                res.send('Log in failed (requires valid MIT certificate)');
                             } else {
     
                                 // user created, mount info to session and redirect to root
@@ -109,7 +107,7 @@ router.get('/login', function(req, res) {
                 });
             } else {
                 // error message
-                res.send('Log in failed (requires valid MIT certificate) 2');
+                res.send('Log in failed (requires valid MIT certificate)');
             }
         }
     } else {

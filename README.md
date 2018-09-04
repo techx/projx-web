@@ -46,8 +46,16 @@ Then type `username`'s password on MIT athena server.
 
 6. for production start: 
     ```
-    $ mongod
     $ node bin/www
+    ```
+    or
+    ```
+    $ forever start bin/www
+    ```
+    and
+    ```
+    $ forever list
+    $ forever stop [index]
     ```
 
 ## Opening and closing apps:
