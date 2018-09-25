@@ -22,12 +22,15 @@
             <td ng-hide="editStatus" ng-style="(profileUser[key]) ? {} : {'font-style':'italic'}">
               {{ profileUser[key] || 'none' }}
             </td>
-            <td>
-              <input type="button" onclick="location.href='#####################';" value="upload resume here" />
-            </td>
+            <td ng-show="key==='resume' && profileUser.resume === none">
+              <input type="button" onclick="location.href='https://google.com';" value="upload resume here"/>
+            </td> 
+            <td ng-show="key==='resume' && profileUser.resume !== none">
+              <input type="button" onclick="location.href='https://google.com';" value="update resume here"/>
+            </td> 
             <td ng-show="editStatus">
               <div class="ui input"><input type="text" ng-model="profileUser[field]"></div>
-            </td>  
+            </td> 
           </tr>
         </table>
         
