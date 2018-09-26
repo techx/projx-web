@@ -3,6 +3,7 @@ angular.module('portal').controller('profileController', function ($scope, $http
     // page title
     $scope.title = 'profile';
     $scope.editStatus = false;
+    $scope.uploadUrl = 
 
     // specify which fields to display (maps field name to key in project object)
     $scope.profileFields = {

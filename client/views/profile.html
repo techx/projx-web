@@ -22,9 +22,9 @@
             <td ng-hide="editStatus" ng-style="(profileUser[key]) ? {} : {'font-style':'italic'}">
               {{ profileUser[key] || 'none' }}
               <input ng-show="key==='resume' && profileUser.resume === none" type="button" 
-                        onclick="location.href='https://google.com';" value="upload resume here"/>
+                        onclick="location.href='http://localhost:3000';" value="upload resume here"/>
               <input ng-show="key==='resume' && profileUser.resume !== none"type="button" 
-                        onclick="location.href='https://google.com';" value="update resume here"/>
+                        onclick="location.href='http://localhost:3000';" value="update resume here"/>
             </td>
             <td ng-show="editStatus">
               <div class="ui input"><input type="text" ng-model="profileUser[field]"></div>
