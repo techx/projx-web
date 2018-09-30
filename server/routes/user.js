@@ -182,6 +182,7 @@ router.get('/getAdmin', perm.admin, function(req, res) {
 
 /**
  * POST /resumeUpload - [user] Update a user's resume field
+ * Request is sent from projx resume website
  * @param req.body.email
  * @param req.body.resume_url
  * @param req.body.secret_key
