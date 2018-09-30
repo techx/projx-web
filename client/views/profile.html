@@ -25,11 +25,11 @@
               </div>
               
               <input ng-show="key==='resume' && profileUser.resume === none" type="button" 
-                        onclick="location.href='http://localhost:3000';" value="upload resume here"/>
-              <!-- <input ng-show="key==='resume' && profileUser.resume !== none"type="button" 
-                        onclick="location.href='profileUser.resume';" value="update resume here"/> -->
+                        onclick="location.href='https://projx-resume.techx.io';" value="upload resume here"/>
+              <a ng-show="key==='resume' && profileUser.resume !== none" 
+                        ng-href="{{profileUser.resume}}" >update resume here</a>
               <div ng-show="key==='resume' && profileUser.resume !== none">
-                update resume here: {{ profileUser.resume }}
+                <!-- update resume here: {{ profileUser.resume }} -->
               </div>
             </td>
             <td ng-show="editStatus">
