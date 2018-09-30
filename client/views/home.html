@@ -41,10 +41,14 @@
                 {{ project.name }}
                 <div class="ui right floated">
                   <div class="ui tag projx label" ng-show="project.private.batch==='ProjX {{ cycle }}'">ProjX {{ cycle }}</div>
-                  <div class="ui tag yellow label" ng-show="project.display.complete==='yes'">Application Under Review</div>
-                  <div class="ui tag orange label" ng-show="project.display.complete==='no'">Application Incomplete</div>
+                  <!-- <div class="ui tag yellow label" ng-show="project.display.complete==='yes'">Application Complete</div> -->
+                  <div class="ui tag red label" ng-show="project.display.complete==='no'">Application Incomplete</div>
+                  <div class="ui tag yellow label" ng-show="project.private.status==='pending'">Application Under Review</div>
                   <div class="ui tag green label" ng-show="project.private.status==='accepted'">Application Accepted</div>
-                  <div class="ui tag red label" ng-show="project.private.status==='rejected'">Application Rejected</div>
+                  <div class="ui tag orange label" ng-show="project.private.status==='rejected'">Application Rejected</div>
+                  <div class="ui tag red label" ng-show="project.private.checks==='Check 1 Pending'">LATE: CheckIn 1</div>
+                  <div class="ui tag red label" ng-show="project.private.checks==='Check 2 Pending'">LATE: CheckIn 2</div>
+                  <div class="ui tag red label" ng-show="project.private.checks==='Check 3 Pending'">LATE: CheckIn 3</div>
                 </div>
               </div>
               <div class="description">{{ project.public.projectPitch }}</div>

@@ -38,7 +38,8 @@ Then type `username`'s password on MIT athena server.
     "devEmail": "agolla@mit.edu",
     "devName": "Anurag Golla",
     "upcomingEventName": "PROJXPO 2019", 
-    "upcomingEventDate": "May 18, 2019 19:00:00"
+    "upcomingEventDate": "May 18, 2019 19:00:00",
+    "resume_secret_key": "insert_some_secret_key_here"
 }
 ```
 

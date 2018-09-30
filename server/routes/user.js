@@ -178,5 +178,31 @@ router.get('/getAdmin', perm.admin, function(req, res) {
 });
 
 
+/**
+ * POST /resumeUpload - [user] Update a user's resume field
+ * Request is sent from projx resume website
+ * @param req.body.email
+ * @param req.body.resume_url
+ * @param req.body.secret_key
+ */
+router.post('/resumeUpload', function(req, res) {
+    User.getUser(req.body.email, function (err, user) {
+        if (err) {
+            res.status(403).send(err);
+        } else {
+            if (req.body.secret === config.resume_secret_key) {
+                user.resume = req.body.url
+                User.updateUser(user, function (err, result) {
+                    if (err) res.status(403).send(err);
+                    else res.status(200).send('User updated');
+                });
+            } else {
+                res.status(403).send(err);
+            }
+        }
+    });
+});
+
+
 // EXPORTS //
 module.exports = router;

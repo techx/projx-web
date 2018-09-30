@@ -11,7 +11,8 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         'name': 'name',
         'team': 'teamDisplay',
         'status': 'status',
-        'contact': 'contact'
+        'contact': 'contact', 
+        'checks': 'checks'
     };
 
     // sorting state
@@ -86,7 +87,8 @@ angular.module('portal').controller('adminController', function ($route, $scope,
                     //     $scope.statusChangeUpdater(project);
                     // };
                     if (project.private.status !== projectOld.private.status || 
-                        project.private.contact !== projectOld.private.contact) {
+                        project.private.contact !== projectOld.private.contact ||
+                        project.private.checks !== projectOld.private.checks) {
                         projectsUpdated += project;
                     };
                 }
