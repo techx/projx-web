@@ -58,8 +58,6 @@ router.post('/assignkey', function(req, res) {
  * @param req.query.token - user's token from cert auth site
  * @param req.query.name - user's name
  */
-
-
 router.get('/login', function(req, res) {
     if (!config.development) {
         if (req.session.email) {
@@ -88,7 +86,7 @@ router.get('/login', function(req, res) {
                             'name': name
                         }, function (err, newUser) {
                             if (err) {
-                                res.send('Log in failed (requires valid MIT certificate) 3');
+                                res.send('Log in failed (requires valid MIT certificate)');
                             } else {
     
                                 // user created, mount info to session and redirect to root
@@ -109,13 +107,13 @@ router.get('/login', function(req, res) {
                 });
             } else {
                 // error message
-                res.send('Log in failed (requires valid MIT certificate) 2');
+                res.send('Log in failed (requires valid MIT certificate)');
             }
         }
     } else {
          // FORCE log in successful
-         const email = config.devEmail;
-         const name = config.devName;
+         var email = config.devEmail;
+         var name = config.devName;
          User.getUser(email, function (err, user) {
             if (err) {
                 console.log("error in User.getUser()");
@@ -176,6 +174,32 @@ router.get('/getAdmin', perm.admin, function(req, res) {
         } else {
             res.status(200).send(users);
         };
+    });
+});
+
+
+/**
+ * POST /resumeUpload - [user] Update a user's resume field
+ * Request is sent from projx resume website
+ * @param req.body.email
+ * @param req.body.resume_url
+ * @param req.body.secret_key
+ */
+router.post('/resumeUpload', function(req, res) {
+    User.getUser(req.body.email, function (err, user) {
+        if (err) {
+            res.status(403).send(err);
+        } else {
+            if (req.body.secret == config.resumeSecretKey) {
+                user.resume = req.body.url
+                User.updateUser(user, function (err, result) {
+                    if (err) res.status(403).send(err);
+                    else res.status(200).send('User updated');
+                });
+            } else {
+                res.status(403).send(err);
+            }
+        }
     });
 });
 

@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
     name: { type: String },
     course: { type: String },
     year: { type: String },
-    interests: { type: String }
+    interests: { type: String },
+    resume: { type: String }
 });
 
 
