@@ -18,7 +18,7 @@
         </h2>
         <table class="ui celled striped unstackable table">
           <tr ng-repeat="(field, key) in profileFields">
-            <td class="field">{{ field }}</td>
+            <td class="field" ng-hide="editStatus && key === 'resume'">{{ field }}</td>
             <td ng-hide="editStatus" ng-style="(profileUser[key]) ? {} : {'font-style':'italic'}">
               {{ profileUser[key] || 'none' }}
             </td>
