@@ -25,7 +25,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
                 otherFunding: undefined,
                 timeline: undefined,
                 point: undefined,
-		batch: undefined,
+                batch: undefined,
                 status: undefined, 
                 contact: undefined,
                 checks: undefined
