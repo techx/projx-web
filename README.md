@@ -39,9 +39,10 @@ Then type `username`'s password on MIT athena server.
     "devName": "Anurag Golla",
     "upcomingEventName": "PROJXPO 2019", 
     "upcomingEventDate": "May 18, 2019 19:00:00",
-    "resume_secret_key": "insert_some_secret_key_here"
+    "resumeSecretKey": "blah"
 }
 ```
+Note: `resumeSecretKey` should match `PORTAL_SECRET` in the ProjX resume upload app.
 
 5. for rapid development start: `$ gulp`, and if you encounter any difficulties with authentication follow "Bypass Certificate Authentication" below.
 

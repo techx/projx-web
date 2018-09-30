@@ -190,7 +190,7 @@ router.post('/resumeUpload', function(req, res) {
         if (err) {
             res.status(403).send(err);
         } else {
-            if (req.body.secret === config.resume_secret_key) {
+            if (req.body.secret == config.resumeSecretKey) {
                 user.resume = req.body.url
                 User.updateUser(user, function (err, result) {
                     if (err) res.status(403).send(err);
