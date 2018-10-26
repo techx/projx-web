@@ -59,8 +59,14 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         // date
         project.date = prettyDate(dateFromObjectId(project._id));
 
+        // current application cycle
+        project.current = dateFromObjectId(project._id) > new Date('Sept 1, 2018');
+
         return project;
     }
+
+    // var filterProjects = element(by.model('currentProjects'));
+    // filterProjects.clear
 
     // sort by given key; reverse if already sorted by given key
     $scope.sortBy = function (key) {

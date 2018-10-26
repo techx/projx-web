@@ -21,7 +21,7 @@
         
 
         <h2>all projects</h2>
-        Count: {{projects.length}}
+        Count: {{filtered.length}}
         <table class="ui celled striped unstackable selectable sortable very compact small table">
           <thead>
             <tr>
@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="project in projects | orderBy : sortKey : sortReverse">
+            <tr ng-repeat="project in projects | orderBy : sortKey : sortReverse | filter : {'current' : true} as filtered">
               <!-- ng-switch for linking columns -->
               <td ng-class="(key===sortKey) ? 'active' : ''" ng-repeat="(field, key) in projectFields" ng-switch on="field">
                 <div ng-switch-when="name">
