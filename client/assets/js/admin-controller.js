@@ -1,4 +1,4 @@
-angular.module('portal').controller('adminController', function ($route, $scope, $http, $location) {
+angular.module('portal').controller('adminController', function ($route, $scope, $http, $location, $interval) {
 
     // page title
     $scope.title = 'admin';
@@ -78,8 +78,67 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         }
     }
 
+    // save changes to all project contacts and checkin information
+    $scope.adminUpdateChecks = function () {
+        let projectsUpdated = [];
+        let internalError = false;
+
+        // check whether each project has been updated
+        $scope.projects.forEach(function(project) {
+
+            let projectMatches = 0;
+            $scope.projectsOldState.forEach(function(projectOld) {
+                if (project._id === projectOld._id) {
+                    projectMatches += 1;
+                    if (project.private.contact !== projectOld.private.contact || 
+                        project.private.checks !== projectOld.private.checks) {
+                        projectsUpdated += project;
+                    };
+                }
+            });
+
+            if (projectMatches !== 1) {
+                internalError = true;
+            }
+
+            if (!internalError && projectsUpdated.length > 0) {
+                $http.post('/api/project/update', {
+                    'project': project
+                }).then(function (err) {
+                    internalError = true;
+                });
+            };
+
+        });
+
+        if (projectsUpdated.length > 0) {
+            if (!internalError) {
+                swal({
+                    title: "Woohoo!",
+                    text: "All Projects Saved!",
+                    type: "success",
+                    timer: 1000,
+                    showConfirmButton: false
+                });
+                $scope.projectsOldState = angular.copy($scope.projects);
+            } else {
+                swal({
+                    title: "Oh No!",
+                    text: "Error Occured!",
+                    type: "error",
+                    timer: null,
+                    showConfirmButton: true
+                });
+            };
+        }
+        
+    };
+
+    // call every 30 seconds
+    $interval( function() { $scope.adminUpdateChecks(); }, 500);
+
     // save changes to all project's decisions and contacts
-    $scope.adminUpdate = function () {
+    $scope.adminUpdateAll = function () {
         let projectsUpdated = [];
         let internalError = false;
 
