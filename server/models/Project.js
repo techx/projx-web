@@ -17,6 +17,8 @@ var projectSchema = mongoose.Schema({
         budgetBreakdown: { type: String },
         otherFunding: { type: String },
         timeline: { type: String },
+        makershop: { type: Boolean },
+        instructables: { type: Boolean },
         point: { type: String }, // valid email, should be admin
         batch: { type: String },
         status: { type: String },

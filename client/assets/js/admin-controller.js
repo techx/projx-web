@@ -60,7 +60,7 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         project.date = prettyDate(dateFromObjectId(project._id));
 
         // current application cycle
-        project.current = dateFromObjectId(project._id) > new Date('Sept 1, 2018');
+        project.current = dateFromObjectId(project._id) > new Date('Sept 9, 2019');
 
         return project;
     }

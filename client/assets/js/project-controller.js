@@ -108,6 +108,8 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'status': $scope.project.private.status,
             'contact': $scope.project.private.contact,
             'checks': $scope.project.private.checks,
+            'instructables': $scope.project.private.instructables,
+            'makershop': $scope.project.private.makershop,
             'complete': false
         };
     }

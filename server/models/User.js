@@ -10,7 +10,9 @@ var userSchema = mongoose.Schema({
     course: { type: String },
     year: { type: String },
     interests: { type: String },
-    resume: { type: String }
+    resume: { type: String },
+    doneProjXBefore: { type: Boolean },
+    commitments: { type: String },
 });
 
 
