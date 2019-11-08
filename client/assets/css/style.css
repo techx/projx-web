@@ -1380,7 +1380,7 @@ h6 {
   height: 100%;
   left: 0;
   top: 0;
-  background-color: rgba(109, 190, 68, 0.85);
+  background-color: rgba(0, 0, 0, 0.85);
   opacity: 0;
   -webkit-transition: all 0.4s ease-out;
   -moz-transition: all 0.4s ease-out;
