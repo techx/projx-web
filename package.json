@@ -14,7 +14,7 @@
   "author": "ProjX DevOps",
   "license": "MIT",
   "dependencies": {
-    "angular": "^1.4.8",
+    "angular": "^1.7.9",
     "angular-route": "^1.4.8",
     "body-parser": "^1.14.2",
     "cookie-session": "^2.0.0-alpha.1",
