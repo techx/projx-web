@@ -238,10 +238,21 @@
         var item = document.createElement('div');
         item.className = 'item';
         var slide = document.createElement('img');
-        slide.setAttribute('src', '../assets/images/gallery/' + image);
+        var srcAttr = 'data-src';
+        if (index == 0) {
+            srcAttr = 'src'
+            item.classList.add('active');
+        }
+        slide.setAttribute(srcAttr, '../assets/images/gallery/' + image);
         item.appendChild(slide);
-        if (index == 0) item.classList.add('active');
         $slides.append(item);
+    });
+
+    $('#gallerycarousel').on('slide.bs.carousel', function (ev) {
+        var lazy;
+        lazy = $(ev.relatedTarget).find('img[data-src]');
+        lazy.attr('src', lazy.data('src'));
+        lazy.removeAttr('data-src');
     });
 
 
