@@ -221,7 +221,19 @@
      * ============================
      */
     var $slides = $('#gallerycarousel .carousel-inner');
-    var images = ['_DSC0051.JPG', '_DSC0097.JPG'];
+    var images = ['_DSC0055.JPG', '_DSC0056.JPG', '_DSC0058.JPG', '_DSC0059.JPG',
+                  '_DSC0061.JPG', '_DSC0065.JPG', '_DSC0066.JPG', '_DSC0067.JPG',
+                  '_DSC0069.JPG', '_DSC0070.JPG', '_DSC0071.JPG', '_DSC0072.JPG',
+                  '_DSC0074.JPG', '_DSC0078.JPG', '_DSC0080.JPG', '_DSC0083.JPG',
+                  '_DSC0085.JPG', '_DSC0086.JPG', '_DSC0087.JPG', '_DSC0089.JPG',
+                  '_DSC0090.JPG', '_DSC0091.JPG', '_DSC0092.JPG', '_DSC0095.JPG',
+                  '_DSC0096.JPG', '_DSC0097.JPG', '_DSC0098.JPG', '_DSC0100.JPG',
+                  '_DSC0101.JPG', '_DSC0102.JPG', '_DSC0103.JPG', '_DSC0104.JPG',
+                  '_DSC0106.JPG', '_DSC0108.JPG', '_DSC0110.JPG', '_DSC0111.JPG',
+                  '_DSC0112.JPG', '_DSC0114.JPG', '_DSC0115.JPG', '_DSC0117.JPG',
+                  '_DSC0119.JPG', '_DSC0128.JPG', '_DSC0134.JPG', '_DSC0140.JPG',
+                  '_DSC0141.JPG', '_DSC0144.JPG', '_DSC0148.JPG', '_DSC0152.JPG',
+                  '_DSC0154.JPG', '_DSC0159.JPG', '_DSC0158.JPG']
     images.forEach(function (image, index) {
         var item = document.createElement('div');
         item.className = 'item';
