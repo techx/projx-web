@@ -215,6 +215,24 @@
     });
 
 
+    /**
+     * ============================
+     * GALLERY
+     * ============================
+     */
+    var $slides = $('#gallerycarousel .carousel-inner');
+    var images = ['_DSC0051.JPG', '_DSC0097.JPG'];
+    images.forEach(function (image, index) {
+        var item = document.createElement('div');
+        item.className = 'item';
+        var slide = document.createElement('img');
+        slide.setAttribute('src', '../assets/images/gallery/' + image);
+        item.appendChild(slide);
+        if (index == 0) item.classList.add('active');
+        $slides.append(item);
+    });
+
+
   });
 
 
