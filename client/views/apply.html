@@ -75,7 +75,7 @@
             <textarea rows="3" ng-model="project.public.teamDescription" placeholder="context and any relevant experiences of team members (although experience is not necessary)"></textarea>
           </div>
           <div class="ui checkbox field">
-            <input if="resumecheck" type="checkbox" ng-model="project.private.resumeSubmit"></input>
+            <input id="resumecheck" type="checkbox" ng-model="project.private.resumeSubmit"></input>
             <label for="resumecheck">Every member of the team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</label>
           </div>
         </div>
