@@ -32,59 +32,18 @@ angular.module('portal').controller('homeController', function ($scope, $http, $
             if (project.name &&
                 project.public.team &&
                 project.private.primary &&
+                project.private.resumeSubmit &&
                 project.public.teamDescription &&
                 project.public.projectPitch &&
                 project.public.projectDescription &&
                 project.private.budgetAmount &&
                 project.private.budgetBreakdown &&
-                project.private.otherFunding &&
                 project.private.timeline) {
                 project.display.complete = "yes";
             } else {
                 project.display.complete = "no";
             }
         })
-    });
-
-
-    $http.get('/api/user/countdown').then(function(response) {
-        $scope.evName = response.data.eventName;
-        $scope.evDate = response.data.eventDate;
-        
-        $scope.target = new Date($scope.evDate).getTime();
-        var promise;
-
-        $scope.activateCD = function() {
-
-            $scope.terminateCD();
-
-            promise = $interval((function() {
-                $scope.cur = new Date().getTime();
-                $scope.remain = $scope.target - $scope.cur;
-                $scope.days = Math.floor($scope.remain / (1000 * 60 * 60 * 24));
-                $scope.hrs = Math.floor(($scope.remain % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                $scope.min = Math.floor(($scope.remain % (1000 * 60 * 60)) / (1000 * 60));
-                $scope.sec = Math.floor(($scope.remain % (1000 * 60)) / 1000);
-                $scope.display = $scope.days + " : " + $scope.hrs + " : "
-                + $scope.min + " : " + $scope.sec;
-                if ($scope.remain < 0) {
-                    $scope.terminateCD()
-                    $scope.display = "Thank You For Coming!";
-                }
-            }), 1000);
-
-        };
-
-        $scope.terminateCD = function() {
-            $interval.cancel(promise);
-        };
-
-        $scope.activateCD();
-
-        $scope.$on('$destroy', function() {
-            $scope.terminateCD();
-        });
-
     });
 
 });
