@@ -68,7 +68,8 @@ This should update the splash page and application portal.
 (Each application cycle, you will need to update `appsOpen` twice and each of the other parameters once.)
 
 After you have changed everything, restart the node app:
-Use `$ ps aux` to locate the node process, terminate it, then restart it with `$ node bin/www`.
+Use `$ ps aux` to locate the node process and use `$ kill` to terminate it.
+If the monitoring system doesn't automatically restart it, then restart with `$ node bin/www`.
 
 Must include `config.json` and `auth-server/config.php` (not included in repo) to work.
 
