@@ -6,13 +6,13 @@ angular.module('portal').controller('projectController', function ($scope, $http
     $scope.projectDisplay = {};
 
     $scope.addMember = function () {
-        if ($scope.newMember.endsWith('@mit.edu')) {
-            if ($scope.project.public.team.indexOf($scope.newMember) === -1) {
-                $scope.project.public.team.push($scope.newMember);
+        if ($scope.newMember.email.endsWith('@mit.edu')) {
+            if ($scope.project.public.team.indexOf($scope.newMember.email) === -1) {
+                $scope.project.public.team.push($scope.newMember.email);
             } else {
                 sweetAlert("Already added", "Team member is already on the team.", "warning");
             }
-            $scope.newMember = '';
+            $scope.newMember.email = '';
         } else {
             sweetAlert("Invalid email", "Please enter a valid email that ends with @mit.edu.", "error");
         }

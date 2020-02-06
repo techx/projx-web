@@ -2,7 +2,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
 
     // page title
     $scope.title = 'apply';
-    $scope.newMember = '';
+    $scope.newMember = {};
     $scope.agreed = false;
 
     // tell if we can edit projects / get funding batch
@@ -45,13 +45,13 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
     });
 
     $scope.addMember = function () {
-        if ($scope.newMember.toLowerCase().endsWith('@mit.edu')) {
-            if ($scope.project.public.team.indexOf($scope.newMember.toLowerCase()) === -1) {
-                $scope.project.public.team.push($scope.newMember.toLowerCase());
+        if ($scope.newMember.email.toLowerCase().endsWith('@mit.edu')) {
+            if ($scope.project.public.team.indexOf($scope.newMember.email.toLowerCase()) === -1) {
+                $scope.project.public.team.push($scope.newMember.email.toLowerCase());
             } else {
                 sweetAlert("Already added", "Team member is already on the team.", "warning");
             }
-            $scope.newMember = '';
+            $scope.newMember.email = '';
         } else {
             sweetAlert("Invalid email", "Please enter a valid email that ends with @mit.edu.", "error");
         }
