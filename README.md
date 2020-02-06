@@ -65,6 +65,7 @@ Note: `resumeSecretKey` should match `PORTAL_SECRET` in the ProjX resume upload 
 Go into `config.json` and change the following parameters:
 `appsOpen`, `openDate`, `deadline`, `resumeLink`, and `cycle`.
 This should update the splash page and application portal.
+(Each application cycle, you will need to update `appsOpen` twice and each of the other parameters once.)
 
 After you have changed everything, restart the node app:
 Use `$ ps aux` to locate the node process, terminate it, then restart it with `$ node bin/www`.
