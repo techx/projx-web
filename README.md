@@ -26,19 +26,20 @@ Then type `username`'s password on MIT athena server.
 4. create a file called `config.json`. this file will store a bunch of settings, and will end up looking something like this:
 ```JSON
 {
-    "mongoUri":"mongodb://localhost:27017/projx",
+    "mongoUri": "mongodb://localhost:27017/projx",
     "loginUrl": "localhost:5000/api/user/login",
-    "scriptsUsername":"vfazel",
-    "scriptsPath":"/projx",
-    "authSecret":"insert_some_secret_here",
-    "cookieSecret":"insert_secret_here",
-    "appsOpen":true,
-    "cycle": "Spring 2018",
+    "scriptsUsername": "vfazel",
+    "scriptsPath": "/projx",
+    "authSecret": "insert_some_secret_here",
+    "cookieSecret": "insert_secret_here",
+    "appsOpen": true,
+    "openDate": "February 6, 2020",
+    "deadline": "11:59pm Sunday, February 23",
+    "resumeLink": "url_to_submit_resumes",
+    "cycle": "Spring 2020",
     "development": true,
-    "devEmail": "agolla@mit.edu",
-    "devName": "Anurag Golla",
-    "upcomingEventName": "PROJXPO 2019", 
-    "upcomingEventDate": "May 18, 2019 19:00:00",
+    "devEmail": "youremail@mit.edu",
+    "devName": "Your Name",
     "resumeSecretKey": "blah"
 }
 ```
@@ -61,16 +62,14 @@ Note: `resumeSecretKey` should match `PORTAL_SECRET` in the ProjX resume upload 
     ```
 
 ## Opening and closing apps:
-go into the `config.json` and change the following: 
-`"appsOpen":<if you want to have apps be closed or not>`
-You can also change the current cycle in the portal with `"cycle"`, however it will not change the cycle that is on the splash page. you will have to change those mentions yourself.
+Go into `config.json` and change the following parameters:
+`appsOpen`, `openDate`, `deadline`, `resumeLink`, and `cycle`.
+This should update the splash page and application portal.
 
-after you have changed everything, restart the node app:
-use `$ ps aux` to locate the node process, terminate it, then restart it with `$ node bin/www`
+After you have changed everything, restart the node app:
+Use `$ ps aux` to locate the node process, terminate it, then restart it with `$ node bin/www`.
 
-
-
-Must include `config.js` and `auth-server/config.php` (not included in repo) to work.
+Must include `config.json` and `auth-server/config.php` (not included in repo) to work.
 
 
 ## Bypass Certificate Authentication
