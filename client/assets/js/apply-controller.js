@@ -66,7 +66,7 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
     }
 
     $scope.submit = function () {
-        if (!$scope.agreed) {
+        if (!this.agreed && !$scope.agreed) {
         sweetAlert('Please agree to the terms and conditions');
         } else {
             $http.post('/api/project', {
