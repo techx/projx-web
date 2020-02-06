@@ -32,6 +32,11 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         $location.path('/portal'); // not admin, redirect back to root
     });
 
+    $http.get('/api/project/cycle').then(function (response) {
+        $scope.openDate = response.data.openDate;
+        $scope.cycle = response.data.cycle;
+    })
+
     var dateFromObjectId = function (objectId) {
     	return new Date(parseInt(objectId.substring(0, 8), 16) * 1000);
     };
@@ -60,7 +65,7 @@ angular.module('portal').controller('adminController', function ($route, $scope,
         project.date = prettyDate(dateFromObjectId(project._id));
 
         // current application cycle
-        project.current = dateFromObjectId(project._id) > new Date('Sept 9, 2019');
+        project.current = dateFromObjectId(project._id) > new Date($scope.openDate);
 
         return project;
     }

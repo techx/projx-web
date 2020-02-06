@@ -6,7 +6,12 @@
 
       <header-include></header-include>
 
-      <div id="content" class="ui segment">
+      <div ng-if="!open" class="ui segment">
+        <h2>instructions</h2>
+        Applications for {{cycle}} funding closed {{deadline}}.
+      </div>
+
+      <div ng-if="open" id="content" class="ui segment">
 
         <!-- profile -->
         <h2>

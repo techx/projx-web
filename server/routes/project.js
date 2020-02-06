@@ -171,7 +171,8 @@ router.get('/current', perm.auth, function(req, res) {
 
 router.get('/cycle', function(req, res) {
     res.status(200).send({"open":config.appsOpen, "cycle":config.cycle,
-                          "deadline":config.deadline, "resumeLink":config.resumeLink});
+                          "deadline":config.deadline, "resumeLink":config.resumeLink,
+                          "openDate":config.openDate});
 });
 
 /**
