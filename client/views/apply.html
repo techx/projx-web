@@ -6,22 +6,13 @@
 
       <header-include></header-include>
 
-      <div class="ui segment" ng-if="!open">
-        <h2>
-          instructions
-        </h2>
-        <p>
-          The deadline to submit was {{deadline}}. You can find our terms and conditions <a href="/terms" target="_blank">here</a>.
-        </p>
-      </div>
-
-      <div id="content" class="ui segment" ng-if="open">
+      <div id="content" class="ui segment">
 
         <!-- profile -->
         <h2>
           instructions
         </h2>
-        Please first read our <a href="/terms" target="_blank">terms and requirements</a>! Then fill out the fields below. After you submit, you will still be able to edit your {{cycle}} application up until the deadline, <b>{{deadline}}</b>, so feel free to submit a partial application and complete it later.
+        Please first read our <a href="/terms" target="_blank">terms and requirements</a>! Then fill out the fields below. After you submit, you will still be able to edit your application up until the deadline, <b>{{deadline}}</b>, so feel free to submit a partial application and complete it later.
         <br>
         <br>
         Please note that we are adding a résumé requirement to ProjX funding. This is solely for the purpose of showing our sponsors, and will have no bearing on your acceptance decision.
@@ -79,8 +70,8 @@
             <textarea rows="3" ng-model="project.public.teamDescription" placeholder="context and any relevant experiences of team members (although experience is not necessary)"></textarea>
           </div>
           <div class="ui checkbox field">
-            <input type="checkbox" />
-            <label><b>Every member of my team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</b></label>
+            <label>Every member of the team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</label>
+            <input type="checkbox"></input>
           </div>
         </div>
         <h2>
