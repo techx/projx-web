@@ -100,6 +100,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'members': $scope.project.display.team,
             'team lead': $scope.project.private.primary,
             'background': $scope.project.public.teamDescription,
+            'resume submitted': $scope.project.private.resumeSubmit,
             'funding amount': $scope.project.display.budgetAmount,
             'budget': $scope.project.private.budgetBreakdown,
             'miscellaneous': $scope.project.private.otherFunding,
@@ -118,6 +119,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
         if ($scope.project.name &&
             $scope.project.public.team &&
             $scope.project.private.primary &&
+            $scope.project.private.resumeSubmit &&
             $scope.project.public.teamDescription &&
             $scope.project.public.projectPitch &&
             $scope.project.public.projectDescription &&

@@ -75,8 +75,8 @@
             <textarea rows="3" ng-model="project.public.teamDescription" placeholder="context and any relevant experiences of team members (although experience is not necessary)"></textarea>
           </div>
           <div class="ui checkbox field">
-            <label>Every member of the team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</label>
-            <input type="checkbox"></input>
+            <input if="resumecheck" type="checkbox" ng-model="project.private.resumeSubmit"></input>
+            <label for="resumecheck">Every member of the team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</label>
           </div>
         </div>
         <h2>
@@ -100,12 +100,12 @@
             <textarea rows="3" ng-model="project.private.otherFunding" placeholder="are you getting funding from any other sources? if so, which sources? also include any other relevant information for your project"></textarea>
           </div>
           <div class="ui checkbox field">
-            <label>I need access to a makershop</label>
-            <input type="checkbox" ng-model="project.private.makershop"></input>
+            <input id="makershopcheck" type="checkbox" ng-model="project.private.makershop"></input>
+            <label for="makershopcheck">I need access to a makershop</label>
           </div>
           <div class="ui checkbox field">
-            <label>Want to document with Instructables? (potential prize money!)</label>
-            <input type="checkbox" ng-model="project.private.instructables"></input>
+            <input id="instructcheck" type="checkbox" ng-model="project.private.instructables"></input>
+            <label for="instructcheck">Want to document with Instructables? (potential prize money!)</label>
           </div>
 
         </div>
@@ -113,8 +113,8 @@
         <h2>submit</h2>
 
         <div class="ui checkbox">
-          <input type="checkbox" tabindex="0" ng-model="agreed">
-          <label>I agree to the <a href="/terms" target="_blank">terms and requirements</a></label>
+          <input id="termscheck" type="checkbox" tabindex="0" ng-model="agreed">
+          <label for="termscheck">I agree to the <a href="/terms" target="_blank">terms and requirements</a></label>
         </div>
         <br>
         <br>

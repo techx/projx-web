@@ -12,6 +12,7 @@ var projectSchema = mongoose.Schema({
     },
     private: {
         primary: { type: String }, // valid email, should be on team
+        resumeSubmit: { type: Boolean },
         budgetAmount: { type: Number },
         budgetUsed: { type: Number },
         budgetBreakdown: { type: String },

@@ -157,12 +157,12 @@ router.post('/update', perm.user, function(req, res) {
 /**
  * GET /countdown - [user] gets event name and time from config
  */
-router.get('/countdown', function(req, res, next) {
-    res.status(200).send({
-        "eventName": config.upcomingEventName,
-        "eventDate": config.upcomingEventDate
-    });
-});
+// router.get('/countdown', function(req, res, next) {
+//     res.status(200).send({
+//         "eventName": config.upcomingEventName,
+//         "eventDate": config.upcomingEventDate
+//     });
+// });
 
 /**
  * GET /getAdmin [admin] Get list of all admin

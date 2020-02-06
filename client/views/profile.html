@@ -20,17 +20,7 @@
           <tr ng-repeat="(field, key) in profileFields">
             <td class="field" ng-hide="editStatus && key === 'resume'">{{ field }}</td>
             <td ng-hide="editStatus" ng-style="(profileUser[key]) ? {} : {'font-style':'italic'}">
-              <div ng-show="key !== 'resume'">
-                  {{ profileUser[key] || 'none' }}
-              </div>
-              
-              <input ng-show="key==='resume' && profileUser.resume === none" type="button" 
-                        onclick="location.href='https://projx-resume.techx.io';" value="upload resume here"/>
-              <a ng-show="key==='resume' && profileUser.resume !== none" 
-                        ng-href="{{profileUser.resume}}" >update resume here</a>
-              <div ng-show="key==='resume' && profileUser.resume !== none">
-                <!-- update resume here: {{ profileUser.resume }} -->
-              </div>
+              {{ profileUser[key] || 'none' }}
             </td>
             <td ng-show="editStatus">
               <div class="ui input" ng-if="key !== 'doneProjXBefore'"><input type="text" ng-model="profileUser[field]"></div>

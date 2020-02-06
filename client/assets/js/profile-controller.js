@@ -10,8 +10,7 @@ angular.module('portal').controller('profileController', function ($scope, $http
         'name': 'name',
         'course': 'course',
         'year': 'year',
-        'interests': 'interests',
-        //'resume': 'resume'
+        'interests': 'interests'
     };
 
     // get profile user

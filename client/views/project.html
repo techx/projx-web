@@ -50,6 +50,10 @@
         <label>description</label>
         <textarea rows="8" ng-model="project.public.projectDescription" placeholder="in-depth description of your project, about a couple paragraphs"></textarea>
       </div>
+      <div class="ui checkbox field">
+        <input id="resumecheck" type="checkbox" ng-model="project.private.resumeSubmit"></input>
+        <label for="resumecheck">Every member of the team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</label>
+      </div>
     </div>
     <h2>
       team
@@ -103,13 +107,13 @@
         <label>miscellaneous</label>
         <textarea rows="3" ng-model="project.private.otherFunding" placeholder="are you getting funding from any other sources? if so, which sources? also include any other relevant information for your project"></textarea>
       </div>
-      <div class="ui field">
-        <label>I need access to a makershop</label>
-        <input type="checkbox" ng-model="project.private.makershop"></textarea>
+      <div class="ui checkbox field">
+        <input id="makercheck" type="checkbox" ng-model="project.private.makershop"></input>
+        <label for="makercheck">I need access to a makershop</label>
       </div>
-      <div class="ui field">
-          <label>Want to document with Instructables? (potential prize money!)</label>
-          <input type="checkbox" ng-model="project.private.instructables"></textarea>
+      <div class="ui checkbox field">
+          <input id="instructcheck" type="checkbox" ng-model="project.private.instructables"></input>
+          <label for="instructcheck">Want to document with Instructables? (potential prize money!)</label>
       </div>
     </div>
   </div>
