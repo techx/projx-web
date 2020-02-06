@@ -7,6 +7,7 @@ angular.module('portal').controller('homeController', function ($scope, $http, $
     $http.get('/api/project/cycle').then(function(response) {
         $scope.open = response.data.open;
         $scope.cycle = response.data.cycle;
+        $scope.deadline = response.data.deadline;
     });
 
     // projects section

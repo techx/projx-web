@@ -6,17 +6,26 @@
 
       <header-include></header-include>
 
-      <div id="content" class="ui segment">
+      <div class="ui segment" ng-if="!open">
+        <h2>
+          instructions
+        </h2>
+        <p>
+          The deadline to submit was {{deadline}}. You can find our terms and conditions <a href="/terms" target="_blank">here</a>.
+        </p>
+      </div>
+
+      <div id="content" class="ui segment" ng-if="open">
 
         <!-- profile -->
         <h2>
           instructions
         </h2>
-        Please first read our <a href="/terms" target="_blank">terms and requirements</a>! Then fill out the fields below. After you submit, you will still be able to edit your application up until the deadline, <b>11:59 PM on Sunday, October 6, 2019</b>, so feel free to submit a partial application and complete it later.
+        Please first read our <a href="/terms" target="_blank">terms and requirements</a>! Then fill out the fields below. After you submit, you will still be able to edit your {{cycle}} application up until the deadline, <b>{{deadline}}</b>, so feel free to submit a partial application and complete it later.
         <br>
         <br>
-        Please note that we are adding a résumé requirement to ProjX funding. If we accept your project, you will be required to send a résumé to us to continue with the process. This is solely for the purpose of showing our sponsors, and will have no bearing on your acceptance decision.
-        <b>You do not need to send us a résumé now, but if your project is accepted, you will be asked to do so.</b>
+        Please note that we are adding a résumé requirement to ProjX funding. This is solely for the purpose of showing our sponsors, and will have no bearing on your acceptance decision.
+        <b>Every member of your team must submit a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</b>
         <br>
         <br>
         Email any questions to <a href="mailto:projx@mit.edu">projx@mit.edu</a>.
@@ -69,6 +78,10 @@
             <label>background</label>
             <textarea rows="3" ng-model="project.public.teamDescription" placeholder="context and any relevant experiences of team members (although experience is not necessary)"></textarea>
           </div>
+          <div class="ui checkbox field">
+            <input type="checkbox" />
+            <label><b>Every member of my team has submitted a résumé <a href="{{resumeLink}}" target="_blank">here</a>.</b></label>
+          </div>
         </div>
         <h2>
           timeline and budget
@@ -90,13 +103,13 @@
             <label>miscellaneous</label>
             <textarea rows="3" ng-model="project.private.otherFunding" placeholder="are you getting funding from any other sources? if so, which sources? also include any other relevant information for your project"></textarea>
           </div>
-          <div class="ui field">
+          <div class="ui checkbox field">
             <label>I need access to a makershop</label>
-            <input type="checkbox" ng-model="project.private.makershop"></textarea>
+            <input type="checkbox" ng-model="project.private.makershop"></input>
           </div>
-          <div class="ui field">
+          <div class="ui checkbox field">
             <label>Want to document with Instructables? (potential prize money!)</label>
-            <input type="checkbox" ng-model="project.private.instructables"></textarea>
+            <input type="checkbox" ng-model="project.private.instructables"></input>
           </div>
 
         </div>

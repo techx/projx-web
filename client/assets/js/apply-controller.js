@@ -5,6 +5,14 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
     $scope.newMember = '';
     $scope.agreed = false;
 
+    // tell if we can edit projects / get funding batch
+    $http.get('/api/project/cycle').then(function (response) {
+        $scope.open = response.data.open;
+        $scope.cycle = response.data.cycle;
+        $scope.deadline = response.data.deadline;
+        $scope.resumeLink = response.data.resumeLink;
+    });
+
     $http.get('/api/user/current').then(function (response) {
         $scope.user = response.data;
 

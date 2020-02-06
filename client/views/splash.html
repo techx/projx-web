@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="splash" ng-controller="splashController">
     <head>
 
         <title>MIT ProjX</title>
@@ -45,7 +45,7 @@
                                 <li><a class="btn-nav" href="#whatwedo">What we do</a></li>
                                 <li><a class="btn-nav" href="#faq">FAQ</a></li>
                                 <li><a class="btn-nav" href="#spotlight">Spotlight</a></li>
-                                <!--<li><a class="btn-nav external" href="/apply">Apply</a></li>-->
+                                <li><a class="btn-nav external" href="/apply">Apply</a></li>
                                 <li><a class="btn-nav external" href="/portal">Login</a></li>
                             </ul>
                         </nav>
@@ -70,7 +70,9 @@
                             <div class="part-inner text-center">
                                 <img src="../assets/images/projx_chalk.png" style="width:50%"><br />
                                 <div style="font-family:'Cabin Sketch',cursive;color:#6DBE44;font-size:2.5vw;line-height:1.2;">
-                                  <br />fall applications are closed <!-- <a href="https://projx.mit.edu/portal">open</a> -->
+                                  <br />
+                                  <div ng-if="open">{{cycle}} applications are <a href="/portal">open</a></div>
+                                  <div ng-if="!open">{{cycle}} applications are closed</div>
                                 </div>
                             </div>
                         </div>
@@ -138,8 +140,11 @@
                                     <i class="icon features-icon icons8-clock text-center"></i>
                                     <h6 class="title">Timeline</h6>
                                     <div class="detail">
-                                      <p>
-                                      Applications for the Fall 2019 funding cycle were open until 11:59pm Sunday, October 6.<br><br>
+                                      <p ng-if="open">
+                                      Applications for the {{cycle}} funding cycle are open until {{deadline}}.
+                                      </p>
+                                      <p ng-if="!open">
+                                      Applications for the {{cycle}} funding cycle are closed.
                                       </p>
                                     </div>
                                 </div>
@@ -150,8 +155,9 @@
                                     <i class="icon features-icon icons8-calendar text-center"></i>
                                     <h6 class="title">Applying for Funding</h6>
                                     <div class="detail">
-                                      <p>Applications for the Fall 2019 cycle are now closed.<br /><br />
+                                      <p ng-if="open">Applications for the {{cycle}} cycle are now open.<br /><br />
                                         You can apply/login to your ProjX account <a href="https://projx.mit.edu/portal">here</a>.</p>
+                                      <p ng-if="!open">Applications for the {{cycle}} cycle are now closed.</p>
                                     </div>
                                 </div>
                             </div>
@@ -645,7 +651,7 @@
             <div class="container">
                 <div class="row section-separator text-right">
                     <div class="copyright">
-                        <p>&copy; MIT ProjX 2018 | Powered by MIT TechX<br />Questions? projx@mit.edu</p>
+                        <p>&copy; MIT ProjX 2020 | Powered by MIT TechX<br />Questions? projx@mit.edu</p>
                     </div>
                 </div>
             </div>
@@ -656,9 +662,11 @@
 
         <!-- SCRIPTS
         ========================================-->
+        <script src="../assets/lib/angular.min.js"></script>
         <script src="../assets/lib/jquery.min.js"></script>
         <script src="../assets/lib/bootstrap.min.js"></script>
         <script src="../assets/js/plagin-js/plagin.js"></script>
+        <script src="../assets/js/splash-controller.js"></script>
 
         <!-- Custom Script
         ==========================================-->
