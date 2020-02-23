@@ -21,6 +21,7 @@ angular.module('portal').controller('projectController', function ($scope, $http
     $http.get('/api/project/cycle').then(function(response) {
         $scope.open = response.data.open;
         $scope.cycle = response.data.cycle;
+        $scope.resumeLink = response.data.resumeLink;
     });
 
 
