@@ -24,7 +24,10 @@ var projectSchema = mongoose.Schema({
         batch: { type: String },
         status: { type: String },
         contact: { type: String },
-        checks: { type: String }
+        checks: { type: String },
+        location: {type: String},
+        remoteWorkPlan: {type: String},
+        internetSpeed: {type: String}
     },
     admin: {
         comments: { type: String }

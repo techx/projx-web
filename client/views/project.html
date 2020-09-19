@@ -117,5 +117,23 @@
           <label for="instructcheck">Want to document with Instructables? (potential prize money!)</label>
       </div>
     </div>
+    <h2>
+      remote information
+    </h2>
+    <div class="ui segment form">
+      <div class="ui field">
+        <label>location</label>
+        <textarea rows="6" ng-model="project.private.location" placeholder="please tell us your location for this semester (City, (State), Country)"></textarea>
+      </div>
+      <div class="ui field">
+        <label>remote work plan</label>
+        <textarea rows="6" ng-model="project.private.remoteWorkPlan" placeholder="what is your remote work plan? (In other words, how do you plan to best set yourself up for success with a virtual ProjX cycle?)"></textarea>
+      </div>
+      <div class="ui field">
+        <label>internet speed</label>
+        <input type="text" ng-model="project.private.internetSpeed" placeholder="please tell us your internet speed test in format [download Mbps / upload Mbps]--just search for internet speed test! (This will not affect your application; it is purely for our information only.)">
+      </div>
+
+    </div>
   </div>
 </div>

@@ -36,7 +36,10 @@ angular.module('portal').controller('applyController', function ($scope, $http, 
                 batch: undefined,
                 status: undefined, 
                 contact: undefined,
-                checks: undefined
+                checks: undefined,
+                location: undefined,
+                remoteWorkPlan: undefined,
+                internetSpeed: undefined
             },
             admin: {
                 comments: undefined
