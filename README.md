@@ -100,7 +100,7 @@ $ npm install -g gulp
 ```
 
 [Possibly deprecated]
-Note: `resumeSecretKey` should match `PORTAL_SECRET` in the ProjX resume upload app.
+~~Note: `resumeSecretKey` should match `PORTAL_SECRET` in the ProjX resume upload app.~~
 
 5. For local development, just use gulp.
    (Make sure `mongod` is still running in a different terminal.)
