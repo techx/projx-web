@@ -148,3 +148,31 @@ $ kill <PROCESS_ID>
 
 3. If the monitoring system doesn't automatically restart it, then restart with
    `$ node bin/www`.
+
+## Note on gulp 3 and node 12
+
+**tl;dr**
+You need to checkout the upstream version of `npm-shrinkwrap.json` each time
+you want to rerun `npm install`.
+
+This project uses gulp v3, which has been causing issues with newer versions
+of node. The `npm-shrinkwrap.json` file used here as a workaround to be able
+to use both together, per the fix from
+[Tim Kamanin](https://timonweb.com/javascript/how-to-fix-referenceerror-primordials-is-not-defined-error/)
+(referenced in this [answer on SO](https://stackoverflow.com/a/60921145)).
+
+As intended, `npm-shrinkwrap.json` is modified when `npm install` is run.
+Unfortunately for us, rerunning `npm install` afterwards, even with the same
+`npm-shrinkwrap.json` (or even changing it to a `package-lock.json`), somehow
+installs the wrong set of package versions once again, and we get issues with
+gulp yet again.
+
+So in case you really need to `npm install` multiple times, the current
+workaround is to *not* commit changes to `npm-shrinkwrap.json` after the
+initial commit, and to replace its contents with [this](npm-shrinkwrap.json)
+each time before you need to `npm install` again.
+
+(The long-term fix, probably, in case someone wants to work on it, would be
+to update gulp from v3 to v4. This in itself doesn't take long at all.
+But you would just need to make sure that everything on the AWS boxes is
+also up to date and working correctly with a new setup.)
