@@ -1,31 +1,88 @@
 # ProjX Portal
 
-To build (assuming you have `gulp`):
+## Getting Set Up
+
+### Requirements
+
+0. Install (if not already):
+    * [mongodb](https://docs.mongodb.com/manual/installation/) (Community Edition)
+    * [node](https://nodejs.org/en/)
+    * [git](https://git-scm.com/downloads)
+
+### MongoDB
+
+1. In a terminal, run
+
 ```
-gulp update
+$ mongod
 ```
 
-## Certificate Authentication Server Deployment
+    * If you get permissions errors, you may need to use `$ sudo mongod`.
+    * You probably also need to create the `/data/db` folder.
+
+2. In another terminal, run
+
 ```
-chmod +x bin/deploy-auth
-./bin/deploy-auth [username]
+$ mongo
 ```
-Then type `username`'s password on MIT athena server.
 
-## ProjX Website Deployment
+This should give you a shell prompt.
 
-1. Clone the repo on the machine you want to use: 
-    * `$ git clone https://github.com/techx/projx-web.git` via https, or
-    * `$ git clone git@github.com:techx/projx-web.git` via ssh.
+3. In the mongo shell, create the "projx" database.
 
-2. Make sure to have `npm` and `node` installed. If `gulp` is not already installed, you can do so globally with:
-    * `$ npm install -g gulp` and locally without the `-g` flag. 
+```
+> use projx
+```
 
-3. run `$ npm install` to install all the necesary dependencies.
+4. Create the "users" collection in the "projx" database.
 
-4. create a file called `config.json`. this file will store a bunch of settings, and will end up looking something like this:
+```
+> db.createCollection("users")
+```
+
+5. Create your own user profile with an email address and full name:
+
+```
+>  db.users.insert({"email":"youremail@mit.edu","name":"Your Name","isAdmin":true})
+```
+
+6. Leave the mongo shell. But leave `mongod` running!
+
+```
+> exit
+```
+
+### Node
+
+1. Clone the repo.
+
+```
+$ git clone https://github.com/techx/projx-web.git
+$ cd projx-web
+```
+
+2. Make sure you have `npm` installed (it should come with node).
+   Install all the necessary dependencies.
+
+```
+$ npm install
+```
+
+3. Install gulp.
+
+```
+$ npm install -g gulp
+```
+
+4. Create a file called `config.json`.
+   (Note: If you are on Windows make sure your file extensions are correct.)
+   This file is not committed and stores instance-specific settings.
+   Copy and paste the following into that file, and change "devEmail" and "devName".
+
 ```JSON
 {
+    "devEmail": "youremail@mit.edu",
+    "devName": "Your Name",
     "mongoUri": "mongodb://localhost:27017/projx",
     "loginUrl": "localhost:5000/api/user/login",
     "scriptsUsername": "vfazel",
@@ -38,58 +95,55 @@ Then type `username`'s password on MIT athena server.
     "resumeLink": "url_to_submit_resumes",
     "cycle": "Spring 2020",
     "development": true,
-    "devEmail": "youremail@mit.edu",
-    "devName": "Your Name",
     "resumeSecretKey": "blah"
 }
 ```
+
+[Possibly deprecated]
 Note: `resumeSecretKey` should match `PORTAL_SECRET` in the ProjX resume upload app.
 
-5. for rapid development start: `$ gulp`, and if you encounter any difficulties with authentication follow "Bypass Certificate Authentication" below.
+5. For local development, just use gulp.
+   (Make sure `mongod` is still running in a different terminal.)
 
-6. for production start: 
-    ```
-    $ node bin/www
-    ```
-    or
-    ```
-    $ forever start bin/www
-    ```
-    and
-    ```
-    $ forever list
-    $ forever stop [index]
-    ```
+```
+$ gulp
+```
 
-## Opening and closing apps:
-Go into `config.json` and change the following parameters:
-`appsOpen`, `openDate`, `deadline`, `resumeLink`, and `cycle`.
-This should update the splash page and application portal.
+### Production
+
+The production system uses the `forever` package to monitor the process.
+
+```
+$ node bin/www
+```
+or
+```
+$ forever start bin/www
+```
+and
+```
+$ forever list
+$ forever stop [index]
+```
+
+## Opening and Closing Apps:
+
+1. In `config.json`, change the following parameters:
+    * `appsOpen` - this is a Boolean (`true` or `false`)
+    * `openDate` - the date applications open(ed)
+    * `deadline` - the date applications are due
+    * `resumeLink` - Dropbox link for submitting applications
+    * `cycle` - name of the application cycle
+
 (Each application cycle, you will need to update `appsOpen` twice and each of the other parameters once.)
 
-After you have changed everything, restart the node app:
-Use `$ ps aux` to locate the node process and use `$ kill` to terminate it.
-If the monitoring system doesn't automatically restart it, then restart with `$ node bin/www`.
+2. After you have changed everything, you need to restart the node app.
+   Locate the node process and terminate it.
 
-Must include `config.json` and `auth-server/config.php` (not included in repo) to work.
+```
+$ ps aux | grep projx
+$ kill <PID>
+```
 
-
-## Bypass Certificate Authentication
-
-1. install local mongodb: `https://docs.mongodb.com/manual/installation/`
-
-2. open terminal and run: `$ mongod`
-
-3. open another terminal and run: `$ mongo`
-
-4. In the mongo shell, create database "projx": `> use projx`
-
-5. In projx database create "users" collection: `> db.createCollection("users")`
-
-6. Create your own user profile with an email address and full name: `>  db.users.insert({"email":"YOUR_EMAIL_HERE","name":"YOUR_NAME_HERE","isAdmin":true})`. Shutdown mongodb with `> exit`. 
-
-7. Update `devEmail` and `devName` in `config.json` accordingly to the projile you created in step 6. 
-
-8. Change `mongoUri` in `config.json` from `"data"` to `"mongodb://localhost:27017/projx"`. 
-
-9. For development start, run `$ mongod` in one terminal and `$ gulp` in another terminal in the directory of the projx folder.
+3. If the monitoring system doesn't automatically restart it, then restart with
+   `$ node bin/www`.
