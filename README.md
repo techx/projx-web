@@ -17,8 +17,8 @@
 $ mongod
 ```
 
-    * If you get permissions errors, you may need to use `$ sudo mongod`.
-    * You probably also need to create the `/data/db` folder.
+If you get permissions errors, you may need to use `$ sudo mongod`.
+You probably also need to create the `/data/db` folder.
 
 2. In another terminal, run
 
@@ -43,7 +43,7 @@ This should give you a shell prompt.
 5. Create your own user profile with an email address and full name:
 
 ```
->  db.users.insert({"email":"youremail@mit.edu","name":"Your Name","isAdmin":true})
+>  db.users.insert({ "email": "youremail@mit.edu", "name": "Your Name", "isAdmin": true })
 ```
 
 6. Leave the mongo shell. But leave `mongod` running!
@@ -126,7 +126,7 @@ $ forever list
 $ forever stop [index]
 ```
 
-## Opening and Closing Apps:
+## Opening and Closing Apps
 
 1. In `config.json`, change the following parameters:
     * `appsOpen` - this is a Boolean (`true` or `false`)
@@ -135,14 +135,15 @@ $ forever stop [index]
     * `resumeLink` - Dropbox link for submitting applications
     * `cycle` - name of the application cycle
 
-(Each application cycle, you will need to update `appsOpen` twice and each of the other parameters once.)
+Each application cycle, you will need to update `appsOpen` twice
+and each of the other parameters once.
 
 2. After you have changed everything, you need to restart the node app.
    Locate the node process and terminate it.
 
 ```
 $ ps aux | grep projx
-$ kill <PID>
+$ kill <PROCESS_ID>
 ```
 
 3. If the monitoring system doesn't automatically restart it, then restart with
