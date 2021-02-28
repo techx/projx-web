@@ -1020,6 +1020,17 @@ h6 {
   background-repeat: no-repeat;
   background-color: #ffffff;
 }
+.bg-image-4 {
+  background: url('../images/projx_xfair_banner.png');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-attachment: initial;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
+}
 .header-section-1 .logo-link {
   max-width: 50px;
   margin-bottom: 70px;

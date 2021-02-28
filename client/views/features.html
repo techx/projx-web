@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="features" ng-controller="splashController">
+	<head>
+
+        <title>MIT ProjX</title>
+
+        <meta charset="utf-8">
+        <meta name="description" content="Student funding for student projects" />
+        <meta name="keywords" content="MIT, project, funding, projx" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <link rel="icon" href="../assets/images/favicon.png">
+
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Barlow:400,300,500,600' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch:400,300,500,600,800" rel="stylesheet">
+
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/plagin-css/plagin.css">
+        <link rel="stylesheet" href="../assets/icons/toicons/css/styles.css">
+
+        <link rel="stylesheet" href="../assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    </head>
+
+    <body>
+
+
+
+        <!-- Start: Navbar Area
+        ============================= -->
+        <header id="header" class="okayNav-header navbar-fixed-top main-navbar-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <a class="okayNav-header__logo navbar-brand" href="#">
+                            <img src="../assets/images/projx_logo.png" alt="" class="logo-2 img-responsive">
+                        </a>
+                    </div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6">
+                        <nav role="navigation" class="okayNav pull-right" id="js-navbar-menu">
+                            <ul id="navbar-nav" class="navbar-nav">
+                                <li><a class="btn-nav" href="#whatwedo">What we do</a></li>
+                                <li><a class="btn-nav" href="#faq">FAQ</a></li>
+                                <li><a class="btn-nav" href="#spotlight">Spotlight</a></li>
+                                <li ng-if="open"><a class="btn-nav external" href="/apply">Apply</a></li>
+                                <li><a class="btn-nav external" href="/portal">Login</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+        <!-- End: Navbar Area
+        ============================= -->
+
+
+        <!-- Start: Header Section
+        ================================ -->
+        <section class="header-section-1 bg-image-2 header-js" id="features" style="min-height:20vh;">
+            <div class="overlay-color">
+                <div class="container">
+                    <div class="row section-separator light-text">
+
+                        <div class="section-header col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                            <h2 class="section-heading">ProjX Spotlight</h2>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End: Header Section
+        ================================ -->
+
+
+        <!-- Start: Features Section 8
+        ====================================== -->
+        <section class="features-section-8 relative background-light" id="spotlight">
+            <div class="container">
+                <div class="row section-separator">
+
+                    <div class="project-item col-xs-12">
+
+                        <div class="each-project row">
+                            <div class="each-project-inner">
+                                <div class="vertical-middle col-md-7 col-sm-6 col-xs-12">
+                                    <div class="project-image cover" style="background-image: url(../assets/images/projx-skateboard.jpg);">
+                                    </div>
+                                </div>
+                                <div class="vertical-middle col-md-5 col-sm-6 col-xs-12">
+                                    <div class="inner p-l-50">
+                                        <h2 class="section-heading">DashBoard by Alon Kosowsky-Sachs and Matthew Reeve</h2>
+                                        <div class="detail">
+                                            <p>Electronic skateboard</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="each-project row">
+                            <div class="each-project-inner">
+                                <div class="vertical-middle col-md-5 col-sm-6 col-xs-12">
+                                    <div class="inner p-r-50">
+                                      <h2 class="section-heading">Granite Mini-Mill by Austin Brown</h2>
+                                      <div class="detail">
+                                          <p>Milling Machine Made from AFM Base</p>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="vertical-middle col-md-7 col-sm-6 col-xs-12">
+                                    <div class="project-image cover" style="background-image: url(../assets/images/projx-contraption.jpg);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="each-project row">
+                            <div class="each-project-inner">
+                                <div class="vertical-middle col-md-7 col-sm-6 col-xs-12">
+                                    <div class="project-image cover" style="background-image: url(../assets/images/projx-cycle.jpg);">
+                                    </div>
+                                </div>
+                                <div class="vertical-middle col-md-5 col-sm-6 col-xs-12">
+                                    <div class="inner p-l-50">
+                                      <h2 class="section-heading">Wheelie Scooter by Amartya, Mason, and Thanh</h2>
+                                      <div class="detail">
+                                          <p>An electric scooter equipped with a 7kW brushless motor</p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="each-project row">
+                            <div class="each-project-inner">
+                                <div class="vertical-middle col-md-5 col-sm-6 col-xs-12">
+                                    <div class="inner p-r-50">
+                                      <h2 class="section-heading">Supersonic Wind Tunnel by Lochie Ferrier</h2>
+                                      <div class="detail">
+                                          <p>High-Speed Wind Tunnel made with EDF and Converging-Diverging Nozzle</p>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="vertical-middle col-md-7 col-sm-6 col-xs-12">
+                                    <div class="project-image cover" style="background-image: url(../assets/images/projx-speakers.jpg);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- End: Features Section 8
+        ======================================-->
+    </body>
+</html>

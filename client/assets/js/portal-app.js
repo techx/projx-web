@@ -34,6 +34,10 @@ angular.module('portal', ['ngRoute'])
             templateUrl: '/views/terms.html',
             controller: 'termsController'
         })
+        .when('/features', {
+            templateUrl: '/views/features.html',
+            controller: 'splashController'
+        })
         .otherwise({
             redirectTo: '/portal'
         });
