@@ -34,6 +34,10 @@ angular.module('portal', ['ngRoute'])
             templateUrl: '/views/terms.html',
             controller: 'termsController'
         })
+        .when('/splash', {
+            templateUrl: '/views/splash.html',
+            controller: 'splashController'
+        })
         .when('/features', {
             templateUrl: '/views/features.html',
             controller: 'splashController'
