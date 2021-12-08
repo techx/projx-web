@@ -17,8 +17,9 @@
 $ mongod
 ```
 
-If you get permissions errors, you may need to use `$ sudo mongod`.
-You probably also need to create the `/data/db` folder.
+If you get permissions errors, you may need to use `$ sudo mongod`. If the command is not recognized, you will need to add the Mongo bin folder to your path, using this: https://stackoverflow.com/a/41507803.
+You probably also need to create the `/data/db` folder. If you're on a Mac, you may need to create the folder elsewhere and specify the new path, e.g. using `$ mongod --dbpath=/Users/user/data/db` instead.
+
 
 2. In another terminal, run
 
@@ -90,10 +91,10 @@ $ npm install -g gulp
     "authSecret": "insert_some_secret_here",
     "cookieSecret": "insert_secret_here",
     "appsOpen": true,
-    "openDate": "February 6, 2020",
+    "openDate": "February 6, 2021",
     "deadline": "11:59pm Sunday, February 23",
     "resumeLink": "url_to_submit_resumes",
-    "cycle": "Spring 2020",
+    "cycle": "Spring 2021",
     "development": true,
     "resumeSecretKey": "blah"
 }
@@ -110,6 +111,8 @@ $ gulp
 ```
 
 ### Production
+
+The website is hosted on an AWS box. To access the box, see TechX DevOps Wiki instructions. Note that if you are not on MIT Wifi, you will need to connect to the MIT VPN via the Cisco client.
 
 The production system uses the `forever` package to monitor the process.
 

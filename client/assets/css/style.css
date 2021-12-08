@@ -891,9 +891,9 @@ h6 {
 .main-navbar-top .navbar-brand .logo-1 {
   display: block;
 }
-.main-navbar-top .navbar-brand .logo-2 {
+/*.main-navbar-top .navbar-brand .logo-2 {
   display: none;
-}
+}*/
 .main-navbar-top .navbar-toggle {
   padding: 19px 15px;
 }
@@ -907,7 +907,7 @@ h6 {
   -ms-border-radius: 50px 50px 50px 50px ;
   -o-border-radius: 50px 50px 50px 50px ;
   padding: 15px 15px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(60, 60, 60, 0.6);
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
