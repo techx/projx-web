@@ -89,9 +89,9 @@ angular.module('portal').controller('projectController', function ($scope, $http
         // add fields to project object
         project.display.team = teamDisplay;
         project.display.budgetAmount = budgetAmountDisplay;
-        project.display.location = project.private.location;
-        project.display.remoteWorkPlan = project.private.remoteWorkPlan;
-        project.display.internetSpeed = project.private.internetSpeed;
+        // project.display.location = project.private.location;
+        // project.display.remoteWorkPlan = project.private.remoteWorkPlan;
+        // project.display.internetSpeed = project.private.internetSpeed;
         return project;
     }
 
@@ -114,10 +114,10 @@ angular.module('portal').controller('projectController', function ($scope, $http
             'contact': $scope.project.private.contact,
             'checks': $scope.project.private.checks,
             // 'instructables': $scope.project.private.instructables,
-            // 'makershop': $scope.project.private.makershop,
-            'location': $scope.project.private.location,
-            'remote work plan': $scope.project.private.remoteWorkPlan,
-            'internet speed': $scope.project.private.internetSpeed,
+            'makershop': $scope.project.private.makershop,
+            // 'location': $scope.project.private.location,
+            // 'remote work plan': $scope.project.private.remoteWorkPlan,
+            // 'internet speed': $scope.project.private.internetSpeed,
             'complete': false
         };
     }
@@ -134,10 +134,10 @@ angular.module('portal').controller('projectController', function ($scope, $http
             $scope.project.private.budgetBreakdown &&
             //Shouldn't be marked as incomplete if miscellaneous isn't filled in
             //$scope.project.private.otherFunding &&
-            $scope.project.private.timeline &&
-            $scope.project.private.location &&
-            $scope.project.private.remoteWorkPlan &&
-            $scope.project.private.internetSpeed) {
+            $scope.project.private.timeline) {
+            // $scope.project.private.location &&
+            // $scope.project.private.remoteWorkPlan &&
+            // $scope.project.private.internetSpeed
             $scope.projectDisplay.complete = "yes";
         } else {
             $scope.projectDisplay.complete = "no";
