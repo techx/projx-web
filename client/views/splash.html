@@ -72,7 +72,7 @@
                                 <div style="font-family:'Cabin Sketch',cursive;color:#6DBE44;font-size:2.5vw;line-height:1.2;">
                                   <br />
                                   <div ng-if="open"><a href="/portal" style="font-family:'Cabin Sketch',cursive;font-size:2.5vw;line-height:1.2;">{{cycle}} applications</a> are open</div>
-                                  <div>until {{deadline}}</div>
+                                  <div ng-if="open">until {{deadline}}</div>
                                   <div ng-if="!open">{{cycle}} applications are closed</div>
                                   <!-- <div> <a href="https://forms.gle/y6o6NEUEjpVTackr7" style="font-family:'Cabin Sketch',cursive;font-size:2.5vw;line-height:1.2;">apply to join the committee</a></div> -->
                                 </div>
